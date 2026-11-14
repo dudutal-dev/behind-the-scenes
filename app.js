@@ -58,6 +58,18 @@ function speak(text) {
 }
 const canSpeak = "speechSynthesis" in window;
 
+// ---------- איורים ----------
+const sceneCache = {};
+async function loadScene(id) {
+  if (!(id in sceneCache)) {
+    try { sceneCache[id] = (await import(`./scenes/${id}.js`)).default; }
+    catch { sceneCache[id] = null; } // אין איור — נופלים חזרה לאימוג'י
+  }
+  return sceneCache[id];
+}
+const sceneSvg = (scene, step, label) =>
+  `<svg class="scene" viewBox="0 0 320 220" data-step="${step}" role="img" aria-label="${h(label)}">${scene}</svg>`;
+
 // ---------- מסך הבית ----------
 function topicRow(t) {
   return `<a class="row" href="#/t/${t.id}">
@@ -153,13 +165,13 @@ function questionCard(label, q, onDone) {
   };
 }
 
-function buildCards(t) {
+function buildCards(t, scene) {
   const cards = [questionCard("מה דעתך?", t.hook)];
   t.steps.forEach((s, i) =>
     cards.push({
       html: `<div class="card">
           <span class="tag">שלב ${i + 1} מתוך ${t.steps.length}</span>
-          <div class="big">${s.e}</div>
+          ${scene ? sceneSvg(scene, i + 1, `איור: ${s.t}`) : `<div class="big">${s.e}</div>`}
           <h3>${h(s.t)}</h3>
           <p>${h(s.x)}</p>
           ${canSpeak ? `<button class="link speak">🔊 הקרא לי</button>` : ""}
@@ -178,7 +190,7 @@ function buildCards(t) {
   cards.push({
     end: true,
     html: `<div class="card end">
-        <div class="big">${t.emoji}</div>
+        ${scene ? sceneSvg(scene, "all", `איור: ${t.title}`) : `<div class="big">${t.emoji}</div>`}
         <span class="tag">משפט אחד לקחת</span>
         <h3>${h(t.take)}</h3>
         <p class="muted">שאלות הבדיקה יחזרו אליך מחר, כדי שזה יישאר.</p>
@@ -187,10 +199,12 @@ function buildCards(t) {
   return cards;
 }
 
-function renderTopic(id) {
+async function renderTopic(id) {
   const t = byId[id];
   if (!t) return (location.hash = "#/");
-  const cards = buildCards(t);
+  const scene = await loadScene(id);
+  if (location.hash !== `#/t/${id}`) return; // המשתמש כבר עבר למסך אחר
+  const cards = buildCards(t, scene);
   let i = 0;
 
   function finish() {

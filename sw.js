@@ -1,6 +1,10 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v1";
-const FILES = ["./", "index.html", "app.js", "content.js", "manifest.webmanifest", "icon.svg"];
+const CACHE = "eich-ze-oved-v2";
+const SCENES = ["fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine"];
+const FILES = [
+  "./", "index.html", "app.js", "content.js", "manifest.webmanifest", "icon.svg", "scenes/scene.css",
+  ...SCENES.map((id) => `scenes/${id}.js`),
+];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));

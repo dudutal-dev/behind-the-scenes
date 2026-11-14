@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<meta charset="utf-8">
+<title>תצוגת סצנה</title>
+<link rel="stylesheet" href="scene.css">
+<style>
+  body{margin:12px;font-family:system-ui;background:#fff7ec;color:#222}
+  @media (prefers-color-scheme: dark){body{background:#15171c;color:#eee}}
+  .grid{display:grid;grid-template-columns:repeat(3,340px);gap:10px}
+  figure{margin:0} figcaption{font-size:12px;font-weight:700}
+</style>
+<!-- כלי פיתוח: preview.html?id=fridge מציג את כל השלבים של סצנה אחת זה לצד זה -->
+<div class="grid" id="g"></div>
+<script type="module">
+  const id = new URLSearchParams(location.search).get("id");
+  const { default: svg } = await import(`./${id}.js`);
+  document.getElementById("g").innerHTML = ["1", "2", "3", "4", "all"].map((s) =>
+    `<figure><figcaption>${id} · ${s}</figcaption><svg class="scene" viewBox="0 0 320 220" data-step="${s}">${svg}</svg></figure>`).join("");
+  document.body.dataset.ready = "1";
+</script>
+</html>
