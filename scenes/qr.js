@@ -12,7 +12,7 @@ export default `
   <path class="fl-warm st-ink" stroke-width="1.5" stroke-linejoin="round" d="M134 124C133.9 128.3 128.6 133 125.3 136.9C122 140.7 118.3 146.5 114.1 147.1C109.9 147.8 104.7 143.4 100.3 140.9C95.8 138.4 89.1 136.2 87.4 132.2C85.8 128.2 88.2 121.1 90.3 116.8C92.4 112.6 96 109.3 100 106.7C104 104.1 109.7 100.7 114 101.3C118.3 102 122.4 107 125.7 110.8C129 114.6 134.1 119.7 134 124z"/>
   <path class="fl-none" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round" d="M98 114q5-7 13-6"/>
 </g>
-<g class="only-3"><path class="fl-green fade d2" d="M100 107h7v7h-7zM114 107h7v7h-7zM93 114h14v7h-14zM121 114h7v7h-7zM107 121h7v7h-7zM121 121h7v7h-7zM100 128h28v7h-28zM100 135h21v7h-21z"/></g>
+<g class="only-3"><path class="fl-ink fade d2" d="M100 107h7v7h-7zM114 107h7v7h-7zM93 114h14v7h-14zM121 114h7v7h-7zM107 121h7v7h-7zM121 121h7v7h-7zM100 128h28v7h-28zM100 135h21v7h-21z"/><circle class="fl-none st-green dash" stroke-width="2.5" cx="110" cy="124" r="27"/></g>
 
 <!-- הטלפון הסורק -->
 <g class="hl-4">
