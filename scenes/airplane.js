@@ -13,8 +13,8 @@ export default `
 <path class="fl-cold" d="M101 38L106 34.5H112V38z"/>
 <path class="st-cold fl-none" stroke-width="2.5" stroke-dasharray="3 4" d="M118 38H190"/>
 <path class="fl-line" d="M200 37H221L217 41H203z"/>
-<path class="fl-dark st-ink" stroke-width="1.5" stroke-linejoin="round" d="M152 43H176L192 54H170z"/>
-<rect class="fl-dark st-ink" stroke-width="1.5" x="148" y="50" width="22" height="9" rx="4.5"/>
+<path class="fl-line st-ink" stroke-width="1.5" stroke-linejoin="round" d="M150 42H176L194 55H172z"/>
+<rect class="fl-dark st-ink" stroke-width="1.5" x="146" y="50" width="24" height="9" rx="4.5"/>
 
 <!-- פליטת המנוע -->
 <g class="hl-1">
@@ -23,12 +23,16 @@ export default `
   <circle class="fl-warm" r="2.6"><animateMotion dur=".7s" begin="-.46s" repeatCount="indefinite" path="M172 57H210"/><animate attributeName="opacity" values="1;0" dur=".7s" begin="-.46s" repeatCount="indefinite"/></circle>
 </g>
 
-<!-- ארבעת הכוחות -->
-<path class="arrow st-green hl-1 hl-4" stroke-width="3" d="M92 40H62" marker-end="url(#airplane-g)"/>
+<!-- ארבעת הכוחות: כל זוג מושך בכיוונים מנוגדים באותה עוצמה -->
+<g class="hl-1 hl-4"><animateTransform attributeName="transform" type="translate" values="0 0;-3 0;0 0" dur="1.6s" repeatCount="indefinite"/>
+  <path class="arrow st-green" stroke-width="3" d="M92 40H62" marker-end="url(#airplane-g)"/></g>
 <g class="hl-4">
-  <path class="arrow st-hot" stroke-width="3" d="M222 37H252" marker-end="url(#airplane-h)"/>
-  <path class="arrow st-cold" stroke-width="3" d="M134 31V9" marker-end="url(#airplane-c)"/>
-  <path class="arrow st-violet" stroke-width="3" d="M134 48V70" marker-end="url(#airplane-v)"/>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;3 0;0 0" dur="1.6s" repeatCount="indefinite"/>
+    <path class="arrow st-hot" stroke-width="3" d="M222 37H252" marker-end="url(#airplane-h)"/></g>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="1.6s" begin="-.8s" repeatCount="indefinite"/>
+    <path class="arrow st-cold" stroke-width="3" d="M134 31V9" marker-end="url(#airplane-c)"/></g>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 3;0 0" dur="1.6s" begin="-.8s" repeatCount="indefinite"/>
+    <path class="arrow st-violet" stroke-width="3" d="M134 48V70" marker-end="url(#airplane-v)"/></g>
 </g>
 
 <!-- אזורי לחץ סביב הכנף -->
@@ -84,14 +88,13 @@ export default `
     <path class="arrow st-green" stroke-width="4" d="M122 142V102" marker-end="url(#airplane-g)"/></g>
   <g><animateTransform attributeName="transform" type="translate" values="0 0;0 5;0 0" dur="1.2s" repeatCount="indefinite"/>
     <path class="arrow st-cold" stroke-width="4" d="M270 148V184" marker-end="url(#airplane-c)"/></g>
-  <text x="178" y="106" style="fill:var(--s-cold)">לחץ נמוך</text>
+  <text x="180" y="104.500" style="fill:var(--s-cold)">לחץ נמוך</text>
   <text x="182" y="190" style="fill:var(--s-hot)">לחץ גבוה</text>
   <text x="270" y="64">אוויר למטה,</text>
   <text x="270" y="79">כנף למעלה</text>
 </g>
 <!-- שלב 4: הכוחות מאוזנים -->
 <g class="only-4">
-  <circle class="ring st-ink" cx="134" cy="40" r="30" style="stroke-width:1.5"/>
   <text x="110" y="20">עילוי</text>
   <text x="108" y="66">משקל</text>
   <text x="40" y="44">דחף</text>

@@ -2,7 +2,7 @@
 export default `
 <!-- ים וחוף -->
 <path class="fl-cold-soft" d="M0 196q8-5 16 0t16 0t16 0t16 0t16 0t16 0L86 220H0z"/>
-<path class="thin st-cold" d="M0 196q8-5 16 0t16 0t16 0t16 0t16 0t16 0"/>
+<path class="wire st-cold" d="M0 196q8-5 16 0t16 0t16 0t16 0t16 0t16 0" style="stroke-width:1.5"/>
 <path class="fl-cold" opacity=".55" d="M48 210q6-5 12 0q-6 5-12 0zM48 210l-5-3.5v7z"/>
 <path class="fl-soft" d="M94 188H320V220H84z"/>
 <path class="thin" d="M84 220L94 188H320"/>
@@ -12,10 +12,10 @@ export default `
   <path class="pipe st-cold" style="stroke-opacity:.6" d="M16 208H30V56H48"/>
   <path class="flow" d="M16 208H30V56H48"/>
   <rect class="body" x="5" y="202" width="12" height="12" rx="2"/>
-  <path class="thin st-ink" stroke-width="1" d="M9 204v8M13 204v8"/>
+  <path class="wire st-ink" d="M9 204v8M13 204v8" style="stroke-width:1"/>
   <rect class="body" x="48" y="34" width="34" height="44" rx="5"/>
   <rect class="fl-cold-soft" x="51" y="37" width="28" height="38" rx="3"/>
-  <path class="thin st-ink" stroke-dasharray="2 2.5" d="M63 37V75M68 37V75M73 37V75"/>
+  <path class="wire st-ink" stroke-dasharray="2 2.5" d="M63 37V75M68 37V75M73 37V75" style="stroke-width:1.5"/>
   <circle class="fl-warm" cx="55" cy="70" r="2.4"/><circle class="fl-warm" cx="59" cy="66" r="2"/><circle class="fl-warm" cx="55" cy="61" r="1.8"/>
   <circle class="fl-warm" cx="59" cy="72" r="1.8"/>
   <path class="fl-green" d="M53 52q3-5 6 0q-3 5-6 0zM56 44q3-4 5 0q-2 4-5 0z"/>
@@ -27,16 +27,16 @@ export default `
 
 <!-- שלב 2: משאבת לחץ גבוה -->
 <g class="hl-2 hl-3">
-  <path class="pipe st-violet" stroke-width="8" d="M136 56H148V70H166"/>
+  <path class="pipe st-violet" d="M136 56H148V70H166" style="stroke-width:8"/>
   <path class="flow" style="animation-duration:.45s" d="M136 56H148V70H166"/>
 </g>
 <g class="hl-2">
   <circle class="fl-dark st-ink" stroke-width="2" cx="120" cy="56" r="16"/>
   <g class="spin fast"><path class="arrow" stroke="#fff" d="M120 46v20M110 56h20"/></g>
   <circle class="fl-ink" cx="120" cy="56" r="2.5"/>
-  <path class="thin st-ink" d="M148 47V53"/>
-  <circle class="body" stroke-width="1.5" cx="148" cy="40" r="7.5"/>
-  <path class="arrow st-hot" stroke-width="1.8" d="M148 40V34.5">
+  <path class="wire st-ink" d="M148 47V53" style="stroke-width:1.5"/>
+  <circle class="body" cx="148" cy="40" r="7.5" style="stroke-width:1.5"/>
+  <path class="arrow st-hot" d="M148 40V34.5" style="stroke-width:1.8">
     <animateTransform attributeName="transform" type="rotate" values="25 148 40;70 148 40;40 148 40;75 148 40;25 148 40" dur="1.3s" repeatCount="indefinite"/>
   </path>
 </g>
@@ -46,7 +46,7 @@ export default `
   <rect class="body" x="162" y="30" width="128" height="56" rx="14"/>
   <rect class="fl-cold-soft" x="168" y="36" width="116" height="44" rx="8"/>
   <rect class="fl-violet" x="168" y="54" width="116" height="5"/>
-  <path class="thin st-ink" stroke-width="1" stroke-dasharray="1 4" d="M170 56.5H282"/>
+  <path class="wire st-ink" stroke-dasharray="1 4" d="M170 56.5H282" style="stroke-width:1"/>
   <!-- מלח שנשאר בצד הלחץ -->
   <g class="fl-warm">
     <rect x="176" y="74" width="4" height="4"/><rect x="198" y="63" width="4" height="4"/><rect x="222" y="75" width="4" height="4"/>
@@ -76,15 +76,15 @@ export default `
 <g class="hl-4">
   <rect class="body" x="262" y="124" width="50" height="64" rx="5"/>
   <rect class="fl-cold" opacity=".55" x="264" y="142" width="46" height="44" rx="3"/>
-  <path class="thin st-ink" stroke-width="1" d="M264 142H310"/>
-  <path class="body" stroke-width="1.5" d="M266 98H286L281 114H271z"/>
+  <path class="wire st-ink" d="M264 142H310" style="stroke-width:1"/>
+  <path class="body" d="M266 98H286L281 114H271z" style="stroke-width:1.5"/>
   <circle class="fl-green" cx="273" cy="103" r="2"/><circle class="fl-green" cx="279" cy="103" r="2"/><circle class="fl-green" cx="276" cy="108" r="2"/>
-  <path class="thin st-ink" d="M276 114V124"/>
+  <path class="wire st-ink" d="M276 114V124" style="stroke-width:1.5"/>
   <circle class="fl-green" r="2.2"><animateMotion dur="1.6s" repeatCount="indefinite" path="M276 114V150Q276 164 286 172"/></circle>
   <circle class="fl-green" r="2.2"><animateMotion dur="1.6s" begin="-.8s" repeatCount="indefinite" path="M276 114V150Q276 160 268 176"/></circle>
   <path class="wire st-ink" d="M262 164H250V169"/>
   <path class="fl-cold" d="M244.5 178h11l-1.5 9h-8z"/>
-  <path class="thin st-ink" d="M243 173l2 15h10l2-15"/>
+  <path class="wire st-ink" d="M243 173l2 15h10l2-15" style="stroke-width:1.5"/>
   <circle class="fl-cold" r="1.8"><animateMotion dur=".9s" repeatCount="indefinite" path="M250 170V182"/></circle>
 
   <path class="pipe st-warm" style="stroke-opacity:.6" d="M120 118V176H78V202"/>
@@ -92,7 +92,8 @@ export default `
   <circle class="body" cx="120" cy="104" r="14"/>
   <g class="spin"><path class="fl-warm" d="M120 104q-2-9 4-11q3 5-4 11zM120 104q9 3 7.500 9.500q-6-.5-7.500-9.500zM120 104q-7 6-11.500 1.500q2.500-5 11.500-1.500z"/></g>
   <circle class="fl-ink" cx="120" cy="104" r="2"/>
-  <path class="wire st-elec dash" stroke-width="3" d="M120 89V73"/>
+  <path class="wire st-elec dash" d="M120 90V79" style="stroke-width:4"/>
+  <path class="fl-elec" d="M114.500 80L120 72.500L125.500 80z"/>
 </g>
 
 <!-- תוויות -->

@@ -69,10 +69,11 @@ export default `
 <!-- רגל ודוושה -->
 <g class="hl-2">
   <g><animateTransform attributeName="transform" type="rotate" values="0 224 114;0 224 114;-12 224 114;-12 224 114;0 224 114" keyTimes="0;.2;.4;.85;1" dur="2.6s" repeatCount="indefinite"/>
-    <path class="st-ink fl-none" stroke-width="3" stroke-linecap="round" d="M224 114L215 99"/></g>
-  <g><animateTransform attributeName="transform" type="rotate" values="0 199 112;0 199 112;-26 199 112;-26 199 112;0 199 112" keyTimes="0;.2;.4;.85;1" dur="2.6s" repeatCount="indefinite"/>
-    <path class="st-line fl-none" stroke-width="5" stroke-linecap="round" d="M199 110L188 90"/>
-    <path class="st-ink fl-none" stroke-width="6" stroke-linecap="round" d="M199 112L213 101"/></g>
+    <path class="st-ink fl-none" stroke-width="2.5" stroke-linecap="round" d="M224 114L217 101"/>
+    <path class="st-ink fl-none" stroke-width="4.5" stroke-linecap="round" d="M219.500 104L215 96"/></g>
+  <g><animateTransform attributeName="transform" type="rotate" values="0 198 113;0 198 113;-28 198 113;-28 198 113;0 198 113" keyTimes="0;.2;.4;.85;1" dur="2.6s" repeatCount="indefinite"/>
+    <path class="st-line fl-none" stroke-width="7" stroke-linecap="round" d="M198 108L186 88"/>
+    <path class="fl-dark st-ink" stroke-width="1.5" stroke-linejoin="round" d="M196 115L193 108Q196 102 203 104L212 97Q217 96 216 101L202 115z"/></g>
 </g>
 
 <!-- שלב 1 -->

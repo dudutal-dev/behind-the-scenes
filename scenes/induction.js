@@ -20,26 +20,25 @@ export default `
   <ellipse class="wire st-violet" stroke-width="2" stroke-dasharray="6 6" cx="156" cy="152" rx="23" ry="25"><animate attributeName="stroke-dashoffset" values="0;36;0" dur="1.4s" repeatCount="indefinite"/></ellipse>
 </g>
 
-<!-- סליל נחושת (חתך הליפופים) על מגש פריט -->
+<!-- סליל נחושת שטוח (במבט אלכסוני) על מגש פריט; הזרם בו מתהפך -->
 <g class="hl-1 hl-2">
-  <rect class="fl-line" x="58" y="163" width="124" height="4" rx="2"/>
-  <g class="fl-warm st-ink" stroke-width="1.5">
-    <circle cx="66" cy="156" r="5.5"/><circle cx="78" cy="156" r="5.5"/><circle cx="90" cy="156" r="5.5"/><circle cx="102" cy="156" r="5.5"/>
-    <circle cx="138" cy="156" r="5.5"/><circle cx="150" cy="156" r="5.5"/><circle cx="162" cy="156" r="5.5"/><circle cx="174" cy="156" r="5.5"/>
+  <rect class="fl-line" x="58" y="168" width="124" height="4" rx="2"/>
+  <g class="st-ink fl-none" stroke-width="5">
+    <ellipse cx="120" cy="157" rx="55" ry="8.500"/><ellipse cx="120" cy="157" rx="42" ry="6.200"/><ellipse cx="120" cy="157" rx="29" ry="4"/>
   </g>
-  <g class="fl-elec">
-    <circle cx="66" cy="156" r="2.4"/><circle cx="78" cy="156" r="2.4"/><circle cx="90" cy="156" r="2.4"/><circle cx="102" cy="156" r="2.4"/>
-    <animate attributeName="opacity" values="1;0;1" dur="1.4s" repeatCount="indefinite"/>
+  <g class="st-warm fl-none" stroke-width="3">
+    <ellipse cx="120" cy="157" rx="55" ry="8.500"/><ellipse cx="120" cy="157" rx="42" ry="6.200"/><ellipse cx="120" cy="157" rx="29" ry="4"/>
   </g>
-  <g class="fl-elec">
-    <circle cx="138" cy="156" r="2.4"/><circle cx="150" cy="156" r="2.4"/><circle cx="162" cy="156" r="2.4"/><circle cx="174" cy="156" r="2.4"/>
-    <animate attributeName="opacity" values="0;1;0" dur="1.4s" repeatCount="indefinite"/>
+  <g class="st-elec fl-none" stroke-width="1.6" stroke-dasharray="3 9" stroke-linecap="round">
+    <ellipse cx="120" cy="157" rx="55" ry="8.500"/><ellipse cx="120" cy="157" rx="42" ry="6.200"/><ellipse cx="120" cy="157" rx="29" ry="4"/>
+    <animate attributeName="stroke-dashoffset" values="0;-48;0" dur="1.4s" repeatCount="indefinite"/>
   </g>
+  <ellipse class="fl-dark" cx="120" cy="157" rx="13" ry="1.800"/>
 </g>
 
 <!-- יחידת ההספק: זרם מתחלף אל הסליל -->
 <g class="hl-1 hl-4">
-  <path class="wire st-elec" stroke-dasharray="5 5" d="M214 172H192Q181 172 180 160"><animate attributeName="stroke-dashoffset" values="0;-30;0" dur="1.4s" repeatCount="indefinite"/></path>
+  <path class="wire st-elec" stroke-dasharray="5 5" d="M214 172H190Q178 172 176 161"><animate attributeName="stroke-dashoffset" values="0;-30;0" dur="1.4s" repeatCount="indefinite"/></path>
   <path class="wire st-elec dash" d="M306 172H278"/>
   <rect class="fl-soft st-ink" stroke-width="1.5" x="214" y="152" width="64" height="36" rx="4"/>
   <path class="wire st-elec" stroke-dasharray="5 5" d="M221 170q5-13 10 0t10 0t10 0t10 0t10 0"><animate attributeName="stroke-dashoffset" values="0;-30;0" dur="1.4s" repeatCount="indefinite"/></path>
@@ -67,8 +66,6 @@ export default `
 
 <!-- שלב 1 -->
 <g class="only-1">
-  <circle class="ring st-warm" cx="84" cy="156" r="26"/>
-  <circle class="ring st-warm d3" cx="156" cy="156" r="26"/>
   <text x="120" y="211">זרם מתחלף בסליל נחושת</text>
 </g>
 <!-- שלב 2 -->

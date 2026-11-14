@@ -2,14 +2,14 @@
 export default `
 <!-- נהר, קרקעית וגדות -->
 <rect class="fl-cold-soft" x="0" y="174" width="320" height="24"/>
-<path class="thin st-cold" d="M46 183q5-3 10 0t10 0M92 190q5-3 10 0t10 0M204 184q5-3 10 0t10 0M246 191q5-3 10 0t10 0"/>
+<path class="wire st-cold" d="M46 183q5-3 10 0t10 0M92 190q5-3 10 0t10 0M204 184q5-3 10 0t10 0M246 191q5-3 10 0t10 0" style="stroke-width:1.5"/>
 <rect class="fl-soft" x="0" y="196" width="320" height="24"/>
 <path class="fl-soft" d="M0 147H24L38 196H0zM320 147H296L282 196H320z"/>
 <path class="thin" d="M24 147L38 196H282L296 147"/>
 
 <!-- יסודות -->
 <g class="hl-3 hl-4">
-  <path class="wire st-ink" stroke-width="3.5" d="M148 200V215M160 200V217M172 200V215"/>
+  <path class="wire st-ink" d="M148 200V215M160 200V217M172 200V215" style="stroke-width:3.5"/>
   <rect class="fl-dark st-ink" stroke-width="2" x="139" y="188" width="42" height="12" rx="2"/>
 </g>
 
@@ -19,13 +19,14 @@ export default `
 
 <!-- תורן -->
 <g class="hl-3 hl-4">
-  <path class="fl-soft st-ink" stroke-width="2" stroke-linejoin="round" d="M152.500 189L156.500 20H163.500L167.500 189z"/>
+  <path class="fl-soft st-ink" stroke-width="2" stroke-linejoin="round" d="M150.500 189L155.500 22H164.500L169.500 189z"/>
+  <path class="fl-dark st-ink" stroke-width="1.500" stroke-linejoin="round" d="M154 22L156 15H164L166 22z"/>
   <path class="wire st-hot dash" d="M160 28V184"/>
 </g>
 
 <!-- כבלים: מהמיסעה ישר אל התורן -->
 <g class="hl-2 hl-4">
-  <path class="wire st-cold" stroke-width="2" d="M36 138L157 30M68 138L157 42M100 138L157 54M132 138L157 66M284 138L163 30M252 138L163 42M220 138L163 54M188 138L163 66"/>
+  <path class="wire st-cold" d="M36 138L157 30M68 138L157 42M100 138L157 54M132 138L157 66M284 138L163 30M252 138L163 42M220 138L163 54M188 138L163 66" style="stroke-width:2"/>
   <g class="fl-cold">
     <path d="M-4-3.200L4 0L-4 3.200z"><animateMotion dur="2.400s" repeatCount="indefinite" rotate="auto" path="M36 138L157 30"/></path>
     <path d="M-4-3.200L4 0L-4 3.200z"><animateMotion dur="2.400s" begin="-1.200s" repeatCount="indefinite" rotate="auto" path="M36 138L157 30"/></path>
@@ -62,7 +63,7 @@ export default `
 <g class="hl-1">
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;0 5;0 0" dur="1.200s" repeatCount="indefinite"/>
-    <path class="arrow st-hot" d="M36 151V165M68 151V165M100 151V165M132 151V165M188 151V165M220 151V165M252 151V165M284 151V165" marker-end="url(#bridge-ah)"/>
+    <path class="arrow st-hot" d="M36 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M68 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M100 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M132 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M188 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M220 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M252 151V165" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M284 151V165" marker-end="url(#bridge-ah)"/>
   </g>
 </g>
 
@@ -77,8 +78,8 @@ export default `
 <g class="only-3">
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;0 4;0 0" dur="1s" repeatCount="indefinite"/>
-    <path class="arrow st-hot" stroke-width="3" d="M160 2V11" marker-end="url(#bridge-ah)"/>
-    <path class="arrow st-hot" d="M145 152V166M175 152V166" marker-end="url(#bridge-ah)"/>
+    <path class="arrow st-hot" d="M160 2V11" marker-end="url(#bridge-ah)" style="stroke-width:3"/>
+    <path class="arrow st-hot" d="M141 152V166" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M179 152V166" marker-end="url(#bridge-ah)"/>
   </g>
   <text x="258" y="22">התורן נלחץ מטה</text>
   <text x="62" y="22">בטון חזק בלחיצה</text>
@@ -86,15 +87,15 @@ export default `
 <g class="only-4">
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;-4 0;0 0" dur="1.400s" repeatCount="indefinite"/>
-    <path class="arrow st-violet" stroke-width="3" d="M153 11H127" marker-end="url(#bridge-av)"/>
+    <path class="arrow st-violet" d="M153 11H127" marker-end="url(#bridge-av)" style="stroke-width:3"/>
   </g>
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;4 0;0 0" dur="1.400s" repeatCount="indefinite"/>
-    <path class="arrow st-violet" stroke-width="3" d="M167 11H193" marker-end="url(#bridge-av)"/>
+    <path class="arrow st-violet" d="M167 11H193" marker-end="url(#bridge-av)" style="stroke-width:3"/>
   </g>
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;0 3;0 0" dur="1s" repeatCount="indefinite"/>
-    <path class="arrow st-hot" d="M134 203L122 213M186 203L198 213" marker-end="url(#bridge-ah)"/>
+    <path class="arrow st-hot" d="M134 203L122 213" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M186 203L198 213" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M160 204V215" marker-end="url(#bridge-ah)"/>
   </g>
   <circle class="ring st-hot" cx="160" cy="196" r="26"/>
   <text x="258" y="22">הצדדים מתאזנים</text>

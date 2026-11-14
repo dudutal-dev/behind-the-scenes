@@ -1,16 +1,16 @@
 // חיסון. 1 הוראות mRNA והתא מציג חלבון לא מזיק · 2 תא חיסון מזהה זר · 3 נוגדנים מותאמים · 4 תאי זיכרון והנגיף האמיתי
 export default `
 <defs>
-  <g id="vaccine-sp"><path class="fl-hot st-ink" stroke-width="1" stroke-linejoin="round" d="M0-1.700H7V-5L14 0L7 5V1.700H0z"/></g>
-  <g id="vaccine-ab"><path class="wire st-cold" stroke-width="3" d="M-12 0H0M0 0L9-6.200M0 0L9 6.200"/></g>
+  <g id="vaccine-sp"><path class="fl-hot st-ink" stroke-width="1" stroke-linejoin="round" d="M0-1.700H6.500Q6.500-5.600 10.500-5.600Q14.200-5.600 14.200 0Q14.200 5.600 10.500 5.600Q6.500 5.600 6.500 1.700H0z"/></g>
+  <g id="vaccine-ab"><path class="wire st-cold" d="M-12 0H0M0 0L9-6.200M0 0L9 6.200" style="stroke-width:3"/></g>
 </defs>
 
 <!-- מזרק עם הוראות mRNA -->
 <g class="hl-1" transform="rotate(-22 52 88)">
-  <path class="thin st-ink" d="M52 88V58"/>
+  <path class="wire st-ink" d="M52 88V58" style="stroke-width:1.5"/>
   <rect class="body" x="45" y="26" width="14" height="32" rx="2"/>
   <rect class="fl-green" opacity=".6" x="47" y="36" width="10" height="20" rx="1"/>
-  <path class="thin st-ink" stroke-width="1" d="M45 34h4M45 42h4M45 50h4"/>
+  <path class="wire st-ink" d="M45 34h4M45 42h4M45 50h4" style="stroke-width:1"/>
   <rect class="fl-ink" x="41" y="23" width="22" height="3" rx="1"/>
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;0 7;0 7;0 0" keyTimes="0;.5;.8;1" dur="2.400s" repeatCount="indefinite"/>
@@ -23,9 +23,9 @@ export default `
 <g class="hl-1 hl-2">
   <circle class="fl-soft st-ink" stroke-width="2" cx="58" cy="132" r="42"/>
   <circle class="fl-violet" opacity=".35" cx="43" cy="146" r="15"/>
-  <circle class="thin st-ink" cx="43" cy="146" r="15"/>
-  <path class="thin st-violet" d="M35 142q4-4 8 0t8 0M35 150q4-4 8 0t8 0"/>
-  <path class="wire st-green" stroke-width="2.200" d="M57 95q5 4 0 8t0 8t7 6"/>
+  <circle class="wire st-ink" cx="43" cy="146" r="15" style="stroke-width:1.5"/>
+  <path class="wire st-violet" d="M35 142q4-4 8 0t8 0M35 150q4-4 8 0t8 0" style="stroke-width:1.5"/>
+  <path class="wire st-green" d="M57 95q5 4 0 8t0 8t7 6" style="stroke-width:2.200"/>
   <ellipse class="fl-warm st-ink" stroke-width="1" cx="69" cy="122" rx="7.500" ry="5"/>
   <ellipse class="fl-warm st-ink" stroke-width="1" cx="69" cy="115.500" rx="5" ry="3.500"/>
 </g>
@@ -34,7 +34,7 @@ export default `
   <use href="#vaccine-sp" transform="translate(92.400 107.900) rotate(-35)"/>
   <use href="#vaccine-sp" transform="translate(92.400 156.100) rotate(35)"/>
 </g>
-<g class="hl-2 hl-3">
+<g class="from-2">
   <use href="#vaccine-sp" transform="translate(150 58) rotate(90)"/>
   <use href="#vaccine-sp" transform="translate(206 58) rotate(90)"/>
 </g>
@@ -53,8 +53,8 @@ export default `
 
 <!-- שלב 1: ההוראות נכנסות, חלבון נבנה ועולה אל פני התא -->
 <g class="only-1">
-  <path class="wire st-green" stroke-width="2" d="M-4 0q2-3 4 0t4 0"><animateMotion dur="1.500s" repeatCount="indefinite" path="M51 86Q50 96 57 104"/></path>
-  <path class="wire st-green" stroke-width="2" d="M-4 0q2-3 4 0t4 0"><animateMotion dur="1.500s" begin="-.750s" repeatCount="indefinite" path="M51 86Q50 96 57 104"/></path>
+  <path class="wire st-green" d="M-4 0q2-3 4 0t4 0" style="stroke-width:2"><animateMotion dur="1.500s" repeatCount="indefinite" path="M51 86Q50 96 57 104"/></path>
+  <path class="wire st-green" d="M-4 0q2-3 4 0t4 0" style="stroke-width:2"><animateMotion dur="1.500s" begin="-.750s" repeatCount="indefinite" path="M51 86Q50 96 57 104"/></path>
   <g><animateMotion dur="2s" repeatCount="indefinite" rotate="auto" path="M76 122L92 130"/><use href="#vaccine-sp" transform="scale(.65)"/></g>
   <g><animateMotion dur="2s" begin="-1s" repeatCount="indefinite" rotate="auto" path="M75 118L86 110"/><use href="#vaccine-sp" transform="scale(.65)"/></g>
   <text x="152" y="24">הוראות לחלבון לא מזיק</text>

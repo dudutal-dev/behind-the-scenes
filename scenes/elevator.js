@@ -26,17 +26,15 @@ export default `
 </g>
 <!-- גלגל ההנעה והכבלים שמעליו -->
 <circle class="body" cx="116" cy="42" r="23"/>
-<path class="st-dark fl-none" stroke-width="1.4" d="M85 42A31 31 0 0 1 147 42M88 42A28 28 0 0 1 144 42M91 42A25 25 0 0 1 141 42"/>
-<path class="st-hot fl-none only-3 fade" stroke-width="2.4" d="M85 42A31 31 0 0 1 147 42"/>
-<path class="st-hot fl-none only-3 fade d2" stroke-width="2.4" d="M88 42A28 28 0 0 1 144 42"/>
-<path class="st-hot fl-none only-3 fade d4" stroke-width="2.4" d="M91 42A25 25 0 0 1 141 42"/>
+<path class="st-ink fl-none" stroke-width="1.3" d="M85 42A31 31 0 0 1 147 42M88 42A28 28 0 0 1 144 42M91 42A25 25 0 0 1 141 42"/>
+<g class="only-3"><path class="st-hot fl-none fade" stroke-width="2.4" d="M85 42A31 31 0 0 1 147 42"/><path class="st-hot fl-none fade d2" stroke-width="2.4" d="M88 42A28 28 0 0 1 144 42"/><path class="st-hot fl-none fade d4" stroke-width="2.4" d="M91 42A25 25 0 0 1 141 42"/></g>
 
 <!-- מצב רגיל (שלבים 1-3 והמבט הכולל): התא והמשקולת נעים בכיוונים מנוגדים -->
-<g class="hl-1 hl-2 hl-3"><g class="hl-1 hl-2 hl-3"><g class="hl-1 hl-2 hl-3">
+<g class="hl-1 hl-2 hl-3"><g class="hl-1 hl-2 hl-3"><g class="hl-1 hl-2 hl-3"><g class="hl-1 hl-2 hl-3">
   <g class="hl-1 hl-2"><animateTransform attributeName="transform" type="rotate" values="0 116 42;143 116 42;143 116 42;0 116 42;0 116 42" keyTimes="0;.4;.5;.9;1" calcMode="spline" keySplines=".45 0 .55 1;0 0 1 1;.45 0 .55 1;0 0 1 1" dur="8s" begin="-2s" repeatCount="indefinite"/><path class="st-ink fl-none" stroke-width="1.5" d="M116 21V63M95 42H137M101 27L131 57M131 27L101 57"/><circle class="fl-hot" cx="116" cy="26" r="2.6"/></g>
   <g clip-path="url(#elevator-shaft)">
     <g><animateTransform attributeName="transform" type="translate" values="0 150;0 80;0 80;0 150;0 150" keyTimes="0;.4;.5;.9;1" calcMode="spline" keySplines=".45 0 .55 1;0 0 1 1;.45 0 .55 1;0 0 1 1" dur="8s" begin="-2s" repeatCount="indefinite"/>
-  <path class="st-dark fl-none" stroke-width="1.4" d="M85 -150V-4"/><path class="st-hot fl-none only-3 fade" stroke-width="2.4" d="M85 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M88 -150V-4"/><path class="st-hot fl-none only-3 fade d2" stroke-width="2.4" d="M88 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M91 -150V-4"/><path class="st-hot fl-none only-3 fade d4" stroke-width="2.4" d="M91 -150V-4"/>
+  <path class="st-ink fl-none" stroke-width="1.3" d="M85 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade" stroke-width="2.4" d="M85 -150V-4"/></g><path class="st-ink fl-none" stroke-width="1.3" d="M88 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade d2" stroke-width="2.4" d="M88 -150V-4"/></g><path class="st-ink fl-none" stroke-width="1.3" d="M91 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade d4" stroke-width="2.4" d="M91 -150V-4"/></g>
   <rect class="fl-dark" x="80" y="-6" width="16" height="6" rx="1.5"/>
   <g class="hl-1 hl-2">
     <rect class="body" x="66" y="0" width="44" height="44" rx="3"/>
@@ -53,13 +51,13 @@ export default `
   </g>
   </g>
     <g><animateTransform attributeName="transform" type="translate" values="0 86;0 156;0 156;0 86;0 86" keyTimes="0;.4;.5;.9;1" calcMode="spline" keySplines=".45 0 .55 1;0 0 1 1;.45 0 .55 1;0 0 1 1" dur="8s" begin="-2s" repeatCount="indefinite"/>
-  <path class="st-dark fl-none" stroke-width="1.4" d="M141 -150V-4"/><path class="st-hot fl-none only-3 fade" stroke-width="2.4" d="M141 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M144 -150V-4"/><path class="st-hot fl-none only-3 fade d2" stroke-width="2.4" d="M144 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M147 -150V-4"/><path class="st-hot fl-none only-3 fade d4" stroke-width="2.4" d="M147 -150V-4"/>
+  <path class="st-ink fl-none" stroke-width="1.3" d="M141 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade" stroke-width="2.4" d="M141 -150V-4"/></g><path class="st-ink fl-none" stroke-width="1.3" d="M144 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade d2" stroke-width="2.4" d="M144 -150V-4"/></g><path class="st-ink fl-none" stroke-width="1.3" d="M147 -150V-4"/><g class="only-3"><path class="st-hot fl-none fade d4" stroke-width="2.4" d="M147 -150V-4"/></g>
   <g class="hl-1 hl-2">
     <rect class="fl-dark st-ink" stroke-width="2" x="134" y="0" width="20" height="40" rx="2"/>
     <path fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.2" d="M138 8h12M138 16h12M138 24h12M138 32h12"/>
   </g></g>
   </g>
-</g></g></g>
+</g></g></g></g>
 
 <!-- שלב 4: ירידה מהירה מדי, הטריזים ננעלים על המסילות -->
 <g class="only-4"><g>
@@ -68,7 +66,7 @@ export default `
   <g><animateTransform attributeName="transform" type="rotate" values="0 41 56;0 41 56;-640 41 56;-640 41 56;0 41 56;0 41 56" keyTimes="0;.12;.34;.95;.96;1" calcMode="spline" keySplines="0 0 1 1;.6 0 1 .9;0 0 1 1;0 0 1 1;0 0 1 1" dur="5s" begin="-1.2s" repeatCount="indefinite"/><circle class="fl-hot" cx="41" cy="52.5" r="1.6"/></g>
   <g clip-path="url(#elevator-shaft)">
     <g><animateTransform attributeName="transform" type="translate" values="0 84;0 84;0 140;0 140;0 84;0 84" keyTimes="0;.12;.34;.95;.96;1" calcMode="spline" keySplines="0 0 1 1;.6 0 1 .9;0 0 1 1;0 0 1 1;0 0 1 1" dur="5s" begin="-1.2s" repeatCount="indefinite"/>
-  <path class="st-dark fl-none" stroke-width="1.4" d="M85 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M88 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M91 -150V-4"/>
+  <path class="st-ink fl-none" stroke-width="1.3" d="M85 -150V-4"/><path class="st-ink fl-none" stroke-width="1.3" d="M88 -150V-4"/><path class="st-ink fl-none" stroke-width="1.3" d="M91 -150V-4"/>
   <rect class="fl-dark" x="80" y="-6" width="16" height="6" rx="1.5"/>
   <g>
     <rect class="body" x="66" y="0" width="44" height="44" rx="3"/>
@@ -85,7 +83,7 @@ export default `
   </g>
   <path class="st-elec fl-none" stroke-width="1.6" stroke-linecap="round" opacity="0" d="M50 50l-5 5M62 50l5 5M56 51v6M114 50l-5 5M126 50l5 5M120 51v6M51 35l-5-4M61 35l5-4M115 35l-5-4M125 35l5-4"><animate attributeName="opacity" values="0;0;1;.2;1;.2;1;0;0" keyTimes="0;.33;.35;.4;.45;.5;.56;.7;1" dur="5s" begin="-1.2s" repeatCount="indefinite"/></path></g>
     <g><animateTransform attributeName="transform" type="translate" values="0 152;0 152;0 96;0 96;0 152;0 152" keyTimes="0;.12;.34;.95;.96;1" calcMode="spline" keySplines="0 0 1 1;.6 0 1 .9;0 0 1 1;0 0 1 1;0 0 1 1" dur="5s" begin="-1.2s" repeatCount="indefinite"/>
-  <path class="st-dark fl-none" stroke-width="1.4" d="M141 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M144 -150V-4"/><path class="st-dark fl-none" stroke-width="1.4" d="M147 -150V-4"/>
+  <path class="st-ink fl-none" stroke-width="1.3" d="M141 -150V-4"/><path class="st-ink fl-none" stroke-width="1.3" d="M144 -150V-4"/><path class="st-ink fl-none" stroke-width="1.3" d="M147 -150V-4"/>
   <g>
     <rect class="fl-dark st-ink" stroke-width="2" x="134" y="0" width="20" height="40" rx="2"/>
     <path fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.2" d="M138 8h12M138 16h12M138 24h12M138 32h12"/>
@@ -108,6 +106,17 @@ export default `
   <path class="fl-elec st-ink blink" stroke-width="1.2" stroke-linejoin="round" d="M224 28l-9 14h6l-3 12 10-15h-6l3-11z"/>
   <text x="252" y="72">המנוע מזיז</text>
   <text x="252" y="86">רק את ההפרש</text>
+  <!-- נדנדה כמעט מאוזנת -->
+  <path class="thin st-ink" d="M230 160H274"/>
+  <path class="fl-line st-ink" stroke-width="1.5" stroke-linejoin="round" d="M252 143l-9 17h18z"/>
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="-5 252 141;5 252 141;-5 252 141" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="3s" repeatCount="indefinite"/>
+    <path class="st-ink fl-none" stroke-width="3" stroke-linecap="round" d="M218 141H286"/>
+    <rect class="body" stroke-width="1.5" x="222" y="121" width="19" height="18" rx="2"/>
+    <rect class="fl-cold-soft" x="225" y="124" width="13" height="10" rx="1"/>
+    <rect class="fl-dark st-ink" stroke-width="1.5" x="265" y="115" width="13" height="24" rx="1.5"/>
+  </g>
+  <path class="st-elec fl-none blink" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M231 100v12m-4-4l4 4.5 4-4.5"/>
 </g>
 <!-- שלב 3: מבט מקרוב על הכבלים -->
 <g class="only-3">
