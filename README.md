@@ -1,1 +1,0 @@
-# magen-alerts
