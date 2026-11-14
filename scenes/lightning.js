@@ -50,8 +50,6 @@ export default `
 </g>
 <g class="only-2">
   <path class="thin dash" d="M74 192V88M100 192V88M152 192V88M178 192V88"/>
-  <circle class="ring st-cold" cx="107" cy="71" r="20"/>
-  <circle class="ring st-hot d3" cx="126" cy="208" r="11"/>
 </g>
 
 <!-- שלב 3: מוביל מדורג מתפתל מטה, ואז מכת הזרם -->

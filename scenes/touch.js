@@ -56,11 +56,11 @@ export default `
 </g>
 
 <!-- האצבעות -->
-<use class="only-2" href="#touch-finger" transform="translate(83 83) rotate(35)"/>
-<use class="only-3" href="#touch-finger" transform="translate(83 83) rotate(35)"/>
+<use class="only-2" href="#touch-finger" transform="translate(83 83) rotate(35) scale(1.15)"/>
+<use class="only-3" href="#touch-finger" transform="translate(83 83) rotate(35) scale(1.15)"/>
 <g class="from-4">
-  <g><animateTransform attributeName="transform" type="translate" values="0 0;5 -8;0 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.2s" repeatCount="indefinite"/><use href="#touch-finger" transform="translate(47 137) rotate(28) scale(1.15)"/></g>
-  <g><animateTransform attributeName="transform" type="translate" values="0 0;-5 8;0 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.2s" repeatCount="indefinite"/><use href="#touch-finger" transform="translate(83 83) rotate(35)"/></g>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;5 -8;0 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.2s" repeatCount="indefinite"/><use href="#touch-finger" transform="translate(47 137) rotate(28) scale(1.3)"/></g>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;-5 8;0 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.2s" repeatCount="indefinite"/><use href="#touch-finger" transform="translate(83 83) rotate(35) scale(1.15)"/></g>
 </g>
 
 <!-- שלב 1 -->

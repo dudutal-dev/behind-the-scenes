@@ -79,8 +79,7 @@ export default `
   <g>
     <animateTransform attributeName="transform" type="translate" values="0 0;0 4;0 0" dur="1s" repeatCount="indefinite"/>
     <path class="arrow st-hot" d="M160 2V11" marker-end="url(#bridge-ah)" style="stroke-width:3"/>
-    <path class="arrow st-hot" d="M141 152V166" marker-end="url(#bridge-ah)"/><path class="arrow st-hot" d="M179 152V166" marker-end="url(#bridge-ah)"/>
-  </g>
+      </g>
   <text x="258" y="22">התורן נלחץ מטה</text>
   <text x="62" y="22">בטון חזק בלחיצה</text>
 </g>
