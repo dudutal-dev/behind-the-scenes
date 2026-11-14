@@ -1,0 +1,16 @@
+{
+  "name": "איך זה עובד?",
+  "short_name": "איך זה עובד",
+  "description": "הסברים קצרים על איך דברים עובדים",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "he",
+  "dir": "rtl",
+  "background_color": "#fff7ec",
+  "theme_color": "#e2572b",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
