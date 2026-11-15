@@ -237,6 +237,7 @@ function renderFeed() {
   page("feed", `<div class="feed" id="feed">${ids.map((id) => {
     const t = byId[id];
     return `<section class="fslide" data-id="${id}">
+      <div class="fbg" style="background-image:url(videos/${id}.jpg)"></div>
       <img class="fposter" src="videos/${id}.jpg" alt="">
       <div class="fmeta">
         <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(VIDEOS.get(id))}</small></span>
