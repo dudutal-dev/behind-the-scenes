@@ -127,7 +127,7 @@ export default `
   <rect class="fl-dark st-ink" stroke-width="1.5" x="131.5" y="162" width="4" height="11"/><rect class="fl-dark st-ink" stroke-width="1.5" x="123" y="172" width="14" height="14" rx="1"/><path class="fl-elec" d="M129.5 174.5l-4 5.5h3l-1.5 4.5 4.5-6h-3l1.5-4z"/>
   <path class="thin st-ink" d="M34 196.5H79" marker-start="url(#acdc-a)" marker-end="url(#acdc-a)"/>
   <path class="thin st-ink" d="M32 193v7M81 193v7"/>
-  <text x="81" y="212">תחנת כוח כל 1.5 ק״מ</text>
+  <text x="81" y="212">טווח: כ־1.5 ק״מ מהתחנה</text>
 
   <!-- זרם חילופין: תחנה אחת, שנאי מעלה, קו מתח גבוה, שנאי מוריד, עיר שלמה -->
   <path class="thin" d="M166 186H314"/>
