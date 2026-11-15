@@ -40,8 +40,8 @@ export default `
 </g>
 <g class="only-2">
   <path class="arrow st-ink" style="stroke-width:1.800" d="M90.6 118.3A35 35 0 0 0 117.4 118.3M111.9 114.5L117.4 118.3L111.6 121.7"/>
-  <text x="248" y="40">הקפה אחת סביבנו:</text>
-  <text x="248" y="56">מחזור: 29 ימים וחצי</text>
+  <text x="248" y="40">ממולד עד מולד:</text>
+  <text x="248" y="56">29 ימים וחצי</text>
   <text x="248" y="88">והזווית לשמש משתנה</text>
 </g>
 
