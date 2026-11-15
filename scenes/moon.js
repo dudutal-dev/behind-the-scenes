@@ -12,29 +12,34 @@ export default `
 
 <!-- שלב 1: ירח אחד, חציו הפונה לשמש מואר -->
 <g class="only-1">
-  <path class="wire st-warm dash" style="stroke-width:2;stroke-dasharray:4 5" d="M34 122H51M34 132H51"/>
-  <g transform="translate(63 127)"><circle class="fl-dark" r="11"/><path fill="#fff" fill-opacity=".94" d="M0 -11A11 11 0 0 0 0 11z"/><circle class="fl-none st-ink" stroke-width="1.6" r="11"/></g>
-  <text x="248" y="40">החצי שפונה אל השמש</text>
-  <text x="248" y="56">מואר תמיד</text>
-  <text x="248" y="88">והחצי האחר חשוך</text>
+  <g transform="translate(63 127)"><circle class="fl-dark" r="8.5"/><path fill="#fff" fill-opacity=".94" d="M0 -8.5A8.5 8.5 0 0 0 0 8.5z"/><circle class="fl-none st-ink" stroke-width="1.6" r="8.5"/></g>
+  <path class="thin" style="stroke-dasharray:2 3" d="M69 120L226 84M69 134L232 126"/>
+  <path class="wire st-warm dash" style="stroke-width:2.200;stroke-dasharray:4 5" d="M190 92H218M190 106H216M190 120H218"/>
+  <path class="wire st-warm" style="stroke-width:2.200" d="M213 88L219 92L213 96M211 102L217 106L211 110M213 116L219 120L213 124"/>
+  <g transform="translate(248 106)"><circle class="fl-dark" r="24"/><path fill="#fff" fill-opacity=".94" d="M0 -24A24 24 0 0 0 0 24z"/><circle class="fl-none st-ink" stroke-width="1.6" r="24"/></g>
+  <circle class="fl-line" cx="238" cy="96" r="4"/><circle class="fl-line" cx="242" cy="116" r="3"/><circle class="fl-ink" opacity=".35" cx="258" cy="100" r="3.500"/><circle class="fl-ink" opacity=".35" cx="256" cy="118" r="2.600"/>
+  <text x="248" y="34">החצי שפונה אל השמש</text>
+  <text x="248" y="50">מואר תמיד</text>
+  <text x="232" y="148">מואר</text>
+  <text x="268" y="148">חשוך</text>
 </g>
 
 <!-- שלבים 2, 4 והמבט הכולל: הירח מקיף נגד כיוון השעון -->
 <g class="only-2 from-4">
-  <g class="from-4"><g><animateTransform attributeName="transform" type="rotate" from="0 104 86" to="-360 104 86" dur="16s" repeatCount="indefinite"/>
-    <path class="wire st-hot" style="stroke-width:1.5;stroke-dasharray:2 3" d="M87 86H56.5"/></g></g>
-  <g><animateMotion dur="16s" repeatCount="indefinite" path="M46 86A58 58 0 1 0 162 86A58 58 0 1 0 46 86"/>
-    <circle class="fl-dark" r="8.5"/><path fill="#fff" fill-opacity=".94" d="M0 -8.5A8.5 8.5 0 0 0 0 8.5z"/>
-    <g class="from-4"><g><animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="16s" repeatCount="indefinite"/>
-      <path class="wire st-violet" style="stroke-width:3" d="M-5.5 -6.5A8.5 8.5 0 0 0 -5.5 6.5"/>
-      <circle class="fl-line" cx="-1.500" cy="-3" r="1.500"/><circle class="fl-line" cx="1" cy="3.500" r="1.200"/>
-      <circle class="fl-hot st-ink" stroke-width="1" cx="7" cy="0" r="2.600"/>
+  <g class="from-4"><g><animateTransform attributeName="transform" type="rotate" from="0 104 86" to="-360 104 86" dur="16s" begin="-3.4s" repeatCount="indefinite"/>
+    <path class="wire st-hot" style="stroke-width:1.5;stroke-dasharray:2 3" d="M87 86H59"/></g></g>
+  <g><animateMotion dur="16s" begin="-3.4s" repeatCount="indefinite" path="M46 86A58 58 0 1 0 162 86A58 58 0 1 0 46 86"/>
+    <circle class="fl-dark" r="11"/><path fill="#fff" fill-opacity=".94" d="M0 -11A11 11 0 0 0 0 11z"/>
+    <g class="from-4"><g><animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="16s" begin="-3.4s" repeatCount="indefinite"/>
+      <path class="wire st-violet" style="stroke-width:3.400" d="M-7.1 -8.4A11 11 0 0 0 -7.1 8.4"/>
+      <circle class="fl-line" cx="-2" cy="-4" r="1.800"/><circle class="fl-line" cx="1.500" cy="4.500" r="1.500"/>
+      <circle class="fl-hot st-ink" stroke-width="1" cx="9.5" cy="0" r="3"/>
     </g></g>
-    <circle class="fl-none st-ink" stroke-width="1.6" r="8.5"/>
+    <circle class="fl-none st-ink" stroke-width="1.6" r="11"/>
   </g>
 </g>
 <g class="only-2">
-  <path class="arrow st-ink" style="stroke-width:1.800" d="M91 125.9A42 42 0 0 0 117 125.9M111.5 122.1L117 125.9L111.2 129.3"/>
+  <path class="arrow st-ink" style="stroke-width:1.800" d="M90.6 118.3A35 35 0 0 0 117.4 118.3M111.9 114.5L117.4 118.3L111.6 121.7"/>
   <text x="248" y="40">הקפה אחת סביבנו:</text>
   <text x="248" y="56">29 ימים וחצי</text>
   <text x="248" y="88">והזווית לשמש משתנה</text>
@@ -51,7 +56,7 @@ export default `
   <g transform="translate(104 28)"><circle class="fl-dark" r="8.5"/><path fill="#fff" fill-opacity=".94" d="M0 -8.5A8.5 8.5 0 0 0 0 8.5z"/><circle class="fl-none st-ink" stroke-width="1.6" r="8.5"/></g>
   <g transform="translate(63 45)"><circle class="fl-dark" r="8.5"/><path fill="#fff" fill-opacity=".94" d="M0 -8.5A8.5 8.5 0 0 0 0 8.5z"/><circle class="fl-none st-ink" stroke-width="1.6" r="8.5"/></g>
   <text class="sm" x="64" y="89.2">1</text><text class="sm" x="75.7" y="117.5">2</text><text class="sm" x="104" y="129.2">3</text><text class="sm" x="132.3" y="117.5">4</text><text class="sm" x="144" y="89.2">5</text><text class="sm" x="132.3" y="60.9">6</text><text class="sm" x="104" y="49.2">7</text><text class="sm" x="75.7" y="60.9">8</text>
-  <circle class="fl-none st-hot" stroke-width="2.2" r="12"><animate attributeName="cx" calcMode="discrete" values="46;63;104;145;162;145;104;63;46" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" repeatCount="indefinite"/><animate attributeName="cy" calcMode="discrete" values="86;127;144;127;86;45;28;45;86" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" repeatCount="indefinite"/></circle>
+  <circle class="fl-none st-hot" stroke-width="2.2" r="12"><animate attributeName="cx" calcMode="discrete" values="46;63;104;145;162;145;104;63;46" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" begin="-3.4s" repeatCount="indefinite"/><animate attributeName="cy" calcMode="discrete" values="86;127;144;127;86;45;28;45;86" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" begin="-3.4s" repeatCount="indefinite"/></circle>
   <text x="248" y="40">מכדור הארץ רואים</text>
   <text x="248" y="56">רק חלק מהחצי המואר</text>
   <text x="290" y="210" class="sm">מולד</text>
@@ -70,7 +75,7 @@ export default `
   <g transform="translate(105 186)"><circle class="fl-dark" r="10"/><path fill="#fff" fill-opacity=".94" d="M0 -10A10 10 0 0 1 0 10A7.1 10 0 0 1 0 -10z" transform="scale(-1 1)"/><circle class="fl-none st-ink" stroke-width="1.6" r="10"/></g><text class="sm" x="105" y="170">6</text>
   <g transform="translate(68 186)"><circle class="fl-dark" r="10"/><path fill="#fff" fill-opacity=".94" d="M0 -10A10 10 0 0 1 0 10A0 10 0 0 0 0 -10z" transform="scale(-1 1)"/><circle class="fl-none st-ink" stroke-width="1.6" r="10"/></g><text class="sm" x="68" y="170">7</text>
   <g transform="translate(31 186)"><circle class="fl-dark" r="10"/><path fill="#fff" fill-opacity=".94" d="M0 -10A10 10 0 0 1 0 10A7.1 10 0 0 0 0 -10z" transform="scale(-1 1)"/><circle class="fl-none st-ink" stroke-width="1.6" r="10"/></g><text class="sm" x="31" y="170">8</text>
-  <circle class="fl-none st-hot" stroke-width="2.2" r="13.500" cx="290" cy="186"><animate attributeName="cx" calcMode="discrete" values="290;253;216;179;142;105;68;31;290" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" repeatCount="indefinite"/></circle>
+  <circle class="fl-none st-hot" stroke-width="2.2" r="13.500" cx="290" cy="186"><animate attributeName="cx" calcMode="discrete" values="290;253;216;179;142;105;68;31;290" keyTimes="0.0000;0.0625;0.1875;0.3125;0.4375;0.5625;0.6875;0.8125;0.9375" dur="16s" begin="-3.4s" repeatCount="indefinite"/></circle>
 </g>
 
 <!-- שלב 4: נעילת גאות -->
