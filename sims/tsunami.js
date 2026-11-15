@@ -6,13 +6,13 @@
 // חוק גרין מפסיק לחול כשהגל נשבר. כאן מניחים שבירה כש־H ≥ 0.78·d (קריטריון מקובל לגל בודד);
 // מאותה נקודה הגובה לא מחושב עוד, והגל שוטף את החוף (הציור של ההצפה איכותי בלבד).
 // אורך הגל קצר יחד עם המהירות (זמן מחזור קבוע של כ־15 דקות), ולכן הגל "נדחס" כשהוא מאט.
-// פרופיל: ים עמוק בעומק d₀ לאורך 300 ק״מ, מדרון יבשתי של 30 ק״מ עד 150 מ׳, ומדף של 70 ק״מ שמשתפל עד קו החוף.
+// פרופיל: ים עמוק בעומק d₀ לאורך 140 ק״מ, מדרון יבשתי של 20 ק״מ עד 150 מ׳, ומדף של 90 ק״מ שמשתפל עד קו החוף.
 // פישוטים: אין שקע מוביל (נסיגת הים), אין התפשטות לצדדים, והציור לא בקנה מידה:
-// העומק מוצג בסולם שורש והגובה מוגזם מאוד. הזמן מואץ: שנייה על המסך = 8 דקות.
+// העומק מוצג בסולם שורש והגובה מוגזם מאוד. הזמן מואץ: שנייה על המסך = 10 דקות.
 import { range, readouts, wire, out, fmt, clamp, loop } from "./kit.js";
 
-const G = 9.81, BREAK = 0.78, SHELF = 150, TS = 480; // TS: שניות אמיתיות לכל שנייה על המסך
-const K_DEEP = 300, K_SLOPE = 330, K_SHORE = 400, K_START = 20;
+const G = 9.81, BREAK = 0.78, SHELF = 150, TS = 600; // TS: שניות אמיתיות לכל שנייה על המסך
+const K_DEEP = 140, K_SLOPE = 160, K_SHORE = 250, K_START = 12;
 const SURF = 72, X0 = 10, PXK = (300 - X0) / K_SHORE; // ק״מ → פיקסלים, אחיד לאורך כל הציור
 const X = (k) => X0 + k * PXK;
 const Y = (d) => SURF + 112 * Math.sqrt(d / 7000); // עומק בסולם שורש, כדי שהמדף הרדוד ייראה
@@ -20,14 +20,9 @@ const kmh = (d) => Math.sqrt(G * d) * 3.6;
 
 export default {
   title: "שלחו צונאמי אל החוף",
-  hint: "בלב ים הגל מהיר ונמוך. על המדף הרדוד הוא מאט, מתקצר ומתרומם, עד שהוא נשבר ושוטף את החוף. נסו ים עמוק יותר או גל התחלתי גבוה יותר.",
+  hint: "בלב ים הגל מהיר ונמוך. על המדף הרדוד הוא מאט, מתקצר ומתרומם, עד שהוא נשבר ושוטף את החוף. כל שינוי במחוונים שולח גל חדש.",
   mount(root) {
     root.innerHTML = `
-      <style>
-        .ts-row{display:flex;justify-content:center;margin:4px 0 2px}
-        .ts-row button{min-height:40px;min-width:120px;padding:0 18px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:14.5px;font-weight:700;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-        .ts-row button:active{filter:brightness(.92)}
-      </style>
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="חתך של אוקיינוס, מדף יבשתי וחוף, וגל צונאמי שנע מהים העמוק אל החוף">
         <text id="note" x="160" y="15" class="sm"></text>
         <text id="clock" x="54" y="31" class="sm"></text>
@@ -39,13 +34,10 @@ export default {
         <path id="probe" class="thin st-hot" style="stroke-dasharray:2 3"/>
         <circle id="crest" class="fl-hot st-ink" style="stroke-width:1.2" r="3"/>
         <path class="body" style="stroke-width:1.4" d="M309 59V51L314 47L319 51V59"/>
-        <text x="${X(K_DEEP / 2)}" y="194" class="sm">ים עמוק</text>
-        <text x="${X((K_SLOPE + K_SHORE) / 2)}" y="130" class="sm">מדף רדוד</text>
       </svg>
       ${readouts([{ id: "v", label: "מהירות (קמ״ש)" }, { id: "h", label: "גובה הגל (מ׳)" }, { id: "dd", label: "עומק כאן (מ׳)" }])}
       ${range({ id: "d0", label: "עומק הים", min: 500, max: 7000, step: 100, value: 4000 })}
-      ${range({ id: "h0", label: "גובה התחלתי", min: 0.1, max: 3, step: 0.1, value: 0.5 })}
-      <div class="ts-row"><button type="button" id="again">שגרו שוב</button></div>`;
+      ${range({ id: "h0", label: "גובה הגל", min: 0.1, max: 3, step: 0.1, value: 0.5 })}`;
 
     const $ = (id) => root.querySelector(`#${id}`);
     let d0 = 4000, h0 = 0.5, k = K_START, simT = 0, broken = null, after = 0;
@@ -72,8 +64,8 @@ export default {
     const frame = () => {
       const d = Math.max(depth(k), 0.01), v = kmh(d);
       let H = broken ? broken.H : green(d);
-      const amp = clamp(2 + 4.2 * H, 2, 52); // גובה מוגזם על המסך
-      const sig = Math.max(3.2, (v * 0.25 / 6) * PXK); // רוחב הגל: v · 15 דק׳ / 6, בפיקסלים
+      const amp = clamp(3 + 6 * H, 3, 40); // גובה מוגזם על המסך
+      const sig = Math.max(4, (v * 0.25 / 6) * PXK); // רוחב הגל: v · 15 דק׳ / 6, בפיקסלים
       const cx = X(k);
       // פני הים: גבעת מים סביב החזית. אחרי השבירה הגבעה נשטחת והמים עולים על החוף.
       const fade = broken ? clamp(1 - after / 0.8, 0, 1) : 1;
@@ -85,24 +77,26 @@ export default {
       $("surf").setAttribute("d", s);
       // הצפה: לשון מים שמטפסת על החוף אחרי השבירה
       if (broken) {
-        const r = clamp(after / 1.4, 0, 1), up = 4 + clamp(broken.H * 1.6, 4, 16) * r, xr = X(K_SHORE) + 12 * r;
-        $("run").setAttribute("d", `M${X(broken.k).toFixed(1)} ${SURF}Q${(cx - 4).toFixed(1)} ${(SURF - up).toFixed(1)} ${xr.toFixed(1)} ${(SURF - up * 0.8).toFixed(1)}L${(xr + 2).toFixed(1)} ${SURF + 2}Z`);
+        // היבשה עולה מ־(300,72) אל (310,60) ו־(322,50): הלשון מטפסת לאורכה
+        const r = clamp(after / 1.4, 0, 1), xr = X(K_SHORE) + clamp(broken.H * 4, 6, 18) * r, yr = xr <= 310 ? SURF - (xr - 300) * 1.2 : 60 - (xr - 310) * 0.83;
+        const x0 = X(broken.k) - 30, top = SURF - 8 * r;
+        $("run").setAttribute("d", `M${x0.toFixed(1)} ${SURF}C${(x0 + 14).toFixed(1)} ${top.toFixed(1)} ${(xr - 12).toFixed(1)} ${(yr - 3 * r).toFixed(1)} ${xr.toFixed(1)} ${yr.toFixed(1)}L300 ${SURF}Z`);
       } else $("run").setAttribute("d", "");
       $("crest").setAttribute("cx", cx.toFixed(1));
       $("crest").setAttribute("cy", (SURF - amp * fade).toFixed(1));
       $("probe").setAttribute("d", broken ? "" : `M${cx.toFixed(1)} ${(SURF + 3).toFixed(1)}V${Y(d).toFixed(1)}`);
       // ספינה בלב ים: עולה ויורדת עם הגל, כמעט בלי להרגיש
-      const sx = X(70), se = amp * fade * Math.exp(-((sx - cx) ** 2) / (2 * sig * sig));
+      const sx = X(45), se = amp * fade * Math.exp(-((sx - cx) ** 2) / (2 * sig * sig));
       $("ship").setAttribute("transform", `translate(${sx} ${(SURF - se + 1).toFixed(1)})`);
 
       out(root, "v", broken ? "–" : fmt(v, 0));
-      out(root, "h", broken ? `≈${fmt(broken.H, 1)}` : fmt(H, H < 10 ? 2 : 1));
-      out(root, "dd", broken ? `≈${fmt(broken.d, 1)}` : fmt(d, d < 20 ? 1 : 0));
+      out(root, "h", broken ? fmt(broken.H, 1) : fmt(H, H < 10 ? 2 : 1));
+      out(root, "dd", broken ? fmt(broken.d, 1) : fmt(d, d < 20 ? 1 : 0));
       const min = Math.floor(simT / 60);
       out(root, "clock", `${Math.floor(min / 60)}:${String(min % 60).padStart(2, "0")} שעות מהרעידה`);
       let note;
       if (broken) note = `נשבר בעומק ${fmt(broken.d, 1)} מ׳. מכאן חוק גרין לא תקף: הגל שוטף את החוף`;
-      else if (k < K_DEEP) note = H < 1 ? "בלב ים: מהיר כמו מטוס, ונמוך ממטר. הספינה כמעט לא מרגישה" : `בלב ים: מהיר כמו מטוס, בגובה ${fmt(H, 1)} מ׳ בלבד`;
+      else if (k < K_DEEP) { const fast = v > 500 ? "מהיר כמו מטוס" : `${fmt(v, 0)} קמ״ש`; note = H < 1 ? `בלב ים: ${fast}, ונמוך ממטר. הספינה כמעט לא מרגישה` : `בלב ים: ${fast}, בגובה ${fmt(H, 1)} מ׳ בלבד`; }
       else if (k < K_SLOPE) note = "המדרון היבשתי: הים נעשה רדוד, והגל מתחיל להאט";
       else note = `על המדף: האט פי ${fmt(kmh(d0) / v, 0)} וגבוה פי ${fmt(H / h0, 1)} מבלב ים`;
       out(root, "note", note);
@@ -115,7 +109,6 @@ export default {
       drawBed();
       frame();
     });
-    $("again").addEventListener("click", () => { restart(); frame(); });
 
     loop(root, (dt) => {
       if (broken) {
