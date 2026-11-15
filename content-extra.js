@@ -310,7 +310,7 @@ export const EXTRA_TOPICS = [
     take: "עונות השנה נובעות מהנטייה של ציר כדור הארץ, לא מהמרחק מהשמש.",
   },
   {
-    id: "eye", cat: "nature", emoji: "👁️", title: "העין",
+    id: "eye", cat: "body", emoji: "👁️", title: "העין",
     sub: "מצלמה שהמוח משלים",
     hook: {
       q: "כמה משדה הראייה שלך חד באמת ברגע נתון?",
@@ -354,7 +354,7 @@ export const EXTRA_TOPICS = [
     take: "ענן הוא טיפות זעירות שנוצרו כשאוויר לח עלה והתקרר, וגשם הוא מה שקורה כשהן מתאחדות.",
   },
   {
-    id: "antibiotics", cat: "nature", emoji: "💊", title: "אנטיביוטיקה",
+    id: "antibiotics", cat: "body", emoji: "💊", title: "אנטיביוטיקה",
     sub: "לפגוע בחיידק בלי לפגוע בנו",
     hook: {
       q: "איך אנטיביוטיקה הורגת חיידקים בלי להזיק לתאי הגוף?",

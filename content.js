@@ -3,6 +3,7 @@
 import { MORE_TOPICS } from "./content-more.js";
 import { EXTRA_TOPICS } from "./content-extra.js";
 import { INVENTION_TOPICS } from "./content-inventions.js";
+import { WAVE3_TOPICS } from "./content-wave3.js";
 import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
@@ -11,7 +12,10 @@ export const CATEGORIES = [
   { id: "tech", name: "בכיס", emoji: "📱" },
   { id: "energy", name: "חשמל ואנרגיה", emoji: "⚡" },
   { id: "infra", name: "תשתיות", emoji: "🏗️" },
-  { id: "nature", name: "טבע וגוף", emoji: "🌩️" },
+  { id: "nature", name: "טבע ומזג אוויר", emoji: "🌩️" },
+  { id: "body", name: "גוף ובריאות", emoji: "🫀" },
+  { id: "space", name: "חלל", emoji: "🪐" },
+  { id: "digital", name: "מחשבים ורשת", emoji: "💻" },
   { id: "invent", name: "המצאות", emoji: "💡" },
 ];
 
@@ -457,7 +461,7 @@ const BASE_TOPICS = [
     take: "קשת היא אור שמש שנשבר, מוחזר ומתפרק לצבעים בתוך טיפות — בזווית קבועה ממך.",
   },
   {
-    id: "vaccine", cat: "nature", emoji: "💉", title: "חיסון",
+    id: "vaccine", cat: "body", emoji: "💉", title: "חיסון",
     sub: "אימון לפני הקרב האמיתי",
     hook: {
       q: "מה חיסון נותן לגוף?",
@@ -480,6 +484,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...INVENTION_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...INVENTION_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];

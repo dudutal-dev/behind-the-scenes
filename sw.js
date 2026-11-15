@@ -1,12 +1,14 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v8";
+const CACHE = "eich-ze-oved-v9";
 const SCENES = [
   "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "acdc", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
   "airbag", "jet", "ac", "pressure", "smoke", "screen", "fingerprint", "flash", "speaker", "transformer", "fiber", "watertower", "wastewater", "seasons", "eye", "rain", "antibiotics",
+  "rocket", "orbit", "eclipse", "sun", "moon", "lungs", "digestion", "neuron", "ear", "xray",
+  "internet", "search", "cpu", "blockchain", "compression", "washer", "dishwasher", "soap",
   "press", "steam", "telegraph", "telephone", "bulb", "radio", "phonograph", "photo", "transistor", "telescope",
 ];
 const FILES = [
-  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "manifest.webmanifest", "icon.svg", "scenes/scene.css",
+  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "manifest.webmanifest", "icon.svg", "scenes/scene.css",
   "fonts/heebo-hebrew-wght-normal.woff2", "fonts/heebo-latin-wght-normal.woff2",
   ...SCENES.map((id) => `scenes/${id}.js`),
 ];

@@ -420,7 +420,7 @@ export const MORE_TOPICS = [
     take: "גאות היא שתי בליטות מים שהירח יוצר, וכדור הארץ מסתובב דרכן פעמיים ביום.",
   },
   {
-    id: "heart", cat: "nature", emoji: "🫀", title: "הלב",
+    id: "heart", cat: "body", emoji: "🫀", title: "הלב",
     sub: "שתי משאבות בגוף אחד",
     hook: {
       q: "כמה משאבות יש בלב?",
