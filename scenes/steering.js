@@ -50,7 +50,7 @@ export default `
 
 <g class="only-3">
   <path class="arrow st-elec" marker-end="url(#steering-ar)" d="M200 96H226"><animate attributeName="opacity" values=".3;1;.3" dur="1s" repeatCount="indefinite"/></path>
-  <text x="234" y="120">מנוע עוזר</text>
+  <text x="226" y="114">מנוע עוזר</text>
   <path class="flow" d="M176 132L182 72"/>
 </g>
 

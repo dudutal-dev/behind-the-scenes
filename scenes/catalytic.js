@@ -37,7 +37,7 @@ export default `
   <path class="thin st-ink" style="stroke-width:1" clip-path="url(#catalytic-end)" d="M140 152V208M146 152V208M152 152V208M158 152V208M164 152V208M170 152V208M176 152V208M182 152V208M188 152V208M194 152V208M200 152V208M140 152H200M140 158H200M140 164H200M140 170H200M140 176H200M140 182H200M140 188H200M140 194H200M140 200H200M140 206H200"/>
   <path class="thin" style="stroke-dasharray:2 3" d="M170 154V142"/>
   <text x="80" y="176">חתך: כוורת</text>
-  <text x="80" y="191" class="sm">מאות תעלות לכל סמ״ר</text>
+  <text x="80" y="191" class="sm">עשרות תעלות בכל סמ״ר</text>
   <text x="258" y="176">שכבת זרז דקה</text>
   <text x="258" y="191" class="sm">פלטינה · פלדיום · רודיום</text>
   <text x="170" y="40">כוורת קרמית</text>

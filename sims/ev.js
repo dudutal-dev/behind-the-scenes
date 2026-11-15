@@ -70,10 +70,10 @@ export default {
         <!-- כוחות -->
         <path id="aero" class="arrow st-cold"/>
         <path id="aeroH" class="fl-cold"/>
-        <text id="aeroT" y="33" class="sm"></text>
+        <text id="aeroT" y="30" class="sm"></text>
         <path id="rollA" class="arrow st-green"/>
         <path id="rollH" class="fl-green"/>
-        <text id="rollT" y="117" class="sm"></text>
+        <text id="rollT" y="113" class="sm"></text>
         <!-- גרף הטווח -->
         <path class="thin st-ink" d="M186 22V100H308"/>
         <path class="thin" style="stroke-dasharray:2 3" d="M186 ${GY(500)}H306"/>
@@ -86,9 +86,10 @@ export default {
         <text x="${GX(30)}" y="111" class="sm">30</text>
         <text x="${GX(100)}" y="111" class="sm">100</text>
         <text x="${GX(160)}" y="111" class="sm">160</text>
-        <text x="247" y="21" class="sm">טווח (ק״מ) לפי מהירות</text>
+        <text x="270" y="33" class="sm">טווח (ק״מ)</text>
+        <text x="247" y="122" class="sm">מהירות (קמ״ש)</text>
         <!-- לאן הולכת האנרגיה -->
-        <text x="160" y="128" class="sm">לאן הולכת האנרגיה, קוט״ש ל־100 ק״מ</text>
+        <text x="90" y="128" class="sm">לאן הולכת האנרגיה, קוט״ש ל־100 ק״מ</text>
         <rect class="fl-soft" x="${BX}" y="133" width="${BW}" height="14" rx="3"/>
         <rect id="bRoll" class="fl-green" y="133" height="14"/>
         <rect id="bAir" class="fl-cold" y="133" height="14"/>
@@ -115,12 +116,13 @@ export default {
     let kmh = 100, roadOff = 0, wheelA = 0;
 
     const setBar = (id, x, w) => { $(id).setAttribute("x", x.toFixed(1)); $(id).setAttribute("width", Math.max(0, w).toFixed(1)); };
-    const arrow = (line, head, label, y, len, text) => {
+    const arrow = (line, head, label, y, len, text, above) => {
       // חץ שמצביע אחורה (שמאלה), מתחיל ליד חזית הרכב
       const x1 = 160, x0 = x1 - len;
       $(line).setAttribute("d", `M${x1} ${y}H${(x0 + 4).toFixed(1)}`);
       $(head).setAttribute("d", `M${x0.toFixed(1)} ${y}l7 -4.5v9z`);
-      $(label).setAttribute("x", Math.max(26, x0 - 18).toFixed(1));
+      // תווית: מעל אמצע החץ, או משמאל לראש החץ
+      $(label).setAttribute("x", (above ? Math.min(130, (x0 + x1) / 2) : Math.max(36, x0 - 34)).toFixed(1));
       out(root, label, text);
     };
 
@@ -133,8 +135,8 @@ export default {
       out(root, "use", fmt(r.total, 1));
 
       // כוחות: אורך החץ יחסי לכוח בניוטון (1 פיקסל ל־8 ניוטון)
-      arrow("aero", "aeroH", "aeroT", 36, 8 + r.fa / 8, `אוויר ${fmt(r.fa, 0)} נ׳`);
-      arrow("rollA", "rollH", "rollT", 112, 8 + r.fr / 8, `גלגול ${fmt(r.fr, 0)} נ׳`);
+      arrow("aero", "aeroH", "aeroT", 36, 8 + r.fa / 8, `גרר אוויר ${fmt(r.fa, 0)} נ׳`, true);
+      arrow("rollA", "rollH", "rollT", 110, 8 + r.fr / 8, `גלגול ${fmt(r.fr, 0)} נ׳`, false);
 
       // גרף
       $("cur").setAttribute("d", curve(tmp, cl));
