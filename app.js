@@ -262,17 +262,6 @@ function renderHome() {
       ${IC.fwd}</a>` : ""}
 
     <section>
-      <div class="sec-head"><h2>סרטונים</h2></div>
-      <div class="rail vrail">
-        ${[...VIDEOS.keys()].map((id) => `<a class="vcard" href="#/t/${id}/v">
-          <img src="videos/${id}.jpg" alt="" loading="lazy">
-          <span class="vplay-s">${glyph(GLYPH.play)}</span>
-          <span class="vcap"><b>${h(byId[id].title)}</b><small>${h(VIDEOS.get(id))}</small></span>
-        </a>`).join("")}
-      </div>
-    </section>
-
-    <section>
       <div class="sec-head"><h2>תחומים</h2><a href="#/lib">הכול ${IC.fwd}</a></div>
       <div class="tiles">
         ${CATEGORIES.map((c) => {
