@@ -4,6 +4,10 @@ import { MORE_TOPICS } from "./content-more.js";
 import { EXTRA_TOPICS } from "./content-extra.js";
 import { INVENTION_TOPICS } from "./content-inventions.js";
 import { WAVE3_TOPICS } from "./content-wave3.js";
+import { AI_A_TOPICS } from "./content-ai-a.js";
+import { AI_B_TOPICS } from "./content-ai-b.js";
+import { FRONTIER_A_TOPICS } from "./content-frontier-a.js";
+import { FRONTIER_B_TOPICS } from "./content-frontier-b.js";
 import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
@@ -16,6 +20,8 @@ export const CATEGORIES = [
   { id: "body", name: "גוף ובריאות", emoji: "🫀" },
   { id: "space", name: "חלל", emoji: "🪐" },
   { id: "digital", name: "מחשבים ורשת", emoji: "💻" },
+  { id: "ai", name: "בינה מלאכותית", emoji: "🤖" },
+  { id: "frontier", name: "חזית הטכנולוגיה", emoji: "🚀" },
   { id: "invent", name: "המצאות", emoji: "💡" },
 ];
 
@@ -307,7 +313,7 @@ const BASE_TOPICS = [
     take: "המנעול מבטיח שיחה פרטית — לא שהצד השני ישר.",
   },
   {
-    id: "llm", cat: "tech", emoji: "🤖", title: "צ׳אט בינה מלאכותית",
+    id: "llm", cat: "ai", emoji: "🤖", title: "צ׳אט בינה מלאכותית",
     sub: "איך מכונה כותבת משפטים",
     hook: {
       q: "מה מודל שפה עושה כשהוא עונה לך?",
@@ -484,6 +490,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...INVENTION_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...INVENTION_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];
