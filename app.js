@@ -110,13 +110,20 @@ const CAT_GLYPH = {
   frontier: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 4.500c2.600 1.900 4 4.500 4 7.700v3.300H8v-3.300c0-3.200 1.400-5.800 4-7.700z"/><path d="M10 17h4l-.700 2.500h-2.600z"/>',
   psy: '<path opacity=".5" d="M2.500 12.500C2.500 6.800 6.800 3 12 3s9.500 3.800 9.500 9.500z"/><path d="M9.300 12.500h5.400l.800 7a1.500 1.500 0 0 1-1.500 1.700h-4a1.500 1.500 0 0 1-1.500-1.700z"/><circle cx="8" cy="8.500" r="1.300"/><circle cx="14.500" cy="6.800" r="1.100"/><circle cx="17" cy="10" r="1"/>',
   arms: '<path opacity=".5" d="M12 2.500 4 5.500v6c0 4.800 3.400 8.700 8 10 4.600-1.300 8-5.200 8-10v-6z"/><path d="M12 6.500 8 8v4c0 2.600 1.700 4.800 4 5.700z"/>',
+  life: '<path opacity=".5" d="M7 3c0 4 10 5 10 9s-10 5-10 9h2.400c0-2.600 10-3.800 10-9S9.400 5.600 9.400 3z"/><path d="M17 3c0 4-10 5-10 9s10 5 10 9h-2.400c0-2.600-10-3.800-10-9s10-6.400 10-9z"/>',
+  cars: '<path opacity=".5" d="M5.200 10.500 7 6.300A2.500 2.500 0 0 1 9.300 4.800h5.400A2.500 2.500 0 0 1 17 6.300l1.800 4.200z"/><path d="M3 12.500a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2V17a1 1 0 0 1-1 1h-1v1.500a1.500 1.500 0 0 1-3 0V18H8v1.500a1.500 1.500 0 0 1-3 0V18H4a1 1 0 0 1-1-1zm3.500 3a1.300 1.300 0 1 0 0-2.600 1.300 1.300 0 0 0 0 2.600zm11 0a1.300 1.300 0 1 0 0-2.600 1.300 1.300 0 0 0 0 2.600z"/>',
   invent: '<path opacity=".5" d="M12 2.500a7 7 0 0 0-4 12.700V17h8v-1.800a7 7 0 0 0-4-12.700z"/><path d="M9 18.500h6V20a1.500 1.500 0 0 1-1.500 1.500h-3A1.500 1.500 0 0 1 9 20zM11 9h2v6h-2z"/>',
   body: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 17.800s-5.300-3.200-5.300-7.100a3 3 0 0 1 5.300-1.900 3 3 0 0 1 5.300 1.900c0 3.900-5.300 7.100-5.300 7.100z"/>',
   space: '<ellipse opacity=".5" cx="12" cy="12" rx="10.500" ry="3.700" transform="rotate(-20 12 12)"/><circle cx="12" cy="12" r="5.600"/>',
   digital: '<rect opacity=".5" x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.200"/><path d="M9 2.500h1.500V5H9zM13.500 2.500H15V5h-1.500zM9 19h1.500v2.500H9zM13.500 19H15v2.500h-1.500zM2.500 9H5v1.500H2.500zM2.500 13.500H5V15H2.500zM19 9h2.500v1.500H19zM19 13.500h2.500V15H19z"/>',
 };
 // סרטונים מונפשים: videos/<id>.mp4 + videos/<id>.jpg
-const VIDEOS = new Set([]);
+const VIDEOS = new Map([ // id → כותרת הכרטיס
+  ["mdma", "מה קורה במוח ב־60 שניות"],
+  ["psilocybin", "מה קורה במוח ב־60 שניות"],
+  ["lsd", "מה קורה במוח ב־60 שניות"],
+  ["fertilization", "המפגש ב־60 שניות"],
+]);
 const GLYPH = {
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
   expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
@@ -551,7 +558,7 @@ function buildCards(t, scene, sim) {
   if (VIDEOS.has(t.id)) cards.push({
     html: `<div class="card film">
         <span class="tag">${glyph(GLYPH.play)} סרטון</span>
-        <h3>מה קורה במוח ב־60 שניות</h3>
+        <h3>${h(VIDEOS.get(t.id))}</h3>
         <div class="vid paused"><video src="videos/${t.id}.mp4" poster="videos/${t.id}.jpg" playsinline preload="metadata"></video>
           <span class="vplay" aria-hidden="true">${glyph(GLYPH.play)}</span><span class="vbar"><i></i></span></div>
         <button type="button" class="btn sm ghost fs">${glyph(GLYPH.expand)} צפייה במסך מלא</button>

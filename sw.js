@@ -1,5 +1,5 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v28";
+const CACHE = "eich-ze-oved-v30";
 // בהתקנה מביאים את הקבצים ישר מהרשת (cache: "reload"), כדי שגרסה חדשה לא תיבנה מעותקים ישנים של הדפדפן.
 const SCENES = [
   "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "acdc", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
@@ -14,9 +14,11 @@ const SCENES = [
   "bow", "trebuchet", "gunpowder", "rifle", "machinegun", "tank", "submarine", "bodyarmor", "radar", "irondome", "stealth", "atomicbomb",
   "blackhole", "bigbang", "jwst", "iss", "hurricane", "volcano", "ship", "cardpay",
   "tsunami", "tornado", "geyser", "aurora", "bluesky", "snowflake", "mirage", "bioluminescence",
+  "fertilization", "pregnancy", "birth", "ivf", "dna", "heredity", "twins", "evolution",
+  "ev", "hybrid", "turbo", "catalytic", "differential", "clutch", "steering", "suspension", "tires", "crumple", "adas", "assemblyline",
 ];
 const FILES = [
-  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "content-ai-a.js", "content-ai-b.js", "content-frontier-a.js", "content-frontier-b.js", "content-brain-a.js", "content-brain-b.js", "content-psy-mdma.js", "content-psy-mushrooms.js", "content-psy-lsd.js", "content-arms-a.js", "content-arms-b.js", "content-arms-c.js", "content-space2.js", "content-mix2.js", "content-nature2-a.js", "content-nature2-b.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "sims/kit.js", ...["electricity", "transformer", "gearbox", "wind", "pressure", "anc", "orbit", "moon", "seasons", "lock", "telescope", "screen", "engine", "airplane", "gps", "elevator", "acdc", "battery", "led", "pv", "speaker", "nuclear", "heart", "cpu", "rocket", "tides", "eclipse", "rainbow", "brain", "mdma", "psilocybin", "lsd", "trebuchet", "submarine", "irondome", "blackhole", "ship", "tsunami", "bluesky"].map((id) => `sims/${id}.js`), "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
+  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "content-ai-a.js", "content-ai-b.js", "content-frontier-a.js", "content-frontier-b.js", "content-brain-a.js", "content-brain-b.js", "content-psy-mdma.js", "content-psy-mushrooms.js", "content-psy-lsd.js", "content-arms-a.js", "content-arms-b.js", "content-arms-c.js", "content-space2.js", "content-mix2.js", "content-nature2-a.js", "content-nature2-b.js", "content-life-a.js", "content-life-b.js", "content-cars-a.js", "content-cars-b.js", "content-cars-c.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "sims/kit.js", ...["electricity", "transformer", "gearbox", "wind", "pressure", "anc", "orbit", "moon", "seasons", "lock", "telescope", "screen", "engine", "airplane", "gps", "elevator", "acdc", "battery", "led", "pv", "speaker", "nuclear", "heart", "cpu", "rocket", "tides", "eclipse", "rainbow", "brain", "mdma", "psilocybin", "lsd", "trebuchet", "submarine", "irondome", "blackhole", "ship", "tsunami", "bluesky", "pregnancy", "heredity", "ev", "differential", "suspension", "abs"].map((id) => `sims/${id}.js`), "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
   "fonts/heebo-hebrew-wght-normal.woff2", "fonts/heebo-latin-wght-normal.woff2",
   ...SCENES.map((id) => `scenes/${id}.js`),
 ];
