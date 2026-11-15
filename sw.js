@@ -8,7 +8,7 @@ const SCENES = [
   "press", "steam", "telegraph", "telephone", "bulb", "radio", "phonograph", "photo", "transistor", "telescope",
 ];
 const FILES = [
-  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
+  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "sims/kit.js", ...["electricity"].map((id) => `sims/${id}.js`), "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
   "fonts/heebo-hebrew-wght-normal.woff2", "fonts/heebo-latin-wght-normal.woff2",
   ...SCENES.map((id) => `scenes/${id}.js`),
 ];

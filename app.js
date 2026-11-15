@@ -2,7 +2,8 @@ import { CATEGORIES, TOPICS } from "./content.js";
 import { SIM_IDS } from "./sims/index.js";
 
 const VERSION = "2.0";
-const SIMS = new Set(SIM_IDS);
+// ?sim=<id> בכתובת מפעיל הדמיה שעוד לא רשומה ב-sims/index.js (לפיתוח)
+const SIMS = new Set([...SIM_IDS, ...new URLSearchParams(location.search).getAll("sim")]);
 
 const KEY = "eich-ze-oved-v1";
 const INTERVALS = [1, 3, 7, 16, 35]; // ימים בין חזרות, לפי "קופסה"
@@ -80,6 +81,15 @@ async function loadScene(id) {
     catch { sceneCache[id] = null; } // אין איור — נופלים חזרה לאימוג'י
   }
   return sceneCache[id];
+}
+const simCache = {};
+async function loadSim(id) {
+  if (!SIMS.has(id)) return null;
+  if (!(id in simCache)) {
+    try { simCache[id] = (await import(`./sims/${id}.js`)).default; }
+    catch { simCache[id] = null; }
+  }
+  return simCache[id];
 }
 const sceneSvg = (scene, step, label) =>
   `<svg class="scene" viewBox="0 0 320 220" data-step="${step}" role="img" aria-label="${h(label)}">${scene}</svg>`;
@@ -464,7 +474,7 @@ function questionCard(label, q, onDone) {
   };
 }
 
-function buildCards(t, scene) {
+function buildCards(t, scene, sim) {
   const cards = [questionCard("לפני שמתחילים", t.hook)];
   t.steps.forEach((s, i) =>
     cards.push({
@@ -478,6 +488,15 @@ function buildCards(t, scene) {
       bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
     })
   );
+  if (sim) cards.push({
+    html: `<div class="card sim">
+        <span class="tag">${glyph(GLYPH.spark)} נסה בעצמך</span>
+        <h3>${h(sim.title)}</h3>
+        <div class="sim-root"></div>
+        <p class="muted">${h(sim.hint)}</p>
+      </div>`,
+    bind(root) { sim.mount(root.querySelector(".sim-root")); },
+  });
   if (t.history) cards.push({
     html: `<div class="card past">
         <span class="tag past-tag">${glyph(GLYPH.clock)} קצת היסטוריה</span>
@@ -518,9 +537,9 @@ const playerTop = (i, n, title, favId) => `
 async function renderTopic(id) {
   const t = byId[id];
   if (!t) return (location.hash = "#/");
-  const scene = await loadScene(id);
+  const [scene, sim] = await Promise.all([loadScene(id), loadSim(id)]);
   if (location.hash !== `#/t/${id}`) return; // המשתמש כבר עבר למסך אחר
-  const cards = buildCards(t, scene);
+  const cards = buildCards(t, scene, sim);
   let i = 0;
   app.className = `player c-${t.cat}`;
 
