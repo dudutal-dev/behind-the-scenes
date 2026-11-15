@@ -718,4 +718,19 @@ function route() {
 window.addEventListener("hashchange", route);
 route();
 
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => {});
+// עדכון אוטומטי: כשגרסה חדשה מותקנת ברקע, האפליקציה נטענת מחדש בפעם הבאה שנמצאים במסך הבית
+// (לא באמצע נושא או חזרה). בודקים אם יש גרסה חדשה בכל חזרה לאפליקציה ובכל מעבר לבית.
+if ("serviceWorker" in navigator) {
+  const sw = navigator.serviceWorker;
+  const hadController = !!sw.controller;
+  const onHome = () => { const v = location.hash.split("/")[1]; return !v && app.className !== "welcome"; };
+  let reg = null, pending = false, lastCheck = 0;
+  const check = () => {
+    if (pending && onHome() && document.visibilityState === "visible") { pending = false; location.reload(); return; }
+    if (reg && Date.now() - lastCheck > 60000) { lastCheck = Date.now(); reg.update().catch(() => {}); }
+  };
+  sw.register("./sw.js").then((r) => { reg = r; lastCheck = Date.now(); }).catch(() => {});
+  sw.addEventListener("controllerchange", () => { if (hadController) { pending = true; check(); } });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") check(); });
+  window.addEventListener("hashchange", check);
+}

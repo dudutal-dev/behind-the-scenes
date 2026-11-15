@@ -1,5 +1,6 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v21";
+const CACHE = "eich-ze-oved-v22";
+// בהתקנה מביאים את הקבצים ישר מהרשת (cache: "reload"), כדי שגרסה חדשה לא תיבנה מעותקים ישנים של הדפדפן.
 const SCENES = [
   "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "acdc", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
   "airbag", "jet", "ac", "pressure", "smoke", "screen", "fingerprint", "flash", "speaker", "transformer", "fiber", "watertower", "wastewater", "seasons", "eye", "rain", "antibiotics",
@@ -14,7 +15,7 @@ const FILES = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES.map((f) => new Request(f, { cache: "reload" })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (e) => {
