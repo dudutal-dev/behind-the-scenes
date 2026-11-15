@@ -99,10 +99,10 @@ export default `
   <g><animateTransform attributeName="transform" type="rotate" from="0 99 110" to="360 99 110" dur="6s" repeatCount="indefinite"/><use href="#washer-drum"/></g>
   <use href="#washer-c2" x="91.5" y="145.2"/><use href="#washer-c1" x="110.1" y="144.2"/><use href="#washer-c3" x="74.9" y="136.8"/>
   <g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;.41;.43;1" dur="9s" repeatCount="indefinite"/>
-    <g clip-path="url(#washer-tubclip)"><rect class="fl-dark" fill-opacity=".6" x="38" y="140" width="124" height="40"><animate attributeName="y" values="140;166;166" keyTimes="0;.4;1" dur="9s" repeatCount="indefinite"/></rect></g>
-    <path class="pipe" style="stroke-width:4;stroke:var(--s-dark)" d="M99 167V184"/><path class="flow" style="stroke-width:1.4" d="M99 167V184"/><path class="pipe" style="stroke-width:3;stroke:var(--s-dark)" d="M107 196C116 199 122 199 130 199H210V140C210 128 232 128 232 140V152"/><path class="flow" style="stroke-width:1.4" d="M107 196C116 199 122 199 130 199H210V140C210 128 232 128 232 140V152"/>
+    <g clip-path="url(#washer-tubclip)"><rect class="fl-line" fill-opacity=".7" x="38" y="140" width="124" height="40"><animate attributeName="y" values="140;166;166" keyTimes="0;.4;1" dur="9s" repeatCount="indefinite"/></rect></g>
+    <path class="pipe" style="stroke-width:4;stroke:var(--s-line)" d="M99 167V184"/><path class="flow" style="stroke-width:1.4" d="M99 167V184"/><path class="pipe" style="stroke-width:3;stroke:var(--s-line)" d="M107 196C116 199 122 199 130 199H210V140C210 128 232 128 232 140V152"/><path class="flow" style="stroke-width:1.4" d="M107 196C116 199 122 199 130 199H210V140C210 128 232 128 232 140V152"/>
     <path class="flow" style="stroke-width:2" d="M232 152V196H316"/>
-    <circle class="st-ink" style="fill:var(--s-dark)" stroke-width="2" cx="99" cy="192" r="9"/>
+    <circle class="st-ink" style="fill:var(--s-line)" stroke-width="2" cx="99" cy="192" r="9"/>
   </g>
   <g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.45;.47;1" dur="9s" repeatCount="indefinite"/>
     <g clip-path="url(#washer-tubclip)"><rect class="fl-cold" fill-opacity=".55" x="38" y="166" width="124" height="40"><animate attributeName="y" values="166;166;140;140" keyTimes="0;.47;.87;1" dur="9s" repeatCount="indefinite"/></rect></g>
