@@ -1,7 +1,7 @@
 import { CATEGORIES, TOPICS } from "./content.js";
 import { SIM_IDS } from "./sims/index.js";
 
-const VERSION = "2.0";
+const VERSION = "2.1";
 // ?sim=<id> בכתובת מפעיל הדמיה שעוד לא רשומה ב-sims/index.js (לפיתוח)
 const SIMS = new Set([...SIM_IDS, ...new URLSearchParams(location.search).getAll("sim")]);
 
@@ -116,6 +116,7 @@ const GLYPH = {
   spark: '<path d="M12 2.500l2.300 6.200 6.200 2.300-6.200 2.300L12 19.500l-2.300-6.200L3.500 11l6.200-2.300z"/><path opacity=".55" d="M19 15.500l.900 2.100 2.100.900-2.100.900-.900 2.100-.900-2.100-2.100-.900 2.100-.900z"/>',
   clock: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M11 6.500h2v5.100l3.600 2.100-1 1.700L11 12.700z"/>',
   mark: '<path d="M7 3.500h10A1.500 1.500 0 0 1 18.500 5v15.200a.600.600 0 0 1-.950.490L12 16.700l-5.550 3.990a.600.600 0 0 1-.950-.490V5A1.500 1.500 0 0 1 7 3.500z"/>',
+  tune: '<rect opacity=".5" x="3" y="3" width="18" height="18" rx="5"/><path d="M6.500 8.200h6.200a2.300 2.300 0 0 1 4.400 0h.400v1.600h-.400a2.300 2.300 0 0 1-4.400 0H6.500zM6.500 14.200h.400a2.300 2.300 0 0 1 4.400 0h6.200v1.600h-6.200a2.300 2.300 0 0 1-4.400 0h-.400z"/>',
   check: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10.700 16.300 6.900 12.500l1.500-1.500 2.300 2.300 5-5 1.500 1.500z"/>',
 };
 const badge = (d, cls = "") => `<span class="badge ${cls}">${glyph(d)}</span>`;
@@ -126,6 +127,7 @@ const TAB_IC = {
   home: CAT_GLYPH.home,
   lib: '<rect opacity=".5" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect opacity=".5" x="13" y="13" width="7.500" height="7.500" rx="2.200"/>',
   review: GLYPH.loop,
+  settings: '<circle opacity=".5" cx="12" cy="12" r="8.200"/><path d="M12 8.600a3.400 3.400 0 1 0 0 6.800 3.400 3.400 0 0 0 0-6.800zM10.700 2.500h2.600l.500 2.600h-3.600zM10.700 21.500h2.600l.500-2.600h-3.600zM2.500 10.700v2.600l2.600.500v-3.600zM21.500 10.700v2.600l-2.600.500v-3.600zM4.400 6.200l1.800-1.800 2.200 1.500-2.500 2.500zM19.600 17.800l-1.800 1.800-2.200-1.500 2.500-2.500zM6.200 19.600l-1.800-1.800 1.500-2.200 2.500 2.500zM17.800 4.400l1.800 1.800-1.500 2.200-2.500-2.500z"/>',
   me: '<rect opacity=".5" x="4" y="12" width="4.200" height="8.500" rx="1.600"/><rect x="9.900" y="4" width="4.200" height="16.500" rx="1.600"/><rect opacity=".5" x="15.800" y="8.500" width="4.200" height="12" rx="1.600"/>',
 };
 const TABS = [
@@ -133,6 +135,7 @@ const TABS = [
   { id: "lib", href: "#/lib", label: "ספרייה", c: "t-lib" },
   { id: "review", href: "#/review", label: "חזרה", c: "t-review" },
   { id: "me", href: "#/me", label: "התקדמות", c: "t-me" },
+  { id: "settings", href: "#/settings", label: "הגדרות", c: "t-set" },
 ];
 let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
 
@@ -169,6 +172,37 @@ function lazyScenes(root) {
   root.querySelectorAll("[data-scene]").forEach((el) => io.observe(el));
 }
 
+// ---------- מסך פתיחה (בכניסה הראשונה) ----------
+const INTRO_KEY = "eich-ze-oved-intro";
+const seenIntro = () => { try { return !!localStorage.getItem(INTRO_KEY); } catch { return true; } };
+function renderWelcome() {
+  app.className = "welcome";
+  const feature = (g, cls, title, text) => `<li>${badge(g, `${cls} sm`)}<span><b>${title}</b><small>${text}</small></span></li>`;
+  app.innerHTML = `
+    <div class="w-scroll">
+      <div class="w-hero">
+        <img src="icon-192.png" alt="" width="84" height="84">
+        <h1 class="brand">מאחורי <em>הקלעים</em></h1>
+        <p>איך דברים עובדים באמת — בשתי דקות לכל דבר</p>
+        <p class="w-stats"><b>${TOPICS.length}</b> דברים · <b>${CATEGORIES.length}</b> תחומים · <b>${SIMS.size}</b> הדמיות</p>
+      </div>
+      <ul class="w-list">
+        ${feature(GLYPH.spark, "c-move", "המנגנון, לא הכותרת", "ארבעה שלבים קצרים ואיור מונפש לכל דבר.")}
+        ${feature(GLYPH.tune, "c-energy", "נסה בעצמך", "הדמיות שמזיזים בהן, ורואים מיד מה משתנה.")}
+        ${feature(GLYPH.clock, "c-invent", "הסיפור שמאחור", "קצת היסטוריה, וטעות נפוצה אחת.")}
+        ${feature(GLYPH.loop, "c-done", "כדי שזה יישאר", "שאלות קצרות שחוזרות אליך מדי פעם.")}
+      </ul>
+    </div>
+    <div class="w-foot">
+      <button id="start" class="btn">בואו נתחיל ${IC.fwd}</button>
+      <small>בלי הרשמה. הכול נשמר במכשיר, ועובד גם בלי רשת.</small>
+    </div>`;
+  document.getElementById("start").addEventListener("click", () => {
+    try { localStorage.setItem(INTRO_KEY, "1"); } catch { /* מצב פרטי */ }
+    if (location.hash && location.hash !== "#/") location.hash = "#/"; else route();
+  });
+}
+
 // ---------- בית ----------
 function renderHome() {
   const today = todaysTopic();
@@ -189,7 +223,6 @@ function renderHome() {
           ${badge(GLYPH.flame, "c-flame sm")}
           <span><b>${streak}</b>${streak === 1 ? "יום" : "ימים"}</span>
         </a>
-        <a class="icon-btn" href="#/settings" aria-label="הגדרות">${IC.settings}</a>
       </div>
     </header>
 
@@ -342,10 +375,7 @@ function renderMe() {
       }).join("")}
       </div>
     </section>
-    <a class="notice" href="#/settings">
-      <span class="icon-btn flat">${IC.settings}</span>
-      <span class="notice-text"><b>הגדרות</b><small>גיבוי ושחזור, איפוס, אודות</small></span>
-      ${IC.fwd}</a>`);
+    `);
 }
 
 // ---------- הגדרות, גיבוי ואודות ----------
@@ -362,8 +392,17 @@ function importState(raw) {
 }
 function renderSettings() {
   const doneCount = Object.keys(state.done).length;
-  page("me", `
-    <header class="page-head"><h1>הגדרות</h1><a class="meta" href="#/me">להתקדמות ${IC.fwd}</a></header>
+  page("settings", `
+    <header class="page-head"><h1>הגדרות</h1></header>
+
+    <section>
+      <div class="sec-head"><h2>תצוגה</h2></div>
+      <div class="panel">
+        <div class="seg-btns" id="theme" role="group" aria-label="ערכת צבעים">
+          ${[["light", "בהירה"], ["dark", "כהה"], ["auto", "לפי המכשיר"]].map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${v === window.applyTheme()}">${l}</button>`).join("")}
+        </div>
+      </div>
+    </section>
 
     <section>
       <div class="sec-head"><h2>גיבוי ושחזור</h2></div>
@@ -396,7 +435,8 @@ function renderSettings() {
         <img src="icon-192.png" alt="" width="64" height="64">
         <div>
           <b>מאחורי הקלעים</b>
-          <small>גרסה ${VERSION} · ${TOPICS.length} דברים ב־${CATEGORIES.length} תחומים</small>
+          <small>גרסה ${VERSION} · ${TOPICS.length} דברים ב־${CATEGORIES.length} תחומים · ${SIMS.size} הדמיות</small>
+          <small class="dev">פיתוח: דודו טל</small>
         </div>
       </div>
       <div class="panel">
@@ -404,6 +444,7 @@ function renderSettings() {
         <p><b>פרטיות.</b> האפליקציה אינה אוספת מידע ואינה שולחת דבר לשום שרת. הכול נשמר במכשיר, והיא עובדת גם בלי רשת.</p>
         <p><b>על התוכן.</b> הטקסטים והאיורים נוצרו בעזרת בינה מלאכותית. הפרטים ההיסטוריים נבדקו מול מקורות ותוקנו, אבל ייתכנו אי־דיוקים; ההסברים מפושטים בכוונה ואינם תחליף לספר לימוד או לייעוץ מקצועי.</p>
         <p class="muted">הגופן Heebo מופץ ברישיון Open Font License.</p>
+        <button id="intro" class="link">הצגת מסך הפתיחה</button>
       </div>
     </section>`);
 
@@ -439,6 +480,14 @@ function renderSettings() {
   document.getElementById("reset").addEventListener("click", () => {
     if (confirm("למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים?")) { state = EMPTY(); save(); renderSettings(); }
   });
+  document.getElementById("theme").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    try { localStorage.setItem("eich-ze-oved-theme", b.dataset.v); } catch { /* מצב פרטי */ }
+    window.applyTheme();
+    b.parentNode.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  });
+  document.getElementById("intro").addEventListener("click", () => { renderWelcome(); window.scrollTo(0, 0); });
 }
 
 // ---------- נגן ----------
@@ -567,7 +616,8 @@ async function renderTopic(id) {
       <nav class="p-nav">
         <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
         ${last
-          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
+          ? `<a class="icon-btn home-btn" href="#/" aria-label="לדף הבית">${glyph(CAT_GLYPH.home)}</a>
+             <a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך ${IC.fwd}</button>`}
       </nav>`;
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
@@ -653,6 +703,7 @@ function runReview(queue) {
 // ---------- ניתוב ----------
 function route() {
   const [, view, id] = location.hash.split("/");
+  if (view !== "t" && !seenIntro()) { renderWelcome(); window.scrollTo(0, 0); return; }
   if (view === "t") renderTopic(id);
   else {
     backTo = location.hash || "#/";

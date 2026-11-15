@@ -5,12 +5,10 @@
   --s-elec:#f2b705; --s-green:#2e9d5b; --s-violet:#8b5cf6; --s-dark:#3b3a41;
   display:block;width:100%;height:auto;border-radius:18px;background:var(--s-bg);margin:12px 0 4px;
 }
-@media (prefers-color-scheme: dark){
-  .scene{
+[data-theme="dark"] .scene{
     --s-bg:#111425; --s-ink:#f1ede4; --s-line:#8a90a8; --s-panel:#232840; --s-soft:#2d3350;
     --s-hot:#ff6b4f; --s-warm:#ffb04d; --s-cold:#5db4ff; --s-cold-soft:#1d3247;
     --s-elec:#ffd23d; --s-green:#5fd08a; --s-violet:#b196ff; --s-dark:#565663;
-  }
 }
 
 /* טקסט */
