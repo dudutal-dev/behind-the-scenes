@@ -33,7 +33,7 @@ const big = (n) => {
 
 export default {
   title: "דחסו מסה לחור שחור",
-  hint: "האופק גדל ביחס ישר למסה: כ־3 ק״מ לכל שמש. קרבו את החללית: מהירות המילוט עולה, ובאופק היא מגיעה למהירות האור.",
+  hint: "המסה במסות שמש. האופק גדל ביחס ישר למסה: כ־3 ק״מ לכל שמש. קרבו את החללית: מהירות המילוט עולה, ובאופק היא מגיעה למהירות האור.",
   mount(root) {
     root.innerHTML = `
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="סרגל שמשווה את קוטר האופק לגדלים מוכרים, ומתחתיו חור שחור וחללית ששולחת הבזק אור">
@@ -72,7 +72,7 @@ export default {
         <text id="note" x="160" y="194" class="sm"></text>
       </svg>
       ${readouts([{ id: "rs", label: "רדיוס האופק (ק״מ)" }, { id: "ve", label: "מהירות מילוט (ק״מ/ש)" }])}
-      ${range({ id: "m", label: "מסה (שמשות)", min: 0.5, max: 10, step: 0.05, value: 1 })}
+      ${range({ id: "m", label: "מסה", min: 0.5, max: 10, step: 0.05, value: 1 })}
       ${range({ id: "r", label: "מרחק (ק״מ)", min: 0, max: 11, step: 0.05, value: 2 })}`;
 
     const q = (s) => root.querySelector(s);
@@ -82,7 +82,7 @@ export default {
 
     wire(root, ({ m, r }) => {
       const M = 10 ** m, R = 10 ** r, Rs = RS_SUN * M, D = 2 * Rs;
-      out(root, "m-out", big(M));
+      out(root, "m-out", M < 1e3 ? `${fmt(M, M < 10 ? 1 : 0)} שמשות` : big(M));
       out(root, "r-out", big(R));
       out(root, "rs", big(Rs));
       const inside = R <= Rs;
@@ -92,10 +92,12 @@ export default {
       // הסרגל: קוטר האופק מול גדלים מוכרים
       const mx = lx(D);
       q("#mark").setAttribute("transform", `translate(${mx.toFixed(1)} 0)`);
-      let near = ITEMS[0];
-      ITEMS.forEach((it) => { if (Math.abs(Math.log10(it[0] / D)) < Math.abs(Math.log10(near[0] / D))) near = it; });
+      // משווים לפריט הגדול ביותר שקטן מהקוטר (או לקטן ביותר, אם הקוטר קטן מכולם)
+      const smaller = ITEMS.filter((it) => it[0] <= D * 1.15).sort((a, b) => b[0] - a[0]);
+      const near = smaller[0] || ITEMS[0];
+      const nm = near[1] === "עד השמש" ? "המרחק לשמש" : near[1] === "אוורסט" ? "גובה האוורסט" : near[1] === "מרתון" ? "מרתון" : `קוטר ${near[1]}`;
       const ratio = D / near[0];
-      const cmp = ratio >= 1.15 ? `פי ${fmt(ratio, ratio < 10 ? 1 : 0)} מ${near[1] === "עד השמש" ? "המרחק לשמש" : near[1]}` : ratio <= 0.87 ? `${fmt(ratio * 100, 0)}% מ${near[1] === "עד השמש" ? "המרחק לשמש" : near[1]}` : `בערך כמו ${near[1] === "עד השמש" ? "המרחק לשמש" : near[1]}`;
+      const cmp = ratio >= 1.15 ? `פי ${fmt(ratio, ratio < 10 ? 1 : 0)} מ${nm}` : ratio <= 0.87 ? `${fmt(ratio * 100, 0)}% מ${nm}` : `בערך כמו ${nm}`;
       const known = Math.abs(m - Math.log10(4.3e6)) < 0.12 ? " · כמו קשת A*" : Math.abs(m - Math.log10(6.5e9)) < 0.12 ? " · כמו M87*" : "";
       const tx = q("#markt");
       tx.textContent = `קוטר האופק ${big(D)} ק״מ: ${cmp}${known}`;
@@ -109,8 +111,8 @@ export default {
       probe.setAttribute("transform", `translate(${x.toFixed(1)} ${PY})`);
       dist.setAttribute("d", `M${PX0} ${PY}H${x.toFixed(1)}`);
       const pt = q("#probet");
-      pt.setAttribute("x", clamp(x, 40, 290).toFixed(1));
-      pt.textContent = inside ? "חללית — בתוך האופק" : "חללית";
+      pt.setAttribute("x", clamp(inside ? Math.max(x, PX0 + rp + 52) : x, 40, 280).toFixed(1));
+      pt.textContent = inside ? "החללית בתוך האופק" : "חללית";
       const ht = q("#holet");
       if (rp < 4) { ht.textContent = "החור השחור, בקנה מידה: כמעט נקודה"; ht.setAttribute("x", "120"); }
       else if (rp < 150) { ht.textContent = "אופק האירועים"; ht.setAttribute("x", clamp(PX0 + rp + 34, 70, 270).toFixed(1)); }
