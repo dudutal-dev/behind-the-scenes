@@ -13,7 +13,7 @@ const XM = 124;                        // קו הסימון האנכי
 
 export default {
   title: "כוונו את הגל ההפוך",
-  hint: "גל הפוך בדיוק ובאותה עוצמה נותן שקט. ככל שהוא מאחר, הביטול נחלש, ומעבר לשישית מחזור (60°) הוא כבר מגביר את הרעש.",
+  hint: "גל הפוך בדיוק ובאותה עוצמה נותן שקט. ככל שהוא מאחר הביטול נחלש, ומעבר ל־60° הוא כבר מגביר את הרעש.",
   mount(root) {
     root.innerHTML = `
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="שלושה גלים: הרעש, הגל ההפוך שמשמיעה האוזנייה, והסכום שמגיע לאוזן">
@@ -48,7 +48,7 @@ export default {
       out(root, "ph-out", `${v.ph}°`);
       out(root, "res", `${fmt(R * 100, 0)}%`);
       const dB = 20 * Math.log10(R);
-      out(root, "db", R < 0.005 ? "שקט" : `${dB > 0.05 ? "+" : dB < -0.05 ? "−" : ""}${fmt(Math.abs(dB), 1)}`);
+      out(root, "db", R < 0.005 ? "שקט" : `\u200e${dB > 0.05 ? "+" : dB < -0.05 ? "−" : ""}${fmt(Math.abs(dB), 1)}`);
       out(root, "tag", `${fmt(R * 100, 0)}%`);
       el.ws.setAttribute("class", `wire ${R > 1.005 ? "st-hot" : R < 0.3 ? "st-green" : "st-ink"}`);
       out(root, "note",

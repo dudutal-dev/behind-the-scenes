@@ -13,7 +13,16 @@ const VC = Math.sqrt(GM / R0), VE = Math.sqrt((2 * GM) / R0);
 const CX = 160, CY = 60, RP = 30, S = RP / RE; // פיקסלים לק״מ
 const TAU = 2 * Math.PI;
 
-const sx = (x) => CX + x * S, sy = (y) => CY - y * S;
+// מיפוי לציור: קנה מידה אמיתי, ועוד "הגבהה" של עד 7 פיקסלים לגבהים נמוכים (אחרת 200 ק״מ הם פחות מפיקסל
+// ומסלולי הנפילה נבלעים בקו המתאר של כדור הארץ). ההגבהה רוויה מעל כ-800 ק״מ, כך שצורת המסלולים הגדולים נשמרת.
+const BUMP = 7, HS = 250;
+const px = (x, y) => {
+  const r = Math.hypot(x, y) || 1;
+  const rp = RP + (r - RE) * S + BUMP * (1 - Math.exp(-Math.max(0, r - RE) / HS));
+  return [CX + (x / r) * rp, CY - (y / r) * rp];
+};
+const pt = (x, y) => { const p = px(x, y); return `${p[0].toFixed(1)} ${p[1].toFixed(1)}`; };
+const TOP = px(0, R0)[1]; // גובה נקודת הירי בציור
 
 function simulate(v) {
   let x = 0, y = R0, vx = v, vy = 0, t = 0, ang = 0, pa = Math.PI / 2;
@@ -60,7 +69,7 @@ const dur = (s) => {
 };
 const pathOf = (pts, n = pts.length) => {
   let d = "";
-  for (let i = 0; i < n; i++) d += `${i ? "L" : "M"}${sx(pts[i][0]).toFixed(1)} ${sy(pts[i][1]).toFixed(1)}`;
+  for (let i = 0; i < n; i++) d += `${i ? "L" : "M"}${pt(pts[i][0], pts[i][1])}`;
   return d;
 };
 
@@ -71,13 +80,13 @@ export default {
     const btn = "flex:1;min-height:42px;border-radius:13px;font-size:15px;font-weight:700;border:1px solid var(--line);";
     root.innerHTML = `
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="כדור הארץ ותותח על הר שיורה פגז אופקית; מסלול הפגז מצויר בזמן הטיסה">
-        <g id="old"></g>
         <circle class="fl-cold st-ink" stroke-width="2" cx="${CX}" cy="${CY}" r="${RP}"/>
         <path class="fl-green" opacity=".85" d="M146 44c6-5 14-4 17 1 2 5-3 8-2 13 1 6-6 9-10 5-3-4 1-8-2-11-2-3-5-5-3-8zM171 62c5-2 10 1 10 6s-4 10-8 9c-4-2-1-6-3-9-1-2-2-5 1-6zM140 70c3-1 6 1 6 4s-2 5-4 4c-3-1-4-7-2-8z"/>
-        <path class="fl-ink" d="M156.5 31.2L160 27.6 163.5 31.2Z"/>
+        <path class="fl-ink" d="M155 30.6L160 ${(TOP + 0.5).toFixed(1)} 165 30.6Z"/>
+        <g id="old"></g>
         <path id="aim" class="arrow st-hot" style="stroke-width:1.8"/>
         <path id="cur" class="wire st-hot" style="stroke-width:2.2"/>
-        <circle id="ball" class="fl-ink" r="3" cx="${CX}" cy="${sy(R0)}"/>
+        <circle id="ball" class="fl-ink" r="3" cx="${CX}" cy="${TOP.toFixed(1)}"/>
         <text x="64" y="15" class="sm">תותח על הר בגובה ${H} ק״מ</text>
         <text x="64" y="26" class="sm">(ההר אינו בקנה מידה)</text>
         <text id="n1" x="66" y="179" class="sm"></text>
@@ -104,7 +113,7 @@ export default {
       old.appendChild(p);
       while (old.children.length > 6) old.firstChild.remove();
     };
-    const place = (x, y) => { ball.setAttribute("cx", sx(x)); ball.setAttribute("cy", sy(y)); };
+    const place = (x, y) => { const p = px(x, y); ball.setAttribute("cx", p[0]); ball.setAttribute("cy", p[1]); };
 
     const finish = () => {
       const s = shot.sim;
@@ -138,7 +147,7 @@ export default {
       if (shot) addOld(shot.sim);
       const sim = simulate(v);
       // משך ההצגה: בערך פי 1,500 מהר מהמציאות, אבל לא פחות מ-1.2 שניות ולא יותר מ-12
-      shot = { sim, tp: 0, i: 0, d: `M${sx(0).toFixed(1)} ${sy(R0).toFixed(1)}`, done: false, rate: sim.T / clamp(sim.T / 1500, 1.2, 12) };
+      shot = { sim, tp: 0, i: 0, d: `M${pt(0, R0)}`, done: false, rate: sim.T / clamp(sim.T / 1500, 1.2, 12) };
       cur.setAttribute("d", "");
       res.textContent = "בטיסה…";
       val.textContent = "0 שניות";
@@ -152,7 +161,7 @@ export default {
     wire(root, ({ v }) => {
       speed = v;
       out(root, "v-out", `${v.toFixed(1)} ק״מ/ש`);
-      const x1 = CX + 5 + v * 3.2, y = sy(R0) - 0.2;
+      const x1 = CX + 5 + v * 3.2, y = TOP;
       aim.setAttribute("d", v > 0 ? `M${CX + 3} ${y}H${x1}M${x1 - 4} ${y - 3}L${x1} ${y}L${x1 - 4} ${y + 3}` : "");
     });
 
@@ -177,7 +186,7 @@ export default {
       let moved = false;
       while (shot.i < last && pts[shot.i + 1][2] <= shot.tp) {
         shot.i++;
-        if (!shot.done) { shot.d += `L${sx(pts[shot.i][0]).toFixed(1)} ${sy(pts[shot.i][1]).toFixed(1)}`; moved = true; }
+        if (!shot.done) { shot.d += `L${pt(pts[shot.i][0], pts[shot.i][1])}`; moved = true; }
       }
       const a = pts[shot.i], b = pts[Math.min(last, shot.i + 1)];
       const f = b[2] > a[2] ? clamp((shot.tp - a[2]) / (b[2] - a[2]), 0, 1) : 0;

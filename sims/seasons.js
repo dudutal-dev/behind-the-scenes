@@ -67,7 +67,7 @@ export default {
       ${readouts([{ id: "el", label: "שמש בצהריים" }, { id: "len", label: "אורך היום" }, { id: "sea", label: "עונה" }])}
       ${range({ id: "d", label: "תאריך", min: 1, max: 365, step: 1, value: 172 })}
       ${choice({ id: "lat", label: "מקום", value: "32", options: [
-        { v: "0", label: "קו המשווה" }, { v: "32", label: "ישראל" }, { v: "66.56", label: "חוג הקוטב" }, { v: "-32", label: "דרום 32°" }] })}`;
+        { v: "0", label: "קו המשווה" }, { v: "32", label: "ישראל" }, { v: "66.6", label: "חוג הקוטב" }, { v: "-32", label: "דרום 32°" }] })}`;
 
     const q = (s) => root.querySelector(s);
     const sea = q("#sea"); sea.style.fontSize = "18px"; sea.style.lineHeight = "25px";
