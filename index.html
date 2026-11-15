@@ -122,6 +122,15 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .fmeta small{display:block;font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fmeta .btn{flex:none;min-height:34px;padding:0 12px;font-size:13px;border-radius:12px}
 .fmeta .btn svg{width:14px;height:14px}
+.fheart{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.12)}
+.fheart svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8}
+.fheart.on svg{fill:#ff4d6d;stroke:#ff4d6d}
+.fend{position:absolute;z-index:3;inset:0;bottom:calc(74px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:rgba(5,7,15,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:view .3s ease-out}
+.fend[hidden]{display:none}
+.fend b{font-size:24px;font-weight:800;margin-bottom:6px}
+.fend .btn{min-width:220px}
+.fend .ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
 .fbar{position:absolute;z-index:2;inset-inline:0;bottom:calc(74px + env(safe-area-inset-bottom));height:3px;background:rgba(255,255,255,.15)}
 .fbar i{position:absolute;right:0;top:0;bottom:0;width:0;background:#fff}
 .fsound{position:fixed;z-index:6;top:max(14px,env(safe-area-inset-top));inset-inline-start:14px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;

@@ -14,7 +14,7 @@ const byId = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
 const ORDERED = CATEGORIES.flatMap((c) => TOPICS.filter((t) => t.cat === c.id));
 
 // ---------- מצב ----------
-const EMPTY = () => ({ done: {}, srs: {}, favs: {}, streak: { last: "", count: 0 } });
+const EMPTY = () => ({ done: {}, srs: {}, favs: {}, vseen: {}, streak: { last: "", count: 0 } });
 function load() {
   try { return { ...EMPTY(), ...JSON.parse(localStorage.getItem(KEY) || "{}") }; }
   catch { return EMPTY(); }
@@ -131,6 +131,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["engine", "ארבע פעימות ב־60 שניות"],
 ]);
 const GLYPH = {
+  heart: '<path d="M12 20.300s-7.800-4.700-7.800-10.500a4.500 4.500 0 0 1 7.800-3 4.500 4.500 0 0 1 7.800 3c0 5.800-7.800 10.500-7.800 10.500z"/>',
   sound: '<path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path opacity=".6" d="M15 8.600a4.600 4.600 0 0 1 0 6.800l-1.100-1.100a3 3 0 0 0 0-4.600zM17.400 6.200a8 8 0 0 1 0 11.600l-1.100-1.100a6.400 6.400 0 0 0 0-9.400z"/>',
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
   expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
@@ -232,8 +233,10 @@ function renderWelcome() {
 // ---------- פיד: כל הסרטונים בסדר אקראי, אחד אחרי השני ----------
 let feedSound = false; // אחרי שהמשתמש הפעיל קול פעם אחת, הוא נשאר פעיל
 function renderFeed() {
-  const ids = [...VIDEOS.keys()];
-  for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
+  // קודם סרטונים שעוד לא נצפו, כל קבוצה בסדר אקראי
+  const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const all = [...VIDEOS.keys()];
+  const ids = [...shuffle(all.filter((id) => !state.vseen[id])), ...shuffle(all.filter((id) => state.vseen[id]))];
   page("feed", `<div class="feed" id="feed">${ids.map((id) => {
     const t = byId[id];
     return `<section class="fslide" data-id="${id}">
@@ -241,7 +244,13 @@ function renderFeed() {
       <img class="fposter" src="videos/${id}.jpg" alt="">
       <div class="fmeta">
         <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(VIDEOS.get(id))}</small></span>
+        <button type="button" class="fheart${state.favs[id] ? " on" : ""}" data-id="${id}" aria-pressed="${!!state.favs[id]}" aria-label="שמירה במועדפים">${glyph(GLYPH.heart)}</button>
         <a class="btn sm" href="#/t/${id}">לנושא ${IC.fwd}</a>
+      </div>
+      <div class="fend" hidden>
+        <b>רוצים להבין לעומק?</b>
+        <a class="btn" href="#/t/${id}">ספר לי עוד ${IC.fwd}</a>
+        <button type="button" class="btn ghost fnext">לסרטון הבא <span class="fcount"></span></button>
       </div>
       <span class="fbar"><i></i></span>
     </section>`;
@@ -270,9 +279,33 @@ function renderFeed() {
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && e.intersectionRatio > 0.6) activate(e.target); }), { root: feed, threshold: [0.6] });
   feed.querySelectorAll(".fslide").forEach((s) => io.observe(s));
   v.addEventListener("timeupdate", () => { const b = cur?.querySelector(".fbar i"); if (b) b.style.width = `${(100 * v.currentTime) / (v.duration || 60)}%`; });
-  v.addEventListener("ended", () => { const n = cur?.nextElementSibling; if (n) n.scrollIntoView({ behavior: "smooth" }); });
+  // סימון כ"נצפה" אחרי 10 שניות; בסוף: מסך "ספר לי עוד" ומעבר אוטומטי לבא אחרי 5 שניות
+  let endTimer = 0;
+  const goNext = () => { clearInterval(endTimer); const n = cur?.nextElementSibling; if (n) n.scrollIntoView({ behavior: "smooth" }); };
+  v.addEventListener("timeupdate", () => { if (v.currentTime > 10 && cur && !state.vseen[cur.dataset.id]) { state.vseen[cur.dataset.id] = dayKey(); save(); } });
+  v.addEventListener("ended", () => {
+    const end = cur?.querySelector(".fend"); if (!end) return;
+    end.hidden = false;
+    let n = 5; const c = end.querySelector(".fcount"); c.textContent = `(${n})`;
+    clearInterval(endTimer);
+    endTimer = setInterval(() => { n--; c.textContent = `(${n})`; if (n <= 0) goNext(); }, 1000);
+  });
+  feed.addEventListener("scroll", () => { clearInterval(endTimer); feed.querySelectorAll(".fend").forEach((e) => { if (!e.closest(".fslide").contains(v)) e.hidden = true; }); }, { passive: true });
   // נגיעה בסרטון: עצירה / המשך; כפתור הקול: השתקה / הפעלה
-  feed.addEventListener("click", (e) => { if (e.target.closest("a")) return; if (v.paused) v.play().catch(() => {}); else v.pause(); });
+  feed.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    const heart = e.target.closest(".fheart");
+    if (heart) {
+      const id = heart.dataset.id;
+      if (state.favs[id]) delete state.favs[id]; else state.favs[id] = dayKey();
+      save();
+      heart.classList.toggle("on", !!state.favs[id]); heart.setAttribute("aria-pressed", String(!!state.favs[id]));
+      return;
+    }
+    if (e.target.closest(".fnext")) { goNext(); return; }
+    if (e.target.closest(".fend")) return;
+    if (v.paused) v.play().catch(() => {}); else v.pause();
+  });
   snd.addEventListener("click", () => { v.muted = !v.muted; feedSound = !v.muted; setSnd(); if (v.paused) v.play().catch(() => {}); });
   feed.addEventListener("scroll", () => document.getElementById("fhint")?.remove(), { once: true });
 }
@@ -460,7 +493,7 @@ function importState(raw) {
   const known = (o) => Object.fromEntries(Object.entries(o || {}).filter(([k]) => byId[k.split(":")[0]]));
   return {
     ...EMPTY(),
-    done: known(s.done), srs: known(s.srs), favs: known(s.favs),
+    done: known(s.done), srs: known(s.srs), favs: known(s.favs), vseen: known(s.vseen),
     streak: { last: String(s.streak?.last || ""), count: Number(s.streak?.count) || 0 },
   };
 }
