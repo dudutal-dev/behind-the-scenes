@@ -18,6 +18,8 @@ import { ARMS_B_TOPICS } from "./content-arms-b.js";
 import { ARMS_C_TOPICS } from "./content-arms-c.js";
 import { SPACE2_TOPICS } from "./content-space2.js";
 import { MIX2_TOPICS } from "./content-mix2.js";
+import { NATURE2_A_TOPICS } from "./content-nature2-a.js";
+import { NATURE2_B_TOPICS } from "./content-nature2-b.js";
 import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
@@ -502,6 +504,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...INVENTION_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...NATURE2_A_TOPICS, ...NATURE2_B_TOPICS, ...INVENTION_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];
