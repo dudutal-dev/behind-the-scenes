@@ -113,7 +113,7 @@ function renderHome() {
   app.innerHTML = `
     <header class="mast">
       <h1 class="brand">איך זה עובד</h1>
-      <div class="stats">${streak ? `רצף <b>${streak}</b> ימים · ` : ""}<b>${doneCount}</b> מתוך ${TOPICS.length}</div>
+      <div class="stats">${streak === 1 ? "רצף של יום אחד · " : streak ? `רצף <b>${streak}</b> ימים · ` : ""}<b>${doneCount}</b> מתוך ${TOPICS.length}</div>
     </header>
 
     <a class="hero" href="#/t/${today.id}">
