@@ -1,13 +1,13 @@
 /* ערכת הסגנון של האיורים. כל סצנה היא SVG ב-viewBox של 320x220 שמקבל data-step: 1-4 או all. */
 .scene{
-  --s-bg:#f1eee8; --s-ink:#2a2620; --s-line:#8d8372; --s-panel:#ffffff; --s-soft:#e4dfd5;
+  --s-bg:#eef0f8; --s-ink:#2a2620; --s-line:#8389a0; --s-panel:#ffffff; --s-soft:#dfe3f0;
   --s-hot:#e5482d; --s-warm:#f29a2e; --s-cold:#2f8fe0; --s-cold-soft:#d9ecfb;
   --s-elec:#f2b705; --s-green:#2e9d5b; --s-violet:#8b5cf6; --s-dark:#3b3a41;
   display:block;width:100%;height:auto;border-radius:18px;background:var(--s-bg);margin:12px 0 4px;
 }
 @media (prefers-color-scheme: dark){
   .scene{
-    --s-bg:#14171c; --s-ink:#f1ede4; --s-line:#8c8678; --s-panel:#272c36; --s-soft:#323844;
+    --s-bg:#111425; --s-ink:#f1ede4; --s-line:#8a90a8; --s-panel:#232840; --s-soft:#2d3350;
     --s-hot:#ff6b4f; --s-warm:#ffb04d; --s-cold:#5db4ff; --s-cold-soft:#1d3247;
     --s-elec:#ffd23d; --s-green:#5fd08a; --s-violet:#b196ff; --s-dark:#565663;
   }
