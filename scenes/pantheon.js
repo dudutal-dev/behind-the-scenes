@@ -45,7 +45,7 @@ export default `
   <path class="st-hot fl-none dash" stroke-width="2" d="M146 33A94 94 0 0 0 62 120V204"/>
   <path class="st-hot fl-none dash" stroke-width="2" d="M174 33A94 94 0 0 1 258 120V204"/>
   <path class="fl-hot" fill-opacity=".45" d="M50 120V96H58V84H66V74H74V120ZM270 120V96H262V84H254V74H246V120Z"/>
-  <path class="arrow st-hot" style="stroke-width:2" d="M30 104H46M290 104H274" marker-end="url(#pantheon-h)"/>
+  <path class="arrow st-hot" style="stroke-width:2" d="M30 104H46" marker-end="url(#pantheon-h)"/><path class="arrow st-hot" style="stroke-width:2" d="M290 104H274" marker-end="url(#pantheon-h)"/>
 </g>
 <g class="hl-3">
   <rect class="fl-hot st-ink" stroke-width="1" x="141" y="29" width="5" height="7"/>
@@ -75,5 +75,5 @@ export default `
 <g class="only-1"><text x="268" y="22">גובה שווה</text><text x="268" y="36">לקוטר</text></g>
 <g class="only-2"><text x="268" y="22">כבד למטה</text><text x="268" y="36">קל למעלה</text></g>
 <g class="only-3"><text x="268" y="22">הכיפה עובדת</text><text x="268" y="36">בלחיצה</text></g>
-<g class="only-4"><text x="268" y="22">גוש סיד</text><text x="268" y="36">אוטם סדק</text></g>
+<g class="only-4"><path class="thin st-ink" style="stroke-width:1.2" d="M52 59L68 78"/><text x="268" y="22">גוש סיד</text><text x="268" y="36">אוטם סדק</text></g>
 `;
