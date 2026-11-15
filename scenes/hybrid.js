@@ -125,7 +125,7 @@ export default `
     <path class="flow" d="M128 72L78 52"/><path class="flow" d="M34 62V172"/>
     <text x="250" y="160">שיוט</text><text x="250" y="178">בנזין דוחף</text><text x="250" y="196" class="sm">והעודף טוען את הסוללה</text>
   </g>
-  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.66;0.68;0.99;1.01;1" dur="6s" repeatCount="indefinite"/>
+  <g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.66;0.68;0.98;1" dur="6s" repeatCount="indefinite"/>
     <path class="flow" d="M240 84H196"/><path class="flow" d="M58 172V144"/><path class="flow" d="M76 124L132 100"/><path class="flow" d="M160 116V160"/>
     <text x="250" y="160">האצה חזקה</text><text x="250" y="178">שניהם דוחפים</text>
   </g>
