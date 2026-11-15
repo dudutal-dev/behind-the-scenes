@@ -1,7 +1,7 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v6";
+const CACHE = "eich-ze-oved-v7";
 const SCENES = [
-  "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
+  "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "acdc", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
   "airbag", "jet", "ac", "pressure", "smoke", "screen", "fingerprint", "flash", "speaker", "transformer", "fiber", "watertower", "wastewater", "seasons", "eye", "rain", "antibiotics",
 ];
 const FILES = [
