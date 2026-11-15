@@ -30,12 +30,12 @@ export default `
 </g>
 </g>
 <g class="hl-2">
-<rect class="fl-cold-soft" x="14" y="68" width="136" height="36" rx="6"/>
+<rect class="fl-cold-soft" x="14" y="68" width="136" height="38" rx="6"/>
 <path class="wire st-line" style="stroke-width:2" d="M14 62H150M14 70H150"/>
 <g ><path class="body" style="fill:var(--s-cold);stroke-width:1.6" d="M26 56V76Q26 82 32 82H36Q42 82 42 76V56H37V63Q34 66 31 63V56Z"/></g><g ><path class="body" style="fill:var(--s-cold);stroke-width:1.6" d="M68 56V76Q68 82 74 82H78Q84 82 84 76V56H79V63Q76 66 73 63V56Z"/></g>
 <g><path class="fl-warm st-ink" stroke-width="1.2" d="M4.2 0L2.1 3.6L-2.1 3.6L-4.2 0L-2.1 -3.6L2.1 -3.6Z"/><animateMotion path="M34 16V58" keyPoints="0;1;1" keyTimes="0;.55;1" calcMode="linear" dur="2.6s" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="2.6s" begin="0s" repeatCount="indefinite"/></g><g><path class="fl-warm st-ink" stroke-width="1.2" d="M4.2 0L2.1 3.6L-2.1 3.6L-4.2 0L-2.1 -3.6L2.1 -3.6Z"/><animateMotion path="M76 16V58" keyPoints="0;1;1" keyTimes="0;.55;1" calcMode="linear" dur="2.6s" begin="-1.3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="2.6s" begin="-1.3s" repeatCount="indefinite"/></g>
-<circle class="ring st-elec" cx="34" cy="88" r="10"/>
-<circle class="ring st-elec d2" cx="76" cy="88" r="10"/>
+<circle class="ring st-elec" cx="34" cy="87" r="8"/>
+<circle class="ring st-elec d2" cx="76" cy="87" r="8"/>
 <g><animateTransform attributeName="transform" type="translate" values="0 -8;0 -8;0 14;0 14" keyTimes="0;.3;.8;1" dur="3.6s" repeatCount="indefinite"/>
 <g ><path class="body" style="fill:var(--s-cold);stroke-width:1.6" d="M116 56V76Q116 82 122 82H126Q132 82 132 76V56H127V63Q124 66 121 63V56Z"/></g><path class="fl-warm st-ink" stroke-width="1.2" d="M128.2 60L126.1 63.6L121.9 63.6L119.8 60L121.9 56.4L126.1 56.4Z"/></g>
 <path class="arrow st-ink" style="stroke-width:1.8" marker-end="url(#psilocybin-a)" d="M142 72V94"/>
@@ -61,8 +61,8 @@ export default `
 <text x="122" y="206" class="sm">גבוהה</text>
 <path class="wire st-ink" style="stroke-width:1.8" d="M22 134H144"/>
 </g>
-<g class="only-1"><text x="288" y="104">פסילוסיבין</text><text x="210" y="104">פסילוצין</text><text x="174" y="27" class="sm">זרחה</text></g>
-<g class="only-2"><text x="104" y="40">קולטן ⁦5-HT2A⁩</text><text x="104" y="23" class="sm">פסילוצין במקום סרוטונין</text></g>
-<g class="only-3"><text x="262" y="206" class="sm">ברירת המחדל נרפית</text><text x="244" y="125" class="sm">קשרים בין רשתות</text></g>
+<g class="only-1"><text x="280" y="104">פסילוסיבין</text><text x="206" y="104">פסילוצין</text><text x="174" y="27" class="sm">זרחה</text></g>
+<g class="only-2"><text x="80" y="103" class="sm">נמשך פנימה: סבילות</text><text x="104" y="40">קולטן ⁦5-HT2A⁩</text><text x="104" y="23" class="sm">פסילוצין במקום סרוטונין</text></g>
+<g class="only-3"><text x="262" y="206" class="sm">ברירת המחדל נרפית</text><text x="262" y="125" class="sm">קשרים בין רשתות</text></g>
 <g class="only-4"><text x="82" y="125" class="sm">ירידה בציון הדיכאון</text></g>
 `;

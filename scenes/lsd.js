@@ -32,7 +32,7 @@ export default `<!-- LSD: מולקולה שנכנסת לקולטן הסרוטו�
 <g class="only-2">
   <use href="#lsd-sero"><animateMotion dur="3.2s" repeatCount="indefinite" path="M98 30C94 50 90 62 88 72C102 62 130 50 152 42"/></use>
   <text x="108" y="20">המכסה נועל את LSD</text>
-  <text x="122" y="184" class="sm">אות ממושך לתא</text>
+  <text x="126" y="184" class="sm">אות ממושך לתא</text>
 </g>
 <!-- האות לתוך התא -->
 <g class="hl-2">

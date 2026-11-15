@@ -11,6 +11,8 @@ import { FRONTIER_B_TOPICS } from "./content-frontier-b.js";
 import { PSY_MDMA_TOPICS } from "./content-psy-mdma.js";
 import { PSY_MUSHROOM_TOPICS } from "./content-psy-mushrooms.js";
 import { PSY_LSD_TOPICS } from "./content-psy-lsd.js";
+import { BRAIN_A_TOPICS } from "./content-brain-a.js";
+import { BRAIN_B_TOPICS } from "./content-brain-b.js";
 import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
@@ -494,6 +496,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...INVENTION_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...INVENTION_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];

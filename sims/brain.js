@@ -27,7 +27,8 @@ export default {
       <style>
         .rt-pad{display:grid;place-items:center;min-height:86px;margin-top:10px;border-radius:18px;font-size:19px;font-weight:800;
           color:#fff;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-          background:var(--a1);transition:background .08s}
+          background:var(--ink);transition:background .08s}
+        .rt-pad[data-s="idle"]{color:var(--bg)}
         .rt-pad[data-s="wait"]{background:#d23b34}
         .rt-pad[data-s="go"]{background:#12a150}
         .rt-pad[data-s="early"]{background:#b45309}
