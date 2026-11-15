@@ -22,11 +22,15 @@ import { NATURE2_A_TOPICS } from "./content-nature2-a.js";
 import { NATURE2_B_TOPICS } from "./content-nature2-b.js";
 import { LIFE_A_TOPICS } from "./content-life-a.js";
 import { LIFE_B_TOPICS } from "./content-life-b.js";
+import { CARS_A_TOPICS } from "./content-cars-a.js";
+import { CARS_B_TOPICS } from "./content-cars-b.js";
+import { CARS_C_TOPICS } from "./content-cars-c.js";
 import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
   { id: "home", name: "בבית", emoji: "🏠" },
   { id: "move", name: "בדרכים", emoji: "🧭" },
+  { id: "cars", name: "מכוניות", emoji: "🚗" },
   { id: "tech", name: "בכיס", emoji: "📱" },
   { id: "energy", name: "חשמל ואנרגיה", emoji: "⚡" },
   { id: "infra", name: "תשתיות", emoji: "🏗️" },
@@ -154,7 +158,7 @@ const BASE_TOPICS = [
     take: "כנף דוחפת אוויר למטה, והאוויר דוחף את המטוס למעלה.",
   },
   {
-    id: "ev-brake", cat: "move", emoji: "🔋", title: "בלימה ברכב חשמלי",
+    id: "ev-brake", cat: "cars", emoji: "🔋", title: "בלימה ברכב חשמלי",
     sub: "איך בלימה טוענת את הסוללה",
     hook: {
       q: "לאן הולכת אנרגיית התנועה כשרכב רגיל בולם?",
@@ -507,6 +511,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...NATURE2_A_TOPICS, ...NATURE2_B_TOPICS, ...LIFE_A_TOPICS, ...LIFE_B_TOPICS, ...INVENTION_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...NATURE2_A_TOPICS, ...NATURE2_B_TOPICS, ...LIFE_A_TOPICS, ...LIFE_B_TOPICS, ...CARS_A_TOPICS, ...CARS_B_TOPICS, ...CARS_C_TOPICS, ...INVENTION_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];

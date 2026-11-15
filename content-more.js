@@ -2,7 +2,7 @@
 
 export const MORE_TOPICS = [
   {
-    id: "engine", cat: "move", emoji: "🚗", title: "מנוע בעירה",
+    id: "engine", cat: "cars", emoji: "🚗", title: "מנוע בעירה",
     sub: "ארבע פעימות שמזיזות את הרכב",
     hook: {
       q: "מה דוחף את הבוכנה במנוע של רכב?",
@@ -24,7 +24,7 @@ export const MORE_TOPICS = [
     take: "מנוע בעירה הוא משאבה הפוכה: גז חם שמתפשט דוחף בוכנה, וגל ארכובה הופך את הדחיפה לסיבוב.",
   },
   {
-    id: "gearbox", cat: "move", emoji: "⚙️", title: "תיבת הילוכים",
+    id: "gearbox", cat: "cars", emoji: "⚙️", title: "תיבת הילוכים",
     sub: "למה מנוע אחד צריך כמה יחסים",
     hook: {
       q: "למה רכב עם מנוע בעירה צריך הילוכים?",
@@ -46,7 +46,7 @@ export const MORE_TOPICS = [
     take: "הילוכים מחליפים מהירות בכוח, כדי שהמנוע יישאר תמיד בטווח שבו הוא עובד טוב.",
   },
   {
-    id: "abs", cat: "move", emoji: "🛑", title: "בלמים ו‑ABS",
+    id: "abs", cat: "cars", emoji: "🛑", title: "בלמים ו‑ABS",
     sub: "למה הדוושה רועדת בבלימת חירום",
     hook: {
       q: "מה עוצר את הרכב בסופו של דבר?",

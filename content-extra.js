@@ -2,7 +2,7 @@
 
 export const EXTRA_TOPICS = [
   {
-    id: "airbag", cat: "move", emoji: "🎈", title: "כרית אוויר",
+    id: "airbag", cat: "cars", emoji: "🎈", title: "כרית אוויר",
     sub: "שלושים אלפיות שנייה",
     hook: {
       q: "תוך כמה זמן כרית אוויר מתנפחת?",

@@ -11,7 +11,7 @@ export default `
     <path class="fl-hot st-ink" stroke-width="1.6" d="M34 64 C36 42 54 30 76 26 L78 38 C62 42 50 52 46 66 Z"/>
     <path class="pipe st-ink" style="stroke-width:6" d="M54 48 C64 62 56 76 66 84 C72 88 78 86 82 84"/>
     <path class="pipe st-cold" style="stroke-width:3.4" d="M54 48 C64 62 56 76 66 84 C72 88 78 86 82 84"/>
-    <g transform="translate(84 100) rotate(186) translate(-56 -64)">
+    <g transform="translate(86 106) rotate(186) scale(.86) translate(-56 -64)">
       <path class="body" style="fill:var(--s-warm)" d="M50 2 C70 2 84 18 82 36 C81 44 77 49 74 52 C78 54 80 58 78 62 C76 66 76 68 80 70 C92 72 100 80 98 90 C96 98 90 100 88 104 C88 110 92 116 98 118 C102 120 102 126 96 127 C80 128 60 128 44 124 C26 120 14 104 14 84 C14 66 18 54 22 46 C16 38 18 20 30 10 C36 5 43 2 50 2Z"/>
       <path class="thin st-ink" style="stroke-width:1.3" d="M46 114 C62 104 78 92 90 86 M58 60 C64 70 72 70 78 62 M40 26 a6 7 0 0 0 0 12"/>
       <circle class="fl-ink" cx="66" cy="30" r="2"/>
@@ -23,10 +23,10 @@ export default `
 <g class="only-1">
   <path class="fl-none st-elec" stroke-width="3" d="M34 64 C36 42 54 30 76 26 L78 38 C62 42 50 52 46 66 Z"><animate attributeName="opacity" values=".2;1;.2" dur="1.6s" repeatCount="indefinite"/></path>
   <g class="fl-violet st-ink" stroke-width="1" opacity=".85"><ellipse cx="86" cy="80" rx="5" ry="8"/><ellipse cx="98" cy="82" rx="5" ry="8"/></g>
-  <path class="wire st-hot" style="stroke-width:6;stroke-dasharray:46 400;opacity:.85" d="M84 10 C114 10 150 26 150 70 C150 120 128 160 108 176"><animate attributeName="stroke-dashoffset" values="46;-220" dur="2.6s" begin="0s" repeatCount="indefinite"/></path>
-  <path class="arrow st-ink" style="stroke-width:1.6" d="M190 72 H86 M90 68 l-4 4 4 4"/>
-  <path class="arrow st-ink" style="stroke-width:1.6" d="M190 112 C150 112 120 100 104 86 M110 88 l-6 -2 1 6"/>
-  <path class="arrow st-ink" style="stroke-width:1.6" d="M190 148 H142"/>
+  <path class="arrow st-ink" style="stroke-width:1.6" d="M196 72 C150 60 110 44 76 40 M82 37 l-6 3 5 4"/>
+  <path class="arrow st-ink" style="stroke-width:1.6" d="M196 112 C150 112 120 100 104 90 M110 90 l-6 0 2 6"/>
+  <path class="arrow st-ink" style="stroke-width:1.6" d="M196 150 H146 M151 146 l-5 4 5 4"/>
+  <path class="wire st-hot" style="stroke-width:5;opacity:.7" d="M146 100 C144 126 132 150 116 166"/>
   <text x="252" y="76">CRH מהשליה</text>
   <text x="252" y="116">אות מריאות העובר</text>
   <text x="252" y="146">השריר מפסיק</text>
