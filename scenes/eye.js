@@ -3,8 +3,8 @@ export default `
 <defs><marker id="eye-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fl-ink"/></marker><clipPath id="eye-lens"><circle cx="268" cy="58" r="35"/></clipPath></defs>
 <!-- עצב הראייה והמוח -->
 <g class="hl-4">
-<path class="st-ink fl-none" stroke-width="11" stroke-linecap="butt" d="M194 140C210 150 222 166 243 177"/>
-<path class="st-warm fl-none" stroke-width="7" stroke-linecap="butt" d="M194 140C210 150 222 166 243 177"/>
+<path class="st-ink fl-none" stroke-width="11" stroke-linecap="butt" d="M214 142C226 151 233 166 243 177"/>
+<path class="st-warm fl-none" stroke-width="7" stroke-linecap="butt" d="M214 142C226 151 233 166 243 177"/>
 <path class="body" d="M239 178C236 158 254 146 276 147C299 148 313 161 311 179C310 189 303 194 294 195L290 196C287 203 278 204 273 199C262 201 243 196 239 178z"/>
 <path class="body" d="M287 197c5-5 16-4 19 2s-5 10-12 9s-10-6-7-11z"/>
 <path class="thin" d="M291 201h12M290 204.500h13"/>
@@ -14,6 +14,7 @@ export default `
 <path class="wire st-elec dash" style="stroke-width:1.6" d="M243 177C262 184 282 182 296 170"/>
 </g>
 <!-- גלגל העין -->
+<g transform="translate(-1.68 -12.96) scale(1.12)">
 <path class="body" d="M103 74.7A56 56 0 1 1 103 141.3"/>
 <path class="fl-cold-soft st-ink" stroke-width="2" stroke-linejoin="round" d="M103 74.7Q51 108 103 141.3"/>
 <g class="hl-3 hl-4"><path class="wire st-warm" style="stroke-width:3.5" d="M123.2 61.4A52.8 52.8 0 0 1 194.2 133.6M187.8 142.6A52.8 52.8 0 0 1 123.2 154.6"/>
@@ -35,15 +36,17 @@ export default `
 <g class="only-2">
 <g><animate attributeName="opacity" values="1;1;.3;.3;1" keyTimes="0;.38;.5;.88;1" dur="6s" repeatCount="indefinite"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M14 108H80L118 108L199 108"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M14 102H80.6L118 103.7L199 108"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M14 114H80.6L118 112.3L199 108"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M14 92H83L102 94.2"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M106 94.6L118 96.8L199 108"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.38;.5;.88;1" dur="6s" repeatCount="indefinite"/></path><path class="wire st-elec dash" style="stroke-width:1.5" d="M14 124H83L102 121.8"/><path class="wire st-elec dash" style="stroke-width:1.5" d="M106 121.4L118 119.2L199 108"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.38;.5;.88;1" dur="6s" repeatCount="indefinite"/></path>
 <g class="spin" style="animation-duration:12s"><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(0 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(45 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(90 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(135 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(180 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(225 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(270 30 62)" d="M41 62h5"/><path class="st-elec fl-none" stroke-width="2" stroke-linecap="round" transform="rotate(315 30 62)" d="M41 62h5"/></g>
-<circle class="fl-elec st-ink" stroke-width="1.5" cx="30" cy="62" r="8"/></g>
+<circle class="fl-elec st-ink" stroke-width="1.5" cx="30" cy="62" r="8"/></g></g>
+</g>
+<g class="only-2">
 <path class="body" d="M10 186Q38 162 66 186Q38 210 10 186z"/>
 <circle class="fl-green st-ink" stroke-width="1.5" cx="38" cy="186" r="13"/>
 <circle class="fl-ink" cx="38" cy="186" r="5"><animate attributeName="r" values="4;4;10.500;10.500;4" keyTimes="0;.38;.5;.88;1" dur="6s" repeatCount="indefinite"/></circle>
 <circle fill="#fff" cx="42" cy="182" r="1.6"/>
 </g>
 <g class="only-3">
-<path class="thin st-ink" style="stroke-width:1.2" d="M204 105L242 82"/>
-<circle class="fl-none st-ink" stroke-width="1.2" cx="201" cy="108" r="6"/>
+<path class="thin st-ink" style="stroke-width:1.2" d="M227.9 103.5L243 83"/>
+<circle class="fl-none st-ink" stroke-width="1.2" cx="223.4" cy="108" r="7"/>
 <circle class="body" cx="268" cy="58" r="36"/>
 <g clip-path="url(#eye-lens)">
 <rect class="fl-dark" x="292" y="20" width="14" height="76"/>
@@ -54,13 +57,13 @@ export default `
 <text x="150" y="188">מדוכים: צבע ופרטים</text><text x="150" y="203">קנים: אור חלש</text>
 </g>
 <g class="only-4">
-<circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M194 140C210 150 222 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-0.6s" repeatCount="indefinite" path="M194 140C210 150 222 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" path="M194 140C210 150 222 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-1.8s" repeatCount="indefinite" path="M194 140C210 150 222 166 243 177C262 184 282 182 296 170"/></circle>
-<circle class="ring st-hot" cx="191.4" cy="138.4" r="10"/>
+<circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M214 142C226 151 233 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-0.6s" repeatCount="indefinite" path="M214 142C226 151 233 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" path="M214 142C226 151 233 166 243 177C262 184 282 182 296 170"/></circle><circle class="fl-elec st-ink" stroke-width=".8" r="2.6"><animateMotion dur="2.4s" begin="-1.8s" repeatCount="indefinite" path="M214 142C226 151 233 166 243 177C262 184 282 182 296 170"/></circle>
+<circle class="ring st-hot" cx="212.7" cy="142" r="11"/>
 <text x="150" y="188">המוח הופך את התמונה</text><text x="150" y="203">וממלא את הנקודה העיוורת</text>
 </g>
 <g class="from-4"><g><animateTransform attributeName="transform" type="rotate" values="180 270 170;180 270 170;0 270 170;0 270 170" keyTimes="0;.25;.5;1" calcMode="spline" keySplines="0 0 1 1;.4 0 .6 1;0 0 1 1" dur="4s" repeatCount="indefinite"/>
 <path class="st-ink fl-none" stroke-width="2" stroke-linecap="round" d="M270 178V167"/><path class="fl-hot st-ink" stroke-width=".8" stroke-linejoin="round" d="M270 160l-4 7h8z"/><circle class="fl-cold" cx="270" cy="178" r="2"/></g></g>
-<g class="only-1"><text x="52" y="58">קרנית</text><path class="thin st-ink" style="stroke-width:1.2" d="M62 63L84 86"/>
-<text x="164" y="30">עדשה גמישה</text><path class="thin st-ink" style="stroke-width:1.2" d="M150 35L120 87"/></g>
-<g class="only-2"><text x="122" y="30">באור חזק האישון מתכווץ</text></g>
+<g class="only-1"><text x="50" y="50">קרנית</text><path class="thin st-ink" style="stroke-width:1.2" d="M60 55L94.6 81.1"/>
+<text x="150" y="24">עדשה גמישה</text><path class="thin st-ink" style="stroke-width:1.2" d="M146 29L132.7 84.5"/></g>
+<g class="only-2"><text x="122" y="24">באור חזק האישון מתכווץ</text></g>
 `;

@@ -114,10 +114,10 @@ export default `
   <path class="body" d="M0 -9C6 -25 16 -30 24 -30C36 -30 42 -15 42 0C42 15 36 30 24 30C16 30 6 25 0 9Z"/><path class="thin" d="M10 -20Q20 0 10 20M26 -29Q34 0 26 29"/>
     <ellipse class="fl-ink" cx="7" cy="-21" rx="3" ry="1.8" transform="rotate(-55 7 -21)"/><ellipse class="fl-ink" cx="7" cy="21" rx="3" ry="1.8" transform="rotate(55 7 21)"/>
     <g class="fl-warm">
-      <circle r="2"><animateMotion dur=".9s" repeatCount="indefinite" path="M6 -22L-10 -40"/><animate attributeName="opacity" values="1;0" dur=".9s" repeatCount="indefinite"/></circle>
-      <circle r="2"><animateMotion dur=".9s" begin="-.45s" repeatCount="indefinite" path="M6 -22L-4 -44"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.45s" repeatCount="indefinite"/></circle>
-      <circle r="2"><animateMotion dur=".9s" begin="-.2s" repeatCount="indefinite" path="M6 22L-10 40"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.2s" repeatCount="indefinite"/></circle>
-      <circle r="2"><animateMotion dur=".9s" begin="-.65s" repeatCount="indefinite" path="M6 22L-4 44"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.65s" repeatCount="indefinite"/></circle>
+      <circle r="2.6"><animateMotion dur=".9s" repeatCount="indefinite" path="M6 -22L-10 -40"/><animate attributeName="opacity" values="1;0" dur=".9s" repeatCount="indefinite"/></circle>
+      <circle r="2.6"><animateMotion dur=".9s" begin="-.45s" repeatCount="indefinite" path="M6 -22L-4 -44"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.45s" repeatCount="indefinite"/></circle>
+      <circle r="2.6"><animateMotion dur=".9s" begin="-.2s" repeatCount="indefinite" path="M6 22L-10 40"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.2s" repeatCount="indefinite"/></circle>
+      <circle r="2.6"><animateMotion dur=".9s" begin="-.65s" repeatCount="indefinite" path="M6 22L-4 44"/><animate attributeName="opacity" values="1;0" dur=".9s" begin="-.65s" repeatCount="indefinite"/></circle>
     </g></g></g></g>
   <g><animateTransform attributeName="transform" type="rotate" values="0 262 152;-18 262 152;-18 262 152;0 262 152;0 262 152" keyTimes="0;.45;.88;.9;1" dur="3.4s" repeatCount="indefinite"/><path class="body" d="M263 92l1 9h8l-1-9z"/><circle class="body" cx="266" cy="80" r="13"/></g>
 </g></g>

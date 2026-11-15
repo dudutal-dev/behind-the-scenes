@@ -40,7 +40,7 @@ export default `
 <!-- שלב 1: סיר פתוח. האדים בורחים והטמפרטורה נעצרת -->
 <g class="only-1">
   <circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.4s" begin="-0s" repeatCount="indefinite" path="M72 122Q66 100 76 80Q84 62 74 44"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.4s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.6s" begin="-0.9s" repeatCount="indefinite" path="M94 122Q100 100 92 78Q86 60 96 42"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.6s" begin="-0.9s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.2s" begin="-0.4s" repeatCount="indefinite" path="M116 122Q110 98 120 78Q128 60 118 40"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.2s" begin="-0.4s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.5s" begin="-1.5s" repeatCount="indefinite" path="M138 122Q146 100 136 80Q130 62 140 44"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.5s" begin="-1.5s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.3s" begin="-1.1s" repeatCount="indefinite" path="M160 122Q154 100 162 82Q168 66 160 50"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.3s" begin="-1.1s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.7s" begin="-1.9s" repeatCount="indefinite" path="M84 122Q90 104 82 84Q76 66 86 48"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.7s" begin="-1.9s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.4s" begin="-1.7s" repeatCount="indefinite" path="M128 122Q134 102 126 82Q120 62 130 46"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.4s" begin="-1.7s" repeatCount="indefinite"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="2.6s" begin="-0.2s" repeatCount="indefinite" path="M150 122Q144 102 152 84Q158 66 148 50"/><animate attributeName="opacity" values="1;1;0" keyTimes="0;.6;1" dur="2.6s" begin="-0.2s" repeatCount="indefinite"/></circle>
-  <g class="blink"><path class="wire st-hot" style="stroke-width:2" d="M272 84H304"/></g>
+  <g class="blink"><path class="wire st-hot" style="stroke-width:2" d="M279 84H304"/></g>
   <text x="212" y="20">בסיר פתוח המים</text>
   <text x="212" y="34">נעצרים ב־100 מעלות</text>
 </g>
@@ -78,7 +78,7 @@ export default `
 <!-- שלב 2: עוד ועוד אדים מצטרפים ולוחצים על הדפנות -->
 <g class="only-2">
   <circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="1.1s" begin="-0s" repeatCount="indefinite" path="M78 122V104"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="1.3s" begin="-0.5s" repeatCount="indefinite" path="M112 122V100"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="1.2s" begin="-0.9s" repeatCount="indefinite" path="M150 122V104"/></circle><circle class="fl-cold-soft st-cold" stroke-width="1.2" r="2.8"><animateMotion dur="1.4s" begin="-0.2s" repeatCount="indefinite" path="M172 122V108"/></circle>
-  <path class="arrow st-violet" style="stroke-width:2" d="M84 96L78 84M122 90V76M160 96L166 84" marker-end="url(#pressure-v)"/>
+  <path class="arrow st-violet" style="stroke-width:2" d="M84 98L78 86" marker-end="url(#pressure-v)"/><path class="arrow st-violet" style="stroke-width:2" d="M122 92V78" marker-end="url(#pressure-v)"/><path class="arrow st-violet" style="stroke-width:2" d="M160 98L166 86" marker-end="url(#pressure-v)"/>
   <text x="212" y="20">האדים נכלאים בסיר</text>
   <text x="212" y="34">והלחץ עולה פי שניים</text>
 </g>
@@ -87,9 +87,9 @@ export default `
 <!-- שלב 3: הלחץ דוחק מולקולות חזרה אל המים -->
 <g class="only-3">
   <circle class="fl-cold st-ink" stroke-width="1" r="2.8"><animateMotion dur="1.3s" begin="-0s" repeatCount="indefinite" path="M70 126V113V126"/></circle><circle class="fl-cold st-ink" stroke-width="1" r="2.8"><animateMotion dur="1.1s" begin="-0.4s" repeatCount="indefinite" path="M96 126V113V126"/></circle><circle class="fl-cold st-ink" stroke-width="1" r="2.8"><animateMotion dur="1.2s" begin="-0.8s" repeatCount="indefinite" path="M134 126V113V126"/></circle><circle class="fl-cold st-ink" stroke-width="1" r="2.8"><animateMotion dur="1.4s" begin="-0.2s" repeatCount="indefinite" path="M158 126V113V126"/></circle><circle class="fl-cold st-ink" stroke-width="1" r="2.8"><animateMotion dur="1.1s" begin="-0.6s" repeatCount="indefinite" path="M180 126V113V126"/></circle>
-  <path class="arrow st-violet" style="stroke-width:2" d="M84 100V116M122 96V116M166 100V116" marker-end="url(#pressure-v)"/>
+  <path class="arrow st-violet" style="stroke-width:2" d="M84 100V116" marker-end="url(#pressure-v)"/><path class="arrow st-violet" style="stroke-width:2" d="M122 96V116" marker-end="url(#pressure-v)"/><path class="arrow st-violet" style="stroke-width:2" d="M166 100V116" marker-end="url(#pressure-v)"/>
   <text x="212" y="20">קשה למולקולות לברוח</text>
-  <text x="212" y="34">והרתיחה רק ב־120 מעלות</text>
+  <text x="212" y="34">רתיחה רק ב־120 מעלות</text>
 </g>
 
 <!-- שלב 4: המשקולת מתרוממת ופולטת אדים -->

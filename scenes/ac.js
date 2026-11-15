@@ -27,7 +27,7 @@ export default `
 <g class="hl-1 hl-2"><path class="pipe st-cold" style="stroke-width:4" d="M152 30H70V38H142V46H70V54H152"/><path class="flow" style="stroke-width:1.6" d="M152 30H70V38H142V46H70V54H152"/></g>
 <g class="hl-1 hl-3"><path class="pipe st-cold" style="stroke-width:4;stroke-opacity:.55" d="M152 54H178V125H200"/><path class="flow" style="stroke-width:1.6" d="M152 54H178V125H200"/></g>
 <g class="hl-3"><path class="pipe st-hot" style="stroke-width:4" d="M222 125H230V184H237V128H244V184H251V128H258V104"/><path class="flow" style="stroke-width:1.6" d="M222 125H230V184H237V128H244V184H251V128H258V104"/></g>
-<g class="hl-3 hl-1"><path class="pipe st-warm" style="stroke-width:4" d="M258 104H186V66"/><path class="flow" style="stroke-width:1.6" d="M258 104H186V66"/><path class="pipe st-cold" style="stroke-width:4" d="M186 66V30H152"/><path class="flow" style="stroke-width:1.6" d="M186 66V30H152"/></g>
+<g class="hl-3 hl-1"><path class="pipe st-warm" style="stroke-width:4" d="M258 104H188V44"/><path class="flow" style="stroke-width:1.6" d="M258 104H188V44"/><path class="pipe st-cold" style="stroke-width:4" d="M188 44V30H152"/><path class="flow" style="stroke-width:1.6" d="M188 44V30H152"/></g>
 
 <!-- מדחס ושסתום היפוך -->
 <g class="hl-3 hl-4">
@@ -40,7 +40,7 @@ export default `
   <path class="wire st-cold" d="M200 125Q206 125 206 134"/><path class="wire st-hot" d="M216 134Q216 125 222 125"/>
 </g>
 <!-- שסתום התפשטות -->
-<path class="body" d="M181 60L191 72V60L181 72Z"/>
+<path class="body" d="M183 38L193 50V38L183 50Z"/>
 
 <!-- מאווררים -->
 <g class="hl-1 hl-4">
@@ -89,8 +89,8 @@ export default `
   <circle class="ring st-hot" cx="211" cy="171" r="26"/><circle class="ring st-hot d3" cx="211" cy="171" r="26"/>
   <circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-0s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/></circle><circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-1s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-1s" repeatCount="indefinite"/></circle>
   <circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-0s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/></circle><circle class="fl-hot" r="2.6"><animateMotion dur="1.5s" begin="-1s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-1s" repeatCount="indefinite"/></circle>
-  <text x="252" y="74">המדחס מחמם את הגז</text>
-  <text x="252" y="88">והחום נפלט החוצה</text>
+  <text x="254" y="74">המדחס מחמם את הגז</text>
+  <text x="254" y="88">והחום נפלט החוצה</text>
 </g>
 
 <!-- שלב 4: חימום. השסתום מצליב, הזרימה מתהפכת והסליל הפנימי הוא החם -->
@@ -99,9 +99,9 @@ export default `
   <g class="spin" style="animation-duration:9s"><path class="wire st-cold" style="stroke-width:2.2" d="M292 16v28M279.9 23l24.2 14M279.9 37l24.2-14M292 21l-3-3M292 21l3-3M292 39l-3 3M292 39l3 3"/></g>
   <path class="pipe st-hot" style="stroke-width:4.6" d="M152 54H70V46H142V38H70V30H152"/><path class="flow" style="stroke-width:1.6" d="M152 54H70V46H142V38H70V30H152"/>
   <path class="pipe st-hot" style="stroke-width:4.6" d="M200 125H178V54H152"/><path class="flow" style="stroke-width:1.6" d="M200 125H178V54H152"/>
-  <path class="pipe st-warm" style="stroke-width:4.6" d="M152 30H186V66"/><path class="flow" style="stroke-width:1.6" d="M152 30H186V66"/>
-  <path class="pipe st-cold" style="stroke-width:4.6" d="M186 66V104H258V128H251V184H244V128H237V184H230V125H222"/><path class="flow" style="stroke-width:1.6" d="M186 66V104H258V128H251V184H244V128H237V184H230V125H222"/>
-  <path class="body" d="M181 60L191 72V60L181 72Z"/>
+  <path class="pipe st-warm" style="stroke-width:4.6" d="M152 30H188V44"/><path class="flow" style="stroke-width:1.6" d="M152 30H188V44"/>
+  <path class="pipe st-cold" style="stroke-width:4.6" d="M188 44V104H258V128H251V184H244V128H237V184H230V125H222"/><path class="flow" style="stroke-width:1.6" d="M188 44V104H258V128H251V184H244V128H237V184H230V125H222"/>
+  <path class="body" d="M183 38L193 50V38L183 50Z"/>
   <rect class="body" x="200" y="116" width="22" height="18" rx="3"/>
   <path class="wire st-hot" d="M216 134L200 125"/><path class="wire st-cold" d="M222 125L206 134"/>
   <g class="pulse"><rect class="fl-none st-violet" stroke-width="2" x="197" y="113" width="28" height="24" rx="5"/></g>
@@ -110,7 +110,7 @@ export default `
   <circle class="fl-cold" r="2.6"><animateMotion dur="2.6s" begin="-0s" repeatCount="indefinite" path="M12 132Q8 22 48 10H100V24"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="2.6s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="2.6s" begin="-0.65s" repeatCount="indefinite" path="M12 132Q8 22 48 10H100V24"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="2.6s" begin="-0.65s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M12 132Q8 22 48 10H100V24"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="2.6s" begin="-1.3s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="2.6s" begin="-1.95s" repeatCount="indefinite" path="M12 132Q8 22 48 10H100V24"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="2.6s" begin="-1.95s" repeatCount="indefinite"/></circle>
   <circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-0s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-1s" repeatCount="indefinite" path="M282 150Q304 140 311 106"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-1s" repeatCount="indefinite"/></circle>
   <circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-0s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-0.5s" repeatCount="indefinite"/></circle><circle class="fl-cold" r="2.6"><animateMotion dur="1.5s" begin="-1s" repeatCount="indefinite" path="M282 162Q302 172 314 152"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.7;1" dur="1.5s" begin="-1s" repeatCount="indefinite"/></circle>
-  <text x="252" y="74">השסתום הופך כיוון</text>
-  <text x="252" y="88">והחום נשאב פנימה</text>
+  <text x="254" y="74">השסתום הופך כיוון</text>
+  <text x="254" y="88">והחום נשאב פנימה</text>
 </g>
 `;
