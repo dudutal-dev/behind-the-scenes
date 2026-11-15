@@ -17,7 +17,8 @@ python3 -m http.server 8000
 
 - `index.html` — המעטפת והעיצוב
 - `app.js` — מסך הבית, הנגן, חזרה מרווחת, רצף ימים
-- `content.js` — כל התוכן; מוסיפים "דבר" חדש כאובייקט נוסף ברשימה `TOPICS`
+- `content.js`, `content-more.js` — כל התוכן; מוסיפים "דבר" חדש כאובייקט נוסף ברשימה
+- `fonts/` — הגופנים Frank Ruhl Libre ו־Heebo (רישיון OFL, מצורף)
 - `scenes/` — איור מונפש לכל דבר (`<id>.js`), ערכת הסגנון `scene.css`, וכלי תצוגה `preview.html?id=fridge`
 - `sw.js` — עבודה בלי רשת; מעלים את `CACHE` בכל שינוי בקבצים
 - `manifest.webmanifest`, `icon.svg` — התקנה למסך הבית

@@ -2,16 +2,18 @@ import { CATEGORIES, TOPICS } from "./content.js";
 
 const KEY = "eich-ze-oved-v1";
 const INTERVALS = [1, 3, 7, 16, 35]; // ימים בין חזרות, לפי "קופסה"
+const LETTERS = ["א", "ב", "ג", "ד"];
 const app = document.getElementById("app");
 const byId = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
+// סדר התצוגה: לפי קטגוריה, עם מספר רץ קבוע לכל דבר
+const ORDERED = CATEGORIES.flatMap((c) => TOPICS.filter((t) => t.cat === c.id));
+const numOf = Object.fromEntries(ORDERED.map((t, i) => [t.id, String(i + 1).padStart(2, "0")]));
 
 // ---------- מצב ----------
+const EMPTY = () => ({ done: {}, srs: {}, streak: { last: "", count: 0 } });
 function load() {
-  try {
-    return { done: {}, srs: {}, streak: { last: "", count: 0 }, ...JSON.parse(localStorage.getItem(KEY) || "{}") };
-  } catch {
-    return { done: {}, srs: {}, streak: { last: "", count: 0 } };
-  }
+  try { return { ...EMPTY(), ...JSON.parse(localStorage.getItem(KEY) || "{}") }; }
+  catch { return EMPTY(); }
 }
 let state = load();
 function save() {
@@ -48,6 +50,14 @@ function todaysTopic() {
 
 // ---------- עזרי תצוגה ----------
 const h = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const icon = (d) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+const IC = {
+  close: icon('<path d="M6 6l12 12M18 6L6 18"/>'),
+  fwd: icon('<path d="M14 6l-6 6 6 6"/>'), // "קדימה" בכיוון הקריאה מימין לשמאל
+  check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  search: icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>'),
+  speak: icon('<path d="M4 10v4h3.5l4.5 4V6l-4.5 4z"/><path d="M15.5 9a4.2 4.2 0 010 6M18 6.5a7.8 7.8 0 010 11"/>'),
+};
 function speak(text) {
   if (!("speechSynthesis" in window)) return;
   speechSynthesis.cancel();
@@ -71,66 +81,82 @@ const sceneSvg = (scene, step, label) =>
   `<svg class="scene" viewBox="0 0 320 220" data-step="${step}" role="img" aria-label="${h(label)}">${scene}</svg>`;
 
 // ---------- מסך הבית ----------
+let filter = "all";
+let query = "";
+
 function topicRow(t) {
-  return `<a class="row" href="#/t/${t.id}">
-    <span class="row-emoji">${t.emoji}</span>
+  const done = !!state.done[t.id];
+  return `<a class="row${done ? " done" : ""}" href="#/t/${t.id}">
+    <span class="row-n">${numOf[t.id]}</span>
     <span class="row-text"><b>${h(t.title)}</b><small>${h(t.sub)}</small></span>
-    <span class="row-mark">${state.done[t.id] ? "✓" : "›"}</span>
+    <span class="row-mark">${done ? IC.check : IC.fwd}</span>
   </a>`;
 }
 
-function renderHome(query = "") {
+function listHtml() {
+  const q = query.trim();
+  const match = (t) => (!q || t.title.includes(q) || t.sub.includes(q)) && (filter === "all" || q || t.cat === filter);
+  const html = CATEGORIES.map((c) => {
+    const items = ORDERED.filter((t) => t.cat === c.id && match(t));
+    if (!items.length) return "";
+    return `<section><h2 class="group">${h(c.name)}</h2>${items.map(topicRow).join("")}</section>`;
+  }).join("");
+  return html || `<p class="empty">לא נמצא דבר כזה.</p>`;
+}
+
+function renderHome() {
   const today = todaysTopic();
   const due = dueCards().length;
   const doneCount = Object.keys(state.done).length;
-  const q = query.trim();
-  const match = (t) => !q || t.title.includes(q) || t.sub.includes(q);
-
-  const sections = CATEGORIES.map((c) => {
-    const items = TOPICS.filter((t) => t.cat === c.id && match(t));
-    if (!items.length) return "";
-    return `<section><h2>${c.emoji} ${h(c.name)}</h2><div class="list">${items.map(topicRow).join("")}</div></section>`;
-  }).join("");
+  const streak = liveStreak();
 
   app.innerHTML = `
-    <header class="top">
-      <h1>איך זה עובד?</h1>
-      <div class="stats">
-        <span title="רצף ימים">🔥 ${liveStreak()}</span>
-        <span title="דברים שהבנת">✓ ${doneCount}/${TOPICS.length}</span>
-      </div>
+    <header class="mast">
+      <h1 class="brand">איך זה עובד</h1>
+      <div class="stats">${streak ? `רצף <b>${streak}</b> ימים · ` : ""}<b>${doneCount}</b> מתוך ${TOPICS.length}</div>
     </header>
 
-    ${q ? "" : `
     <a class="hero" href="#/t/${today.id}">
-      <span class="hero-label">הדבר של היום</span>
-      <span class="hero-emoji">${today.emoji}</span>
-      <b>${h(today.title)}</b>
-      <span>${h(today.sub)}</span>
-      <span class="btn">בוא נבין ←</span>
+      <div id="hero-scene" class="hero-ph"></div>
+      <div class="hero-body">
+        <span class="kicker">הדבר של היום</span>
+        <h2>${h(today.title)}</h2>
+        <p>${h(today.sub)}</p>
+        <div class="hero-foot">
+          <span class="meta">כשתי דקות · ארבעה שלבים</span>
+          <span class="btn sm">לקריאה</span>
+        </div>
+      </div>
     </a>
-    ${due ? `<a class="review-banner" href="#/review">🧠 ${due} שאלות מחכות לחזרה <span>›</span></a>` : ""}`}
+    ${due ? `<a class="review" href="#/review"><span style="color:inherit;font-weight:400"><b>${due}</b> שאלות לחזרה היום</span><span>להתחיל ${IC.fwd}</span></a>` : ""}
 
-    <input id="search" class="search" type="search" placeholder="חיפוש: מקרר, GPS, ברק…" value="${h(q)}" autocomplete="off">
-    ${sections || `<p class="empty">לא נמצא דבר כזה.</p>`}
+    <div class="tools">
+      <label class="search">${IC.search}<input id="search" type="search" placeholder="חיפוש" value="${h(query)}" autocomplete="off" aria-label="חיפוש"></label>
+      <div class="chips" role="group" aria-label="סינון לפי תחום">
+        ${[{ id: "all", name: "הכול" }, ...CATEGORIES].map((c) =>
+          `<button class="chip" data-cat="${c.id}" aria-pressed="${filter === c.id}">${h(c.name)}</button>`).join("")}
+      </div>
+    </div>
+    <div id="list">${listHtml()}</div>
 
-    <footer>
-      <button id="reset" class="link">איפוס ההתקדמות</button>
-    </footer>`;
+    <footer><button id="reset" class="link">איפוס ההתקדמות</button></footer>`;
 
-  const s = document.getElementById("search");
-  s.addEventListener("input", () => {
-    renderHome(s.value);
-    const n = document.getElementById("search");
-    n.focus();
-    n.setSelectionRange(n.value.length, n.value.length);
+  loadScene(today.id).then((scene) => {
+    const el = document.getElementById("hero-scene");
+    if (el && scene) { el.className = ""; el.innerHTML = sceneSvg(scene, "all", `איור: ${today.title}`); }
   });
+
+  const list = document.getElementById("list");
+  document.getElementById("search").addEventListener("input", (e) => { query = e.target.value; list.innerHTML = listHtml(); });
+  app.querySelectorAll(".chip").forEach((b) =>
+    b.addEventListener("click", () => {
+      filter = b.dataset.cat;
+      app.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      list.innerHTML = listHtml();
+    })
+  );
   document.getElementById("reset").addEventListener("click", () => {
-    if (confirm("למחוק את כל ההתקדמות, הרצף והחזרות?")) {
-      state = { done: {}, srs: {}, streak: { last: "", count: 0 } };
-      save();
-      renderHome();
-    }
+    if (confirm("למחוק את כל ההתקדמות, הרצף והחזרות?")) { state = EMPTY(); save(); renderHome(); }
   });
 }
 
@@ -138,9 +164,9 @@ function renderHome(query = "") {
 function questionCard(label, q, onDone) {
   return {
     html: `<div class="card">
-        <span class="tag">${label}</span>
+        <span class="kicker">${h(label)}</span>
         <h3>${h(q.q)}</h3>
-        <div class="opts">${q.o.map((o, i) => `<button class="opt" data-i="${i}">${h(o)}</button>`).join("")}</div>
+        <div class="opts">${q.o.map((o, i) => `<button class="opt" data-i="${i}"><i>${LETTERS[i]}</i><span>${h(o)}</span></button>`).join("")}</div>
         <div class="reveal" hidden></div>
       </div>`,
     locked: true,
@@ -156,7 +182,7 @@ function questionCard(label, q, onDone) {
           });
           const r = root.querySelector(".reveal");
           r.hidden = false;
-          r.innerHTML = `<b>${ok ? "בדיוק." : "לא בדיוק."}</b> ${h(q.x)}`;
+          r.innerHTML = `<b>${ok ? "נכון." : "לא בדיוק."}</b> ${h(q.x)}`;
           onDone?.(ok);
           unlock();
         })
@@ -166,24 +192,24 @@ function questionCard(label, q, onDone) {
 }
 
 function buildCards(t, scene) {
-  const cards = [questionCard("מה דעתך?", t.hook)];
+  const cards = [questionCard("לפני שמתחילים", t.hook)];
   t.steps.forEach((s, i) =>
     cards.push({
       html: `<div class="card">
-          <span class="tag">שלב ${i + 1} מתוך ${t.steps.length}</span>
           ${scene ? sceneSvg(scene, i + 1, `איור: ${s.t}`) : `<div class="big">${s.e}</div>`}
+          <span class="kicker">שלב ${i + 1} מתוך ${t.steps.length}</span>
           <h3>${h(s.t)}</h3>
           <p>${h(s.x)}</p>
-          ${canSpeak ? `<button class="link speak">🔊 הקרא לי</button>` : ""}
+          ${canSpeak ? `<button class="speak">${IC.speak} הקראה</button>` : ""}
         </div>`,
       bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
     })
   );
   cards.push({
     html: `<div class="card myth">
-        <span class="tag">טעות נפוצה</span>
-        <h3>״${h(t.myth.claim)}״</h3>
-        <p><b>בפועל:</b> ${h(t.myth.truth)}</p>
+        <span class="kicker">טעות נפוצה</span>
+        <blockquote>${h(t.myth.claim.replace(/\.$/, ""))}</blockquote>
+        <p><span class="label">בפועל.</span> ${h(t.myth.truth)}</p>
       </div>`,
   });
   t.quiz.forEach((q) => cards.push(questionCard("בדיקת הבנה", q)));
@@ -191,13 +217,22 @@ function buildCards(t, scene) {
     end: true,
     html: `<div class="card end">
         ${scene ? sceneSvg(scene, "all", `איור: ${t.title}`) : `<div class="big">${t.emoji}</div>`}
-        <span class="tag">משפט אחד לקחת</span>
+        <span class="kicker">בשורה אחת</span>
         <h3>${h(t.take)}</h3>
-        <p class="muted">שאלות הבדיקה יחזרו אליך מחר, כדי שזה יישאר.</p>
+        <p class="muted">שאלות הבדיקה יחזרו אליך מחר, ואחר כך במרווחים הולכים וגדלים.</p>
       </div>`,
   });
   return cards;
 }
+
+const playerTop = (i, n, title) => `
+  <header class="p-top">
+    <a class="close" href="#/" aria-label="סגירה">${IC.close}</a>
+    <div class="segs" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}">
+      ${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}
+    </div>
+    <span class="p-title">${h(title)}</span>
+  </header>`;
 
 async function renderTopic(id) {
   const t = byId[id];
@@ -221,16 +256,12 @@ async function renderTopic(id) {
     const c = cards[i];
     const last = i === cards.length - 1;
     if (c.end) finish();
-    const next = TOPICS.find((x) => !state.done[x.id]);
+    const next = ORDERED.find((x) => !state.done[x.id]);
     app.innerHTML = `
-      <header class="player-top">
-        <a class="close" href="#/" aria-label="סגירה">✕</a>
-        <div class="bar"><i style="width:${((i + 1) / cards.length) * 100}%"></i></div>
-        <span class="count">${t.emoji} ${h(t.title)}</span>
-      </header>
+      ${playerTop(i, cards.length, t.title)}
       <main class="stage">${c.html}</main>
-      <nav class="player-nav">
-        <button id="back" class="btn ghost" ${i === 0 ? "disabled" : ""}>הקודם</button>
+      <nav class="p-nav">
+        <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
         ${last
           ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/"}">${next ? `הבא: ${h(next.title)}` : "לכל הדברים"}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך</button>`}
@@ -249,24 +280,21 @@ async function renderTopic(id) {
 function renderReview() {
   const queue = dueCards();
   let i = 0, right = 0;
+  const message = (title, text, btn) => {
+    app.innerHTML = `${playerTop(0, 1, "חזרה")}
+      <main class="stage"><div class="card end"><span class="kicker">חזרה</span><h3>${title}</h3><p class="muted">${text}</p></div></main>
+      <nav class="p-nav"><a class="btn" href="#/">${btn}</a></nav>`;
+  };
   if (!queue.length) {
-    app.innerHTML = `<header class="player-top"><a class="close" href="#/">✕</a><span class="count">חזרה</span></header>
-      <main class="stage"><div class="card end"><div class="big">🌤️</div><h3>אין מה לחזור עליו היום</h3>
-      <p class="muted">שאלות מופיעות כאן יום אחרי שסיימת דבר, ואז במרווחים הולכים וגדלים.</p></div></main>
-      <nav class="player-nav"><a class="btn" href="#/">חזרה לבית</a></nav>`;
-    return;
+    return message("אין מה לחזור עליו היום", "שאלות מופיעות כאן יום אחרי שסיימת דבר, ואז במרווחים הולכים וגדלים.", "חזרה לרשימה");
   }
   function show() {
     if (i >= queue.length) {
       touchStreak(); save();
-      app.innerHTML = `<header class="player-top"><a class="close" href="#/">✕</a><span class="count">חזרה</span></header>
-        <main class="stage"><div class="card end"><div class="big">🧠</div><h3>${right} מתוך ${queue.length} נכונות</h3>
-        <p class="muted">מה שידעת יחזור בעוד זמן רב יותר. מה שלא — מחר.</p></div></main>
-        <nav class="player-nav"><a class="btn" href="#/">סיום</a></nav>`;
-      return;
+      return message(`${right} מתוך ${queue.length} נכונות`, "מה שידעת יחזור בעוד זמן רב יותר. מה שלא — מחר.", "סיום");
     }
     const c = queue[i];
-    const card = questionCard(`${c.topic.emoji} ${c.topic.title}`, c.q, (ok) => {
+    const card = questionCard(c.topic.title, c.q, (ok) => {
       const s = state.srs[c.key];
       s.box = ok ? Math.min(s.box + 1, INTERVALS.length - 1) : 0;
       s.due = addDays(INTERVALS[s.box]);
@@ -274,13 +302,9 @@ function renderReview() {
       save();
     });
     app.innerHTML = `
-      <header class="player-top">
-        <a class="close" href="#/" aria-label="סגירה">✕</a>
-        <div class="bar"><i style="width:${(i / queue.length) * 100}%"></i></div>
-        <span class="count">${i + 1}/${queue.length}</span>
-      </header>
+      ${playerTop(i, queue.length, `${i + 1} מתוך ${queue.length}`)}
       <main class="stage">${card.html}</main>
-      <nav class="player-nav"><span></span><button id="next" class="btn" disabled>המשך</button></nav>`;
+      <nav class="p-nav"><button id="next" class="btn" disabled>המשך</button></nav>`;
     card.bind(app.querySelector(".stage"), () => (document.getElementById("next").disabled = false));
     document.getElementById("next").addEventListener("click", () => { i++; show(); });
   }

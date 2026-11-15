@@ -1,15 +1,17 @@
 // כל "דבר" הוא הסבר עצמאי: שאלת פתיחה, שלבי המנגנון, טעות נפוצה, שאלות בדיקה ומשפט לקחת.
-// כדי להוסיף דבר חדש — מוסיפים אובייקט לרשימה TOPICS באותו מבנה.
+// כדי להוסיף דבר חדש — מוסיפים אובייקט לרשימה באותו מבנה (כאן או ב-content-more.js).
+import { MORE_TOPICS } from "./content-more.js";
 
 export const CATEGORIES = [
   { id: "home", name: "בבית", emoji: "🏠" },
   { id: "move", name: "בדרכים", emoji: "🧭" },
   { id: "tech", name: "בכיס", emoji: "📱" },
+  { id: "energy", name: "חשמל ואנרגיה", emoji: "⚡" },
   { id: "infra", name: "תשתיות", emoji: "🏗️" },
   { id: "nature", name: "טבע וגוף", emoji: "🌩️" },
 ];
 
-export const TOPICS = [
+const BASE_TOPICS = [
   {
     id: "fridge", cat: "home", emoji: "🧊", title: "מקרר",
     sub: "איך קופסה עם תקע מייצרת קור",
@@ -341,7 +343,7 @@ export const TOPICS = [
     take: "חשמל מיוצר ברגע שצורכים אותו, ונוסע במתח גבוה כדי לא להתבזבז.",
   },
   {
-    id: "pv", cat: "infra", emoji: "🔆", title: "פאנל סולארי",
+    id: "pv", cat: "energy", emoji: "🔆", title: "פאנל סולארי",
     sub: "אור שהופך ישר לחשמל",
     hook: {
       q: "מה בפאנל סולארי זז כדי לייצר חשמל?",
@@ -473,3 +475,5 @@ export const TOPICS = [
     take: "חיסון הוא תרגיל: הגוף לומד לזהות את האויב לפני שהוא מגיע באמת.",
   },
 ];
+
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS];
