@@ -117,7 +117,7 @@ const CAT_GLYPH = {
   digital: '<rect opacity=".5" x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.200"/><path d="M9 2.500h1.500V5H9zM13.500 2.500H15V5h-1.500zM9 19h1.500v2.500H9zM13.500 19H15v2.500h-1.500zM2.500 9H5v1.500H2.500zM2.500 13.500H5V15H2.500zM19 9h2.500v1.500H19zM19 13.500h2.500V15H19z"/>',
 };
 // סרטונים מונפשים: videos/<id>.mp4 + videos/<id>.jpg
-const VIDEOS = new Set([]);
+const VIDEOS = new Map([]); // id → כותרת הכרטיס
 const GLYPH = {
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
   expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
@@ -552,7 +552,7 @@ function buildCards(t, scene, sim) {
   if (VIDEOS.has(t.id)) cards.push({
     html: `<div class="card film">
         <span class="tag">${glyph(GLYPH.play)} סרטון</span>
-        <h3>מה קורה במוח ב־60 שניות</h3>
+        <h3>${h(VIDEOS.get(t.id))}</h3>
         <div class="vid paused"><video src="videos/${t.id}.mp4" poster="videos/${t.id}.jpg" playsinline preload="metadata"></video>
           <span class="vplay" aria-hidden="true">${glyph(GLYPH.play)}</span><span class="vbar"><i></i></span></div>
         <button type="button" class="btn sm ghost fs">${glyph(GLYPH.expand)} צפייה במסך מלא</button>
