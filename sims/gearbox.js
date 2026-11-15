@@ -47,8 +47,8 @@ export default {
         <!-- גלגלי השיניים -->
         <g id="g2"><path id="g2p" class="fl-cold st-ink" stroke-width="1.5" stroke-linejoin="round"/><circle class="body" r="6"/><circle id="g2m" class="fl-bg st-ink" stroke-width="1.2" r="2.6"/></g>
         <g id="g1"><path id="g1p" class="fl-warm st-ink" stroke-width="1.5" stroke-linejoin="round"/><circle class="body" r="5"/><circle id="g1m" class="fl-bg st-ink" stroke-width="1.2" r="2.2"/></g>
-        <text x="${X1}" y="12" class="sm">מנוע</text><text id="r1" x="${X1}" y="24"></text>
-        <text x="${X2}" y="12" class="sm">ציר היציאה</text><text id="r2" x="${X2}" y="24"></text>
+        <text x="42" y="12" class="sm">מנוע</text><text id="r1" x="42" y="24"></text>
+        <text x="124" y="12" class="sm">ציר היציאה</text><text id="r2" x="124" y="24"></text>
         <text x="${WX}" y="12" class="sm">גלגל הרכב</text><text id="r3" x="${WX}" y="24"></text>
         <text id="teeth" x="${(X1 + X2) / 2}" y="150" class="sm"></text>
         <!-- מדי כוח ומהירות -->

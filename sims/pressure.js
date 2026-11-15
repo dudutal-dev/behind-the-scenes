@@ -29,7 +29,6 @@ export default {
         <rect class="body" x="24" y="70" width="14" height="7" rx="2"/><rect class="body" x="174" y="70" width="14" height="7" rx="2"/>
         <path class="body" d="M36 62V124Q36 132 44 132H168Q176 132 176 124V62Z"/>
         <path class="fl-cold-soft" d="${WATER}"/>
-        <path id="hot" class="fl-hot" d="${WATER}" opacity="0"/>
         <rect class="fl-warm st-ink" stroke-width="1.2" x="58" y="114" width="20" height="12" rx="3"/>
         <rect class="fl-green st-ink" stroke-width="1.2" x="98" y="117" width="16" height="10" rx="4"/>
         <rect class="fl-warm st-ink" stroke-width="1.2" x="132" y="113" width="22" height="13" rx="3"/>
@@ -39,7 +38,7 @@ export default {
         <path id="press" class="arrow st-violet" style="stroke-width:2"/>
         <text x="107" y="77" class="sm">לחץ</text>
         <!-- אדים מסיר פתוח -->
-        <g id="steam" class="thin fade"><path d="M70 56q-5-7 0-13t0-13"/><path d="M106 50q-5-7 0-13t0-11"/><path d="M142 56q-5-7 0-13t0-13"/></g>
+        <g id="steam"><g class="thin fade"><path d="M70 56q-5-7 0-13t0-13"/><path d="M106 50q-5-7 0-13t0-11"/><path d="M142 56q-5-7 0-13t0-13"/></g></g>
         <!-- מכסה נעול ושסתום -->
         <g id="lid">
           <path class="body" d="M30 63H182V57Q182 52 176 52H36Q30 52 30 57Z"/>
@@ -77,7 +76,7 @@ export default {
     ["lid", "steam", "hill"].forEach((id) => ($(id).style.transition = "opacity .25s"));
 
     wire(root, ({ p }) => {
-      const t = boil(p), rel = 2 ** ((100 - t) / 10);
+      const t = boil(p), rel = 3 ** ((100 - t) / 20); // כלל אצבע: כל 20 מעלות מקצרות את הבישול לשליש בערך, כמו בטקסט של הדבר
       out(root, "p-out", `${p.toFixed(2)} אטמ׳`);
       out(root, "t", fmt(t, 1));
       out(root, "rel", `⁦×${fmt(rel, rel < 1 ? 2 : 1)}⁩`);
@@ -88,7 +87,6 @@ export default {
       $("merc").setAttribute("height", (130 - y).toFixed(1));
       $("tlab").setAttribute("y", (y + 4.5).toFixed(1));
       $("ptr").setAttribute("transform", `translate(${PX(p).toFixed(1)} 0)`);
-      $("hot").setAttribute("opacity", (clamp((t - 65) / 65, 0, 1) * 0.18).toFixed(2));
       // חצי הלחץ: אורך יחסי ללחץ
       const len = 3.5 + 6 * p;
       $("press").setAttribute("d", [58, 84, 130, 156].map((x) => `M${x} ${(81 - len).toFixed(1)}V81M${x - 3} 77.500L${x} 81L${x + 3} 77.500`).join(""));

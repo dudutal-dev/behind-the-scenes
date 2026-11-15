@@ -69,8 +69,8 @@ export default {
 
     wire(root, ({ n1, n2 }) => {
       const k = n2 / n1, vout = VIN * k; // יחס הליפופים ומתח היציאה
-      out(root, "n1-out", `${fmt(n1)} ליפופים`);
-      out(root, "n2-out", `${fmt(n2)} ליפופים`);
+      out(root, "n1-out", `${fmt(n1)} ליפ׳`);
+      out(root, "n2-out", `${fmt(n2)} ליפ׳`);
       out(root, "n1lab", `${fmt(n1)} ליפופים`);
       out(root, "n2lab", `${fmt(n2)} ליפופים`);
       out(root, "vout", fmt(vout, vout < 100 ? 1 : 0));

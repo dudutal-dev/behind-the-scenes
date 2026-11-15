@@ -47,7 +47,7 @@ function simulate(v) {
     }
     x = nx; y = ny; t += h; ang += da; pa = a;
     if (ang >= TAU) { pts.push([0, R0, t]); end = "orbit"; break; }
-    if (nr * S > 330) { pts.push([x, y, t]); end = "out"; break; }
+    if (nr * S > 230) { pts.push([x, y, t]); end = "out"; break; }
     if (Math.hypot(x - lx, y - ly) >= gap) { pts.push([x, y, t]); lx = x; ly = y; }
   }
   const eps = (v * v) / 2 - GM / R0;
