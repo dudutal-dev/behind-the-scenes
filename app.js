@@ -71,7 +71,9 @@ function speak(text) {
   u.rate = 0.95;
   speechSynthesis.speak(u);
 }
-const canSpeak = "speechSynthesis" in window;
+// ההקראה מוקפאת בינתיים: הכפתור לא מוצג. כדי להחזיר — לשנות ל-true.
+const NARRATION = false;
+const canSpeak = NARRATION && "speechSynthesis" in window;
 
 // ---------- איורים ----------
 const sceneCache = {};
