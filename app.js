@@ -187,7 +187,7 @@ function renderWelcome() {
         <p class="w-stats"><b>${TOPICS.length}</b> דברים · <b>${CATEGORIES.length}</b> תחומים · <b>${SIMS.size}</b> הדמיות</p>
       </div>
       <ul class="w-list">
-        ${feature(GLYPH.spark, "c-review", "המנגנון, לא הכותרת", "ארבעה שלבים קצרים ואיור מונפש לכל דבר.")}
+        ${feature(GLYPH.spark, "c-move", "המנגנון, לא הכותרת", "ארבעה שלבים קצרים ואיור מונפש לכל דבר.")}
         ${feature(GLYPH.tune, "c-energy", "נסה בעצמך", "הדמיות שמזיזים בהן, ורואים מיד מה משתנה.")}
         ${feature(GLYPH.clock, "c-invent", "הסיפור שמאחור", "קצת היסטוריה, וטעות נפוצה אחת.")}
         ${feature(GLYPH.loop, "c-done", "כדי שזה יישאר", "שאלות קצרות שחוזרות אליך מדי פעם.")}

@@ -105,15 +105,17 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .dot{position:absolute;top:-1px;inset-inline-end:-3px;width:9px;height:9px;border-radius:50%;background:var(--bad);border:2px solid var(--card);box-sizing:content-box}
 
 /* ---------- מסך פתיחה ---------- */
-#app.welcome{height:100vh;height:100dvh;min-height:0;overflow:hidden;padding-top:max(22px,env(safe-area-inset-top))}
+#app.welcome{height:100vh;height:100dvh;min-height:0;overflow:hidden;padding-top:max(22px,env(safe-area-inset-top));--w:#1668e3;
+  background:radial-gradient(90% 40% at 50% 0%,color-mix(in srgb,var(--w) 13%,transparent),transparent 75%)}
+@media (prefers-color-scheme: dark){#app.welcome{--w:#4c9bff} #app.welcome .w-foot .btn{color:#06101f}}
 .w-scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;animation:view .5s ease-out}
 .w-scroll::-webkit-scrollbar{display:none}
 .w-hero{text-align:center;margin-top:auto;padding-top:8px}
 .w-hero img{border-radius:20px;box-shadow:var(--shadow)}
-.w-hero .brand em{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+.w-hero .brand em{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--w)}
 .w-hero .brand{font-size:34px;margin-top:12px;white-space:normal}
 .w-hero p{color:var(--muted);font-size:16px;font-weight:500;margin:4px 0 0}
-.w-list .badge{background:var(--soft);color:var(--ink);box-shadow:none}
+.w-list .badge{background:color-mix(in srgb,var(--c2) 15%,var(--card));color:var(--c2);box-shadow:none}
 .w-list{list-style:none;margin:26px 0 auto;padding:4px 16px;background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--line);
   border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .w-list li{display:flex;align-items:center;gap:13px;padding:9px 0;border-top:1px solid var(--line)}
@@ -123,7 +125,7 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .w-hero p.w-stats{font-size:13.5px;margin-top:8px}
 .w-stats b{color:var(--ink);font-weight:800}
 .w-foot{flex:none;padding-top:12px;text-align:center}
-.w-foot .btn{width:100%;min-height:56px;font-size:18px;border-radius:18px;background:var(--ink);color:var(--bg);box-shadow:none}
+.w-foot .btn{width:100%;min-height:56px;font-size:18px;border-radius:18px;background:var(--w);color:#fff;box-shadow:0 12px 24px -14px var(--w)}
 .w-foot small{display:block;margin-top:10px;color:var(--faint);font-size:12.5px}
 @media (prefers-reduced-motion: reduce){.w-scroll{animation:none}}
 
