@@ -40,7 +40,7 @@
 .c-home{--c1:#ff9f43;--c2:#ff5c6c} .c-move{--c1:#38bdf8;--c2:#3b6cf6} .c-tech{--c1:#e060f5;--c2:#8b5cf6}
 .c-energy{--c1:#fbbf24;--c2:#f97316} .c-infra{--c1:#d4a373;--c2:#9a6233} .c-nature{--c1:#84d955;--c2:#16a34a}
 .c-invent{--c1:#fb7fa5;--c2:#e11d6a} .c-body{--c1:#ff8f8f;--c2:#e5383b} .c-space{--c1:#7f8cff;--c2:#2f2a9b} .c-digital{--c1:#4fe3d0;--c2:#0891b2}
-.t-home{--c1:#7c7ffb;--c2:#5457f0} .t-lib{--c1:#ffb238;--c2:#f97316} .t-review{--c1:#4fe3a8;--c2:#0fa36b} .t-me{--c1:#ff8fb5;--c2:#e11d6a}
+.t-home{--c1:#7c7ffb;--c2:#5457f0} .t-lib{--c1:#ffb238;--c2:#f97316} .t-review{--c1:#4fe3a8;--c2:#0fa36b} .t-me{--c1:#ff8fb5;--c2:#e11d6a} .t-set{--c1:#5fd3e6;--c2:#0b86ab}
 .c-flame{--c1:#ffb238;--c2:#ff5a3c} .c-done{--c1:#4ade80;--c2:#12a150} .c-review{--c1:#8f8dff;--c2:#5457f0}
 
 *{box-sizing:border-box}
@@ -95,7 +95,7 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .tabbar{position:fixed;inset-inline:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:4px;
   background:color-mix(in srgb,var(--card) 86%,transparent);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
   border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-.tab{flex:1;max-width:140px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--faint);font-weight:600}
+.tab{flex:1;max-width:120px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;color:var(--faint);font-weight:600}
 .tab-ic{position:relative;display:grid;place-items:center;width:44px;height:36px;border-radius:13px;transition:transform .2s,background .2s,box-shadow .2s}
 .tab svg{width:25px;height:25px;fill:currentColor;transition:fill .2s}
 .tab:not(.on) svg{fill:color-mix(in srgb,var(--c2) 38%,var(--faint))}
@@ -210,7 +210,8 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .about{display:flex;align-items:center;gap:14px}
 .about img{border-radius:16px;flex:none}
 .about b{display:block;font-size:19px;font-weight:800}
-.about small{color:var(--muted);font-size:13.5px}
+.about small{display:block;color:var(--muted);font-size:13.5px}
+.about small.dev{margin-top:3px;color:var(--ink);font-weight:600}
 #list>section:first-child .rows{margin-top:10px}
 
 /* ---------- התקדמות וחזרה ---------- */
@@ -318,6 +319,9 @@ footer{margin-top:auto;padding-top:34px;text-align:center}
 .p-nav .btn{flex:1;max-width:360px;margin-inline-start:auto}
 .back{color:var(--muted);font-size:15px;font-weight:600;padding:12px 6px}
 .back:disabled{visibility:hidden}
+.home-btn{width:52px;height:52px;border-radius:16px;color:var(--accent)}
+.home-btn svg{width:24px;height:24px;fill:currentColor}
+.p-nav .home-btn+.btn{margin-inline-start:0}
 </style>
 </head>
 <body>

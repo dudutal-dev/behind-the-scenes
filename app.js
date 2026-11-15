@@ -1,7 +1,7 @@
 import { CATEGORIES, TOPICS } from "./content.js";
 import { SIM_IDS } from "./sims/index.js";
 
-const VERSION = "2.0";
+const VERSION = "2.1";
 // ?sim=<id> בכתובת מפעיל הדמיה שעוד לא רשומה ב-sims/index.js (לפיתוח)
 const SIMS = new Set([...SIM_IDS, ...new URLSearchParams(location.search).getAll("sim")]);
 
@@ -126,6 +126,7 @@ const TAB_IC = {
   home: CAT_GLYPH.home,
   lib: '<rect opacity=".5" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect opacity=".5" x="13" y="13" width="7.500" height="7.500" rx="2.200"/>',
   review: GLYPH.loop,
+  settings: '<circle opacity=".5" cx="12" cy="12" r="8.200"/><path d="M12 8.600a3.400 3.400 0 1 0 0 6.800 3.400 3.400 0 0 0 0-6.800zM10.700 2.500h2.600l.500 2.600h-3.600zM10.700 21.500h2.600l.500-2.600h-3.600zM2.500 10.700v2.600l2.600.500v-3.600zM21.500 10.700v2.600l-2.600.500v-3.600zM4.400 6.200l1.800-1.800 2.200 1.500-2.500 2.500zM19.600 17.800l-1.800 1.800-2.200-1.500 2.500-2.500zM6.200 19.600l-1.800-1.800 1.500-2.200 2.500 2.500zM17.800 4.400l1.800 1.800-1.500 2.200-2.500-2.500z"/>',
   me: '<rect opacity=".5" x="4" y="12" width="4.200" height="8.500" rx="1.600"/><rect x="9.900" y="4" width="4.200" height="16.500" rx="1.600"/><rect opacity=".5" x="15.800" y="8.500" width="4.200" height="12" rx="1.600"/>',
 };
 const TABS = [
@@ -133,6 +134,7 @@ const TABS = [
   { id: "lib", href: "#/lib", label: "ספרייה", c: "t-lib" },
   { id: "review", href: "#/review", label: "חזרה", c: "t-review" },
   { id: "me", href: "#/me", label: "התקדמות", c: "t-me" },
+  { id: "settings", href: "#/settings", label: "הגדרות", c: "t-set" },
 ];
 let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
 
@@ -189,7 +191,6 @@ function renderHome() {
           ${badge(GLYPH.flame, "c-flame sm")}
           <span><b>${streak}</b>${streak === 1 ? "יום" : "ימים"}</span>
         </a>
-        <a class="icon-btn" href="#/settings" aria-label="הגדרות">${IC.settings}</a>
       </div>
     </header>
 
@@ -342,10 +343,7 @@ function renderMe() {
       }).join("")}
       </div>
     </section>
-    <a class="notice" href="#/settings">
-      <span class="icon-btn flat">${IC.settings}</span>
-      <span class="notice-text"><b>הגדרות</b><small>גיבוי ושחזור, איפוס, אודות</small></span>
-      ${IC.fwd}</a>`);
+    `);
 }
 
 // ---------- הגדרות, גיבוי ואודות ----------
@@ -362,8 +360,8 @@ function importState(raw) {
 }
 function renderSettings() {
   const doneCount = Object.keys(state.done).length;
-  page("me", `
-    <header class="page-head"><h1>הגדרות</h1><a class="meta" href="#/me">להתקדמות ${IC.fwd}</a></header>
+  page("settings", `
+    <header class="page-head"><h1>הגדרות</h1></header>
 
     <section>
       <div class="sec-head"><h2>גיבוי ושחזור</h2></div>
@@ -396,7 +394,8 @@ function renderSettings() {
         <img src="icon-192.png" alt="" width="64" height="64">
         <div>
           <b>מאחורי הקלעים</b>
-          <small>גרסה ${VERSION} · ${TOPICS.length} דברים ב־${CATEGORIES.length} תחומים</small>
+          <small>גרסה ${VERSION} · ${TOPICS.length} דברים ב־${CATEGORIES.length} תחומים · ${SIMS.size} הדמיות</small>
+          <small class="dev">פיתוח: דודו טל</small>
         </div>
       </div>
       <div class="panel">
@@ -567,7 +566,8 @@ async function renderTopic(id) {
       <nav class="p-nav">
         <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
         ${last
-          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
+          ? `<a class="icon-btn home-btn" href="#/" aria-label="לדף הבית">${glyph(CAT_GLYPH.home)}</a>
+             <a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך ${IC.fwd}</button>`}
       </nav>`;
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
