@@ -186,7 +186,6 @@ function renderWelcome() {
         <p>איך דברים עובדים באמת — בשתי דקות לכל דבר</p>
         <p class="w-stats"><b>${TOPICS.length}</b> דברים · <b>${CATEGORIES.length}</b> תחומים · <b>${SIMS.size}</b> הדמיות</p>
       </div>
-      <div class="w-cats" aria-hidden="true">${CATEGORIES.map((c, i) => `<span style="animation-delay:${-i * 0.35}s">${catBadge(c.id, "sm")}</span>`).join("")}</div>
       <ul class="w-list">
         ${feature(GLYPH.spark, "c-review", "המנגנון, לא הכותרת", "ארבעה שלבים קצרים ואיור מונפש לכל דבר.")}
         ${feature(GLYPH.tune, "c-energy", "נסה בעצמך", "הדמיות שמזיזים בהן, ורואים מיד מה משתנה.")}
