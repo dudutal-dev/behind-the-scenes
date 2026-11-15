@@ -122,6 +122,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["mdma", "מה קורה במוח ב־60 שניות"],
   ["psilocybin", "מה קורה במוח ב־60 שניות"],
   ["lsd", "מה קורה במוח ב־60 שניות"],
+  ["fertilization", "המפגש ב־60 שניות"],
 ]);
 const GLYPH = {
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
