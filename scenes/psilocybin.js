@@ -11,7 +11,6 @@ export default `
 <path class="thin st-ink" style="stroke-width:1" d="M270 60L279 59M306 60L297 59M288 57V60"/>
 <circle class="fl-panel" cx="279" cy="42" r="2.4"/><circle class="fl-panel" cx="294" cy="37" r="2"/><circle class="fl-panel" cx="302" cy="47" r="1.8"/>
 <path class="arrow st-ink" marker-end="url(#psilocybin-a)" d="M262 76H242"/>
-<path class="flow" d="M262 76H246"/>
 </g>
 <g class="hl-1">
 <path class="body" style="stroke-width:1.8" d="M194 49L203.5 54.5L203.5 65.5L194 71L184.5 65.5L184.5 54.5Z"/>
@@ -42,7 +41,7 @@ export default `
 <path class="arrow st-ink" style="stroke-width:1.8" marker-end="url(#psilocybin-a)" d="M142 72V94"/>
 </g>
 <g class="hl-3">
-<path class="wire st-ink" style="stroke-width:1.4;stroke-dasharray:3 3"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.15;.45;.8;1" dur="5s" repeatCount="indefinite"/><animate attributeName="d" values="M256 160L198 150M256 160L226 174M198 150L186 186M272 134L206 126M284 172L212 196M198 150L226 174;M256 160L198 150M256 160L226 174M198 150L186 186M272 134L206 126M284 172L212 196M198 150L226 174" dur="5s" repeatCount="indefinite"/></path>
+<path class="wire st-ink" style="stroke-width:1.4;stroke-dasharray:3 3" d="M256 160L198 150M256 160L226 174M198 150L186 186M272 134L206 126M284 172L212 196M198 150L226 174"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.15;.45;.8;1" dur="5s" repeatCount="indefinite"/></path>
 <path class="wire st-violet" style="stroke-width:3.4" d="M272 134L296 148M296 148L284 172M284 172L256 160M256 160L272 134M272 134L284 172"><animate attributeName="opacity" values="1;1;.22;.22;1" keyTimes="0;.15;.45;.8;1" dur="5s" repeatCount="indefinite"/></path>
 <path class="wire st-cold" style="stroke-width:3" d="M182 132L206 126M206 126L198 150M198 150L182 132"/>
 <path class="wire st-green" style="stroke-width:3" d="M186 186L212 196M212 196L226 174M226 174L186 186"/>
@@ -51,19 +50,19 @@ export default `
 <circle class="fl-green st-ink" stroke-width="1.4" cx="186" cy="186" r="5.5"/><circle class="fl-green st-ink" stroke-width="1.4" cx="212" cy="196" r="5.5"/><circle class="fl-green st-ink" stroke-width="1.4" cx="226" cy="174" r="5.5"/>
 </g>
 <g class="hl-4">
-<rect class="fl-line st-ink" stroke-width="1.4" x="30" y="134" width="24" height="23.2" rx="2"><animate attributeName="height" values="0;23.2;23.2" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
-<text x="42" y="168.2" class="sm">−5.4</text>
+<rect class="fl-line st-ink" stroke-width="1.4" x="30" y="134" width="24" height="19.4" rx="2"><animate attributeName="height" values="0;19.4;19.4" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
+<text x="42" y="164.4" class="sm" style="direction:ltr">−5.4</text>
 <text x="42" y="206" class="sm">זעירה</text>
-<rect class="fl-line st-ink" stroke-width="1.4" x="70" y="134" width="24" height="34" rx="2"><animate attributeName="height" values="0;34;34" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
-<text x="82" y="179" class="sm">−7.9</text>
+<rect class="fl-line st-ink" stroke-width="1.4" x="70" y="134" width="24" height="28.4" rx="2"><animate attributeName="height" values="0;28.4;28.4" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
+<text x="82" y="173.4" class="sm" style="direction:ltr">−7.9</text>
 <text x="82" y="206" class="sm">בינונית</text>
-<rect class="fl-violet st-ink" stroke-width="1.4" x="110" y="134" width="24" height="51.6" rx="2"><animate attributeName="height" values="0;51.6;51.6" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
-<text x="122" y="196.6" class="sm">−12.0</text>
+<rect class="fl-violet st-ink" stroke-width="1.4" x="110" y="134" width="24" height="43.2" rx="2"><animate attributeName="height" values="0;43.2;43.2" keyTimes="0;.35;1" dur="4s" repeatCount="indefinite"/></rect>
+<text x="122" y="188.2" class="sm" style="direction:ltr">−12.0</text>
 <text x="122" y="206" class="sm">גבוהה</text>
 <path class="wire st-ink" style="stroke-width:1.8" d="M22 134H144"/>
 </g>
-<g class="only-1"><text x="214" y="102">פסילוסיבין ← פסילוצין</text><text x="214" y="21" class="sm">זרחה נתלשת</text></g>
-<g class="only-2"><text x="104" y="40">קולטן 5-HT2A</text><text x="104" y="23" class="sm">פסילוצין במקום סרוטונין</text></g>
-<g class="only-3"><text x="262" y="206" class="sm">ברירת המחדל נרפית</text><text x="230" y="122" class="sm">קשרים בין רשתות</text></g>
+<g class="only-1"><text x="288" y="104">פסילוסיבין</text><text x="210" y="104">פסילוצין</text><text x="174" y="27" class="sm">זרחה</text></g>
+<g class="only-2"><text x="104" y="40">קולטן ⁦5-HT2A⁩</text><text x="104" y="23" class="sm">פסילוצין במקום סרוטונין</text></g>
+<g class="only-3"><text x="262" y="206" class="sm">ברירת המחדל נרפית</text><text x="244" y="125" class="sm">קשרים בין רשתות</text></g>
 <g class="only-4"><text x="82" y="125" class="sm">ירידה בציון הדיכאון</text></g>
 `;
