@@ -50,7 +50,7 @@ export default `
   <g><path class="fl-warm st-ink" stroke-width="1.2" d="M0 -4.4L4.4 0L0 4.4L-4.4 0z"><animateMotion dur="3.4s" begin="-2.1s" repeatCount="indefinite" path="M24 126Q40 134 56 134"/><animate attributeName="opacity" values=".3;1;1" keyTimes="0;.3;1" dur="3.4s" begin="-2.1s" repeatCount="indefinite"/></path></g>
   <path class="arrow st-ink fl-none" style="stroke-width:2" marker-end="url(#mdma-arr)" d="M78 132V112"/>
   <text x="99" y="15">MDMA מגיע אל המרווח</text>
-  <text x="100" y="88">משאבת סרוטונין</text>
+  <text x="100" y="86">משאבת סרוטונין</text>
 </g>
 
 <!-- ===== שלב 2: המשאבה בכיוון ההפוך — סרוטונין נדחף אל המרווח ===== -->
@@ -67,7 +67,7 @@ export default `
   <g><circle class="fl-violet" r="2.6"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite" path="M99 55Q80 76 58 87"/><animate attributeName="opacity" values="0;1;1" keyTimes="0;.2;1" dur="2.2s" begin="-1.1s" repeatCount="indefinite"/></circle></g>
   <g><circle class="fl-violet" r="2.6"><animateMotion dur="2.4s" begin="-.5s" repeatCount="indefinite" path="M152 69Q150 80 146 88"/><animate attributeName="opacity" values="0;1;1" keyTimes="0;.2;1" dur="2.4s" begin="-.5s" repeatCount="indefinite"/></circle></g>
   <text x="99" y="15">המלאי משתחרר</text>
-  <text x="100" y="88">המשאבה בכיוון ההפוך</text>
+  <text x="100" y="86">משאבה בכיוון הפוך</text>
 </g>
 
 <!-- ===== שלב 3: המרווח מוצף והקולטנים נקשרים ===== -->
@@ -98,7 +98,7 @@ export default `
   <circle class="fl-violet" cx="62" cy="128" r="3"><animate attributeName="opacity" values=".4;1;.4" dur="3s" repeatCount="indefinite"/></circle>
   <circle class="fl-violet" cx="140" cy="131" r="3"><animate attributeName="opacity" values="1;.4;1" dur="3.4s" repeatCount="indefinite"/></circle>
   <text x="99" y="15">המלאי התרוקן</text>
-  <text x="100" y="88">המשאבה חוזרת לכיוונה</text>
+  <text x="100" y="86">המשאבה חזרה לכיוונה</text>
 </g>
 
 <!-- ===== תצוגת סקירה (״הכול״): כניסה מצד אחד, שחרור מהצד השני ===== -->

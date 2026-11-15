@@ -133,8 +133,9 @@ export default {
     const vfill = VPOS.map((_, i) => root.querySelector(`#vf${i}`));
 
     const dots = root.querySelector("#dots");
-    dots.innerHTML = CLEFT.map(([x, y], i) => `<circle class="fl-violet" cx="${x}" cy="${y}" r="3" opacity="0">
-      <animate attributeName="opacity" values="${i % 2 ? ".6;1;.6" : "1;.6;1"}" dur="${2 + (i % 5) * 0.3}s" repeatCount="indefinite"/></circle>`).join("");
+    // האנימציה על ה-circle דורסת opacity, ולכן ההצגה/הסתרה נעשית על ה-g העוטף
+    dots.innerHTML = CLEFT.map(([x, y], i) => `<g opacity="0"><circle class="fl-violet" cx="${x}" cy="${y}" r="3">
+      <animate attributeName="opacity" values="${i % 2 ? ".6;1;.6" : "1;.6;1"}" dur="${2 + (i % 5) * 0.3}s" repeatCount="indefinite"/></circle></g>`).join("");
     const dotEls = [...dots.children];
 
     const path = (arr, fy) => {
@@ -156,7 +157,7 @@ export default {
       out(root, "st", `${fmt(store, 0)}%`);
 
       // שלפוחיות: שטח המילוי יחסי למלאי
-      vfill.forEach((el) => el.setAttribute("r", (9 * Math.sqrt(clamp(store, 0, 120) / 100)).toFixed(2)));
+      vfill.forEach((el) => el.setAttribute("r", (9 * clamp(store, 0, 115) / 100).toFixed(2)));
       // נקודות במרווח: כמות יחסית לריכוז (נקודה אחת לכל 0.62 מהבסיס, עד 18)
       const n = clamp(Math.round(ratio * 1.62), 0, CLEFT.length);
       dotEls.forEach((el, k) => el.setAttribute("opacity", k < n ? "1" : "0"));
@@ -188,20 +189,25 @@ export default {
     });
 
     const btn = root.querySelector("#play");
+    const stop = () => { playing = false; btn.setAttribute("aria-pressed", "false"); btn.textContent = "הרצה לאורך הזמן"; };
+    // זמן ההרצה נשמר בנפרד מהמחוון, כי ערך המחוון נצמד לקפיצות של רבע שעה
+    let playT = +slider.value;
+    slider.addEventListener("input", () => { playT = +slider.value; });
     btn.addEventListener("click", () => {
       playing = !playing;
-      if (playing && +slider.value >= T_END) slider.value = "0";
+      if (playing && playT >= T_END) playT = 0;
       btn.setAttribute("aria-pressed", String(playing));
       btn.textContent = playing ? "עצירה" : "הרצה לאורך הזמן";
+      slider.value = String(playT);
       run();
     });
 
     loop(root, (dt) => {
       if (!playing) return;
       const speed = 4; // שעות בשנייה
-      const v = +slider.value + dt * speed;
-      slider.value = String(Math.min(T_END, v));
-      if (v >= T_END) { playing = false; btn.setAttribute("aria-pressed", "false"); btn.textContent = "הרצה לאורך הזמן"; }
+      playT = Math.min(T_END, playT + dt * speed);
+      slider.value = String(Math.round(playT / 0.25) * 0.25);
+      if (playT >= T_END) stop();
       run();
     });
   },
