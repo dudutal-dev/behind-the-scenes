@@ -466,6 +466,7 @@ function questionCard(label, q, onDone) {
           r.hidden = false;
           r.className = `reveal ${ok ? "ok" : "no"}`;
           r.innerHTML = `<b>${ok ? "נכון" : "לא בדיוק"}</b><span>${h(q.x)}</span>`;
+          r.scrollIntoView({ block: "nearest", behavior: "smooth" }); // ההסבר תמיד נראה, גם במסך נמוך
           onDone?.(ok);
           unlock();
         })
@@ -586,6 +587,7 @@ async function renderTopic(id) {
     document.getElementById("back").addEventListener("click", () => { i--; show(); });
     document.getElementById("next")?.addEventListener("click", () => { i++; show(); });
     window.scrollTo(0, 0);
+    app.querySelector(".stage").scrollTop = 0;
     if (canSpeak) speechSynthesis.cancel();
   }
   show();

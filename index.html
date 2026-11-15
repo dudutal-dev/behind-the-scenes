@@ -251,7 +251,14 @@ footer{margin-top:auto;padding-top:34px;text-align:center}
 .fav.on svg{fill:currentColor}
 .fav:active{transform:scale(.9)}
 
-.stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:4px 0}
+/* הנגן הוא מסך בגובה קבוע: רק אזור התוכן נגלל, והכפתורים נשארים תמיד למטה.
+   כך אין לדף עצמו לאן להיגלל, ולא נוצר שטח ריק מתחת לכפתור. */
+#app.player{height:100vh;height:100dvh;min-height:0;overflow:hidden}
+.player .p-top,.player .p-nav{flex:none}
+.stage{flex:1;min-height:0;display:flex;flex-direction:column;padding:4px 2px 10px;margin:0 -2px;
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.stage::-webkit-scrollbar{display:none}
+.stage>.card{margin-block:auto}
 .card{animation:in .3s cubic-bezier(.2,.8,.2,1)}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .card .scene{margin:0 0 18px;border-radius:22px;border:1px solid var(--line);box-shadow:var(--shadow)}
@@ -307,7 +314,7 @@ footer{margin-top:auto;padding-top:34px;text-align:center}
 .center-card{display:flex;flex-direction:column;align-items:center;text-align:center}
 .center-card h3{margin-top:20px}
 
-.p-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px}
+.p-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px}
 .p-nav .btn{flex:1;max-width:360px;margin-inline-start:auto}
 .back{color:var(--muted);font-size:15px;font-weight:600;padding:12px 6px}
 .back:disabled{visibility:hidden}
