@@ -80,10 +80,117 @@ async function loadScene(id) {
 const sceneSvg = (scene, step, label) =>
   `<svg class="scene" viewBox="0 0 320 220" data-step="${step}" role="img" aria-label="${h(label)}">${scene}</svg>`;
 
-// ---------- מסך הבית ----------
-let filter = "all";
-let query = "";
+// ---------- מסכים ראשיים ----------
+const CAT_ICON = {
+  home: '<path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/>',
+  move: '<path d="M4 16v-3l2-5h12l2 5v3zM6 16v2.5M18 16v2.5M4.5 13h15"/><circle cx="8" cy="14.5" r=".6"/><circle cx="16" cy="14.5" r=".6"/>',
+  tech: '<rect x="7" y="3" width="10" height="18" rx="2.2"/><path d="M11 17.8h2"/>',
+  energy: '<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>',
+  infra: '<path d="M3 17h18M6 17V6M18 17V6M6 7c2.2 5.5 9.8 5.5 12 0M10 17v-5.8M14 17v-5.8"/>',
+  nature: '<path d="M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8"/>',
+};
+const TABS = [
+  { id: "home", href: "#/", label: "בית", d: CAT_ICON.home },
+  { id: "lib", href: "#/lib", label: "ספרייה", d: '<path d="M5 4h6v7H5zM13 4h6v4h-6zM13 11h6v9h-6zM5 14h6v6H5z"/>' },
+  { id: "review", href: "#/review", label: "חזרה", d: '<path d="M17 3l3 3-3 3M20 6H8a4 4 0 00-4 4v1M7 21l-3-3 3-3M4 18h12a4 4 0 004-4v-1"/>' },
+  { id: "me", href: "#/me", label: "התקדמות", d: '<path d="M5 20v-8M12 20V5M19 20v-5"/>' },
+];
+let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
 
+function tabbar(active) {
+  const due = dueCards().length;
+  return `<nav class="tabbar" aria-label="ניווט ראשי">${TABS.map((t) => `
+    <a href="${t.href}" class="tab${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
+      <span class="tab-ic">${icon(t.d)}${t.id === "review" && due ? `<i class="dot"></i>` : ""}</span>
+      <span>${t.label}</span>
+    </a>`).join("")}</nav>`;
+}
+function page(active, html) {
+  app.className = "with-tabs";
+  app.innerHTML = `${html}${tabbar(active)}`;
+}
+function greeting() {
+  const hr = new Date().getHours();
+  return hr >= 5 && hr < 12 ? "בוקר טוב" : hr < 17 ? "צהריים טובים" : hr < 22 ? "ערב טוב" : "לילה טוב";
+}
+const doneIn = (catId) => ORDERED.filter((t) => t.cat === catId && state.done[t.id]).length;
+const countIn = (catId) => ORDERED.filter((t) => t.cat === catId).length;
+
+// מציג איור בכרטיס רק כשהוא נכנס למסך, ומסיר אותו כשהוא יוצא — כדי לא להריץ אנימציות שלא רואים
+function lazyScenes(root) {
+  const fill = async (el) => {
+    const scene = await loadScene(el.dataset.scene);
+    if (scene && el.isConnected && !el.firstChild) el.innerHTML = sceneSvg(scene, "all", "");
+  };
+  if (!("IntersectionObserver" in window)) return root.querySelectorAll("[data-scene]").forEach(fill);
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) fill(e.target); else e.target.innerHTML = "";
+  }), { rootMargin: "80px" });
+  root.querySelectorAll("[data-scene]").forEach((el) => io.observe(el));
+}
+
+// ---------- בית ----------
+function renderHome() {
+  const today = todaysTopic();
+  const due = dueCards().length;
+  const streak = liveStreak();
+  const doneCount = Object.keys(state.done).length;
+  // הצעה אחת מכל תחום, מתוך מה שעוד לא נקרא
+  const picks = CATEGORIES.map((c) => ORDERED.find((t) => t.cat === c.id && !state.done[t.id] && t.id !== today.id)).filter(Boolean);
+
+  page("home", `
+    <header class="hello">
+      <div>
+        <span class="hello-sub">${greeting()}</span>
+        <h1 class="brand">איך זה עובד</h1>
+      </div>
+      <a class="pill" href="#/me">${streak ? `רצף ${streak === 1 ? "יום אחד" : `${streak} ימים`}` : `${doneCount} מתוך ${TOPICS.length}`}</a>
+    </header>
+
+    <a class="hero" href="#/t/${today.id}">
+      <div class="thumb" data-scene="${today.id}"></div>
+      <div class="hero-body">
+        <div>
+          <span class="kicker">הדבר של היום</span>
+          <h2>${h(today.title)}</h2>
+          <p>${h(today.sub)}</p>
+        </div>
+        <span class="btn sm">לקריאה</span>
+      </div>
+    </a>
+
+    ${due ? `<a class="notice" href="#/review">
+      <span><b>${due}</b> שאלות מחכות לחזרה</span><span class="go">להתחיל ${IC.fwd}</span></a>` : ""}
+
+    <section>
+      <div class="sec-head"><h2>תחומים</h2><a href="#/lib">כל ${TOPICS.length} הדברים ${IC.fwd}</a></div>
+      <div class="tiles">
+        ${CATEGORIES.map((c) => {
+          const n = countIn(c.id), d = doneIn(c.id);
+          return `<a class="tile" href="#/lib/${c.id}">
+            <span class="tile-ic">${icon(CAT_ICON[c.id])}</span>
+            <b>${h(c.name)}</b>
+            <small>${d ? `${d} מתוך ${n}` : `${n} דברים`}</small>
+            <span class="bar"><i style="width:${(d / n) * 100}%"></i></span>
+          </a>`;
+        }).join("")}
+      </div>
+    </section>
+
+    ${picks.length ? `<section>
+      <div class="sec-head"><h2>אולי יעניין אותך</h2></div>
+      <div class="rail">
+        ${picks.map((t) => `<a class="mini" href="#/t/${t.id}">
+          <div class="thumb" data-scene="${t.id}"></div>
+          <b>${h(t.title)}</b><small>${h(t.sub)}</small>
+        </a>`).join("")}
+      </div>
+    </section>` : ""}`);
+  lazyScenes(app);
+}
+
+// ---------- ספרייה ----------
+let query = "";
 function topicRow(t) {
   const done = !!state.done[t.id];
   return `<a class="row${done ? " done" : ""}" href="#/t/${t.id}">
@@ -92,71 +199,62 @@ function topicRow(t) {
     <span class="row-mark">${done ? IC.check : IC.fwd}</span>
   </a>`;
 }
-
-function listHtml() {
+function listHtml(filter) {
   const q = query.trim();
   const match = (t) => (!q || t.title.includes(q) || t.sub.includes(q)) && (filter === "all" || q || t.cat === filter);
   const html = CATEGORIES.map((c) => {
     const items = ORDERED.filter((t) => t.cat === c.id && match(t));
     if (!items.length) return "";
-    return `<section><h2 class="group">${h(c.name)}</h2>${items.map(topicRow).join("")}</section>`;
+    const head = filter === "all" || q ? `<h2 class="group">${h(c.name)}</h2>` : "";
+    return `<section>${head}${items.map(topicRow).join("")}</section>`;
   }).join("");
   return html || `<p class="empty">לא נמצא דבר כזה.</p>`;
 }
-
-function renderHome() {
-  const today = todaysTopic();
-  const due = dueCards().length;
-  const doneCount = Object.keys(state.done).length;
-  const streak = liveStreak();
-
-  app.innerHTML = `
-    <header class="mast">
-      <h1 class="brand">איך זה עובד</h1>
-      <div class="stats">${streak === 1 ? "רצף של יום אחד · " : streak ? `רצף <b>${streak}</b> ימים · ` : ""}<b>${doneCount}</b> מתוך ${TOPICS.length}</div>
+function renderLibrary(cat) {
+  const filter = CATEGORIES.some((c) => c.id === cat) ? cat : "all";
+  page("lib", `
+    <header class="page-head">
+      <h1>ספרייה</h1>
+      <span class="meta">${Object.keys(state.done).length} מתוך ${TOPICS.length} נקראו</span>
     </header>
-
-    <a class="hero" href="#/t/${today.id}">
-      <div id="hero-scene" class="hero-ph"></div>
-      <div class="hero-body">
-        <span class="kicker">הדבר של היום</span>
-        <h2>${h(today.title)}</h2>
-        <p>${h(today.sub)}</p>
-        <div class="hero-foot">
-          <span class="meta">כשתי דקות · ארבעה שלבים</span>
-          <span class="btn sm">לקריאה</span>
-        </div>
-      </div>
-    </a>
-    ${due ? `<a class="review" href="#/review"><span style="color:inherit;font-weight:400"><b>${due}</b> שאלות לחזרה היום</span><span>להתחיל ${IC.fwd}</span></a>` : ""}
-
     <div class="tools">
-      <label class="search">${IC.search}<input id="search" type="search" placeholder="חיפוש" value="${h(query)}" autocomplete="off" aria-label="חיפוש"></label>
+      <label class="search">${IC.search}<input id="search" type="search" placeholder="חיפוש בכל הדברים" value="${h(query)}" autocomplete="off" aria-label="חיפוש"></label>
       <div class="chips" role="group" aria-label="סינון לפי תחום">
         ${[{ id: "all", name: "הכול" }, ...CATEGORIES].map((c) =>
-          `<button class="chip" data-cat="${c.id}" aria-pressed="${filter === c.id}">${h(c.name)}</button>`).join("")}
+          `<a class="chip" href="#/lib${c.id === "all" ? "" : `/${c.id}`}" aria-current="${filter === c.id}">${h(c.name)}</a>`).join("")}
       </div>
     </div>
-    <div id="list">${listHtml()}</div>
-
-    <footer><button id="reset" class="link">איפוס ההתקדמות</button></footer>`;
-
-  loadScene(today.id).then((scene) => {
-    const el = document.getElementById("hero-scene");
-    if (el && scene) { el.className = ""; el.innerHTML = sceneSvg(scene, "all", `איור: ${today.title}`); }
-  });
-
+    <div id="list">${listHtml(filter)}</div>`);
   const list = document.getElementById("list");
-  document.getElementById("search").addEventListener("input", (e) => { query = e.target.value; list.innerHTML = listHtml(); });
-  app.querySelectorAll(".chip").forEach((b) =>
-    b.addEventListener("click", () => {
-      filter = b.dataset.cat;
-      app.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === b));
-      list.innerHTML = listHtml();
-    })
-  );
+  document.getElementById("search").addEventListener("input", (e) => { query = e.target.value; list.innerHTML = listHtml(filter); });
+  app.querySelector('.chip[aria-current="true"]')?.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+// ---------- התקדמות ----------
+function renderMe() {
+  const doneCount = Object.keys(state.done).length;
+  const streak = liveStreak();
+  const waiting = Object.keys(state.srs).length;
+  page("me", `
+    <header class="page-head"><h1>התקדמות</h1></header>
+    <div class="figures">
+      <div><b>${doneCount}</b><span>דברים נקראו</span></div>
+      <div><b>${streak}</b><span>${streak === 1 ? "יום ברצף" : "ימים ברצף"}</span></div>
+      <div><b>${waiting}</b><span>שאלות בחזרה</span></div>
+    </div>
+    <section>
+      <div class="sec-head"><h2>לפי תחום</h2></div>
+      ${CATEGORIES.map((c) => {
+        const n = countIn(c.id), d = doneIn(c.id);
+        return `<a class="prog" href="#/lib/${c.id}">
+          <span class="prog-top"><b>${h(c.name)}</b><small>${d} מתוך ${n}</small></span>
+          <span class="bar"><i style="width:${(d / n) * 100}%"></i></span>
+        </a>`;
+      }).join("")}
+    </section>
+    <footer><button id="reset" class="link">איפוס ההתקדמות</button></footer>`);
   document.getElementById("reset").addEventListener("click", () => {
-    if (confirm("למחוק את כל ההתקדמות, הרצף והחזרות?")) { state = EMPTY(); save(); renderHome(); }
+    if (confirm("למחוק את כל ההתקדמות, הרצף והחזרות?")) { state = EMPTY(); save(); renderMe(); }
   });
 }
 
@@ -227,7 +325,7 @@ function buildCards(t, scene) {
 
 const playerTop = (i, n, title) => `
   <header class="p-top">
-    <a class="close" href="#/" aria-label="סגירה">${IC.close}</a>
+    <a class="close" href="${backTo}" aria-label="סגירה">${IC.close}</a>
     <div class="segs" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}">
       ${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}
     </div>
@@ -263,7 +361,7 @@ async function renderTopic(id) {
       <nav class="p-nav">
         <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
         ${last
-          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/"}">${next ? `הבא: ${h(next.title)}` : "לכל הדברים"}</a>`
+          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? `הבא: ${h(next.title)}` : "לספרייה"}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך</button>`}
       </nav>`;
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
@@ -279,19 +377,39 @@ async function renderTopic(id) {
 // ---------- חזרה מרווחת ----------
 function renderReview() {
   const queue = dueCards();
-  let i = 0, right = 0;
-  const message = (title, text, btn) => {
-    app.innerHTML = `${playerTop(0, 1, "חזרה")}
-      <main class="stage"><div class="card end"><span class="kicker">חזרה</span><h3>${title}</h3><p class="muted">${text}</p></div></main>
-      <nav class="p-nav"><a class="btn" href="#/">${btn}</a></nav>`;
-  };
+  const total = Object.keys(state.srs).length;
+  const intro = (title, text, action) => page("review", `
+    <header class="page-head"><h1>חזרה</h1></header>
+    <div class="center">
+      <span class="kicker">חזרה מרווחת</span>
+      <h2>${title}</h2>
+      <p>${text}</p>
+      ${action}
+    </div>`);
   if (!queue.length) {
-    return message("אין מה לחזור עליו היום", "שאלות מופיעות כאן יום אחרי שסיימת דבר, ואז במרווחים הולכים וגדלים.", "חזרה לרשימה");
+    return intro(
+      total ? "אין מה לחזור עליו היום" : "עדיין אין שאלות לחזרה",
+      total
+        ? "השאלות הבאות יופיעו כאן כשיגיע זמנן. המרווחים גדלים בכל פעם שעונים נכון: יום, שלושה, שבוע, ואז יותר."
+        : "אחרי שמסיימים דבר, שאלות הבדיקה שלו מופיעות כאן למחרת, ואז במרווחים הולכים וגדלים — כך זה נשאר בזיכרון.",
+      `<a class="btn" href="#/lib">לספרייה</a>`);
   }
+  intro(`${queue.length} שאלות מחכות לך`, "כמה דקות של חזרה על מה שכבר קראת. מה שתדע יחזור בעוד זמן רב יותר; מה שלא — מחר.",
+    `<button id="start" class="btn">להתחיל</button>`);
+  document.getElementById("start").addEventListener("click", () => runReview(queue));
+}
+
+function runReview(queue) {
+  let i = 0, right = 0;
+  app.className = "";
   function show() {
     if (i >= queue.length) {
       touchStreak(); save();
-      return message(`${right} מתוך ${queue.length} נכונות`, "מה שידעת יחזור בעוד זמן רב יותר. מה שלא — מחר.", "סיום");
+      app.innerHTML = `${playerTop(0, 1, "חזרה")}
+        <main class="stage"><div class="card end"><span class="kicker">סיימת</span><h3>${right} מתוך ${queue.length} נכונות</h3>
+        <p class="muted">מה שידעת יחזור בעוד זמן רב יותר. מה שלא — מחר.</p></div></main>
+        <nav class="p-nav"><a class="btn" href="#/">סיום</a></nav>`;
+      return;
     }
     const c = queue[i];
     const card = questionCard(c.topic.title, c.q, (ok) => {
@@ -307,6 +425,7 @@ function renderReview() {
       <nav class="p-nav"><button id="next" class="btn" disabled>המשך</button></nav>`;
     card.bind(app.querySelector(".stage"), () => (document.getElementById("next").disabled = false));
     document.getElementById("next").addEventListener("click", () => { i++; show(); });
+    window.scrollTo(0, 0);
   }
   show();
 }
@@ -314,9 +433,14 @@ function renderReview() {
 // ---------- ניתוב ----------
 function route() {
   const [, view, id] = location.hash.split("/");
-  if (view === "t") renderTopic(id);
-  else if (view === "review") renderReview();
-  else renderHome();
+  if (view === "t") { app.className = ""; renderTopic(id); }
+  else {
+    backTo = location.hash || "#/";
+    if (view === "lib") renderLibrary(id);
+    else if (view === "review") renderReview();
+    else if (view === "me") renderMe();
+    else renderHome();
+  }
   window.scrollTo(0, 0);
 }
 window.addEventListener("hashchange", route);
