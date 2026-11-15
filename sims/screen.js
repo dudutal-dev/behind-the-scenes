@@ -54,7 +54,7 @@ export default {
           <rect class="sg" x="${x + 17}" y="${y + 3}" width="10" height="${PY - 6}" rx="2.500"/>
           <rect class="sb" x="${x + 30}" y="${y + 3}" width="10" height="${PY - 6}" rx="2.500"/>`).join("")}
         <rect x="${X0 + PX + 1}" y="${Y0 + PY}" width="${PX - 2}" height="${PY}" rx="4" fill="none" stroke="#fff" stroke-width="1.200" stroke-dasharray="3 3"/>
-        <text x="82" y="164" class="sm">תקריב: 9 פיקסלים (המסומן — פיקסל אחד)</text>
+        <text x="82" y="164" class="sm">תקריב: המסומן הוא פיקסל אחד</text>
         <!-- העין מערבבת -->
         <path class="arrow st-ink" d="M160 84H176M171 78l6 6l-6 6"/>
         <!-- הצבע שרואים -->
@@ -65,17 +65,19 @@ export default {
         <text id="note" x="160" y="186"></text>
       </svg>
       ${readouts([{ id: "name", label: "הצבע שנוצר" }, { id: "combos", label: "צירופים אפשריים" }])}
-      ${range({ id: "r", label: "אדום", min: 0, max: 255, value: 255 })}
-      ${range({ id: "g", label: "ירוק", min: 0, max: 255, value: 150 })}
-      ${range({ id: "b", label: "כחול", min: 0, max: 255, value: 0 })}
-      <div class="sim-ctl seg" style="grid-template-columns:1fr">
+      <div class="sim-ctl seg" style="grid-template-columns:1fr;margin-top:8px">
         <div class="seg-btns" data-id="mix" role="group" aria-label="תערובות מוכנות">
           ${MIXES.map((m) => `<button type="button" data-v="${m.v}" aria-pressed="false" style="font-size:13px">${m.label}</button>`).join("")}
         </div>
       </div>
+      ${range({ id: "r", label: "אדום", min: 0, max: 255, value: 255 })}
+      ${range({ id: "g", label: "ירוק", min: 0, max: 255, value: 150 })}
+      ${range({ id: "b", label: "כחול", min: 0, max: 255, value: 0 })}
       ${choice({ id: "tech", label: "סוג המסך", options: [{ v: "oled", label: "OLED" }, { v: "lcd", label: "LCD" }], value: "oled" })}`;
 
     const q = (s) => root.querySelector(s);
+    // חמש שורות פקדים: מצופפים מעט את המחוונים כדי שהאיור והפקדים ייכנסו יחד למסך
+    root.querySelectorAll("label.sim-ctl").forEach((el) => (el.style.marginTop = "3px"));
     const all = (s) => [...root.querySelectorAll(s)];
     const subs = { r: all(".sr"), g: all(".sg"), b: all(".sb") };
     const sliders = { r: q("#r"), g: q("#g"), b: q("#b") };

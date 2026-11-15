@@ -138,7 +138,7 @@ export default {
       if (shot) addOld(shot.sim);
       const sim = simulate(v);
       // משך ההצגה: בערך פי 1,500 מהר מהמציאות, אבל לא פחות מ-1.2 שניות ולא יותר מ-12
-      shot = { sim, tp: 0, i: 0, d: "", done: false, rate: sim.T / clamp(sim.T / 1500, 1.2, 12) };
+      shot = { sim, tp: 0, i: 0, d: `M${sx(0).toFixed(1)} ${sy(R0).toFixed(1)}`, done: false, rate: sim.T / clamp(sim.T / 1500, 1.2, 12) };
       cur.setAttribute("d", "");
       res.textContent = "בטיסה…";
       val.textContent = "0 שניות";
@@ -177,7 +177,7 @@ export default {
       let moved = false;
       while (shot.i < last && pts[shot.i + 1][2] <= shot.tp) {
         shot.i++;
-        if (!shot.done) { shot.d += `${shot.d ? "L" : "M"}${sx(pts[shot.i][0]).toFixed(1)} ${sy(pts[shot.i][1]).toFixed(1)}`; moved = true; }
+        if (!shot.done) { shot.d += `L${sx(pts[shot.i][0]).toFixed(1)} ${sy(pts[shot.i][1]).toFixed(1)}`; moved = true; }
       }
       const a = pts[shot.i], b = pts[Math.min(last, shot.i + 1)];
       const f = b[2] > a[2] ? clamp((shot.tp - a[2]) / (b[2] - a[2]), 0, 1) : 0;
