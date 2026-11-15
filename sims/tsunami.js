@@ -102,7 +102,7 @@ export default {
       out(root, "clock", `${Math.floor(min / 60)}:${String(min % 60).padStart(2, "0")} שעות מהרעידה`);
       let note;
       if (broken) note = `נשבר בעומק ${fmt(broken.d, 1)} מ׳. מכאן חוק גרין לא תקף: הגל שוטף את החוף`;
-      else if (k < K_DEEP) note = `בלב ים: מהיר כמו מטוס ונמוך מ־${fmt(H < 1 ? 1 : Math.ceil(H), 0)} מ׳. הספינה כמעט לא מרגישה`;
+      else if (k < K_DEEP) note = H < 1 ? "בלב ים: מהיר כמו מטוס, ונמוך ממטר. הספינה כמעט לא מרגישה" : `בלב ים: מהיר כמו מטוס, בגובה ${fmt(H, 1)} מ׳ בלבד`;
       else if (k < K_SLOPE) note = "המדרון היבשתי: הים נעשה רדוד, והגל מתחיל להאט";
       else note = `על המדף: האט פי ${fmt(kmh(d0) / v, 0)} וגבוה פי ${fmt(H / h0, 1)} מבלב ים`;
       out(root, "note", note);
