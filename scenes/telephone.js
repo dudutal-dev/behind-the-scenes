@@ -54,6 +54,7 @@ export default `
   <path class="fl-warm" opacity=".5" d="M276 38H218a4 4 0 0 0-4 4V94a4 4 0 0 0 4 4H276V92H220V44H276z"/>
   <rect class="fl-panel" x="220.8" y="44.8" width="54" height="46.4"/>
   <path class="fl-dark st-ink" stroke-width="1.5" stroke-linejoin="round" d="M277 38H292Q300 38 302 46V50Q292 52 286 63H277zM277 98H292Q300 98 302 90V86Q292 84 286 73H277z"/>
+  <path class="wire st-ink" style="stroke-width:1.8" d="M256 44V55M256 81V92"/>
   <rect class="fl-line st-ink" stroke-width="1.2" x="220" y="64" width="50" height="8"/>
   <rect class="fl-warm st-ink" stroke-width="1.3" x="240" y="54" width="27" height="28" rx="2"/>
   <path class="st-ink fl-none" stroke-width=".7" opacity=".55" d="M243.4 54.5V81.5M246.8 54.5V81.5M250.2 54.5V81.5M253.6 54.5V81.5M257 54.5V81.5M260.4 54.5V81.5M263.8 54.5V81.5"/>
@@ -93,10 +94,10 @@ export default `
   <text x="156" y="104" class="sm">הזרם בקו</text>
   <text x="190" y="130" class="sm">סוללה</text>
   <rect class="fl-soft st-ink" stroke-width="1.2" x="108" y="141" width="42" height="20" rx="2"/><circle class="fl-dark st-ink" stroke-width=".5" cx="114.6" cy="146" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="125.16" cy="147.44" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="135.24" cy="145.52" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="143.4" cy="147.92" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="119.4" cy="151.76" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="129.96" cy="150.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="139.56" cy="152.24" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="115.08" cy="156.08" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="124.68" cy="155.6" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="134.76" cy="156.56" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="143.4" cy="155.12" r="2.1"/><rect class="fl-soft st-ink" stroke-width="1.2" x="164" y="141" width="42" height="20" rx="2"/><circle class="fl-dark st-ink" stroke-width=".5" cx="170.6" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="175.4" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="180.2" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="185" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="189.8" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="194.6" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="199.4" cy="146.2" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="170.6" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="175.4" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="180.2" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="185" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="189.8" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="194.6" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="199.4" cy="151" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="170.6" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="175.4" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="180.2" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="185" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="189.8" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="194.6" cy="155.8" r="2.1"/><circle class="fl-dark st-ink" stroke-width=".5" cx="199.4" cy="155.8" r="2.1"/>
-  <path class="arrow st-warm" style="stroke-width:1.2" d="M114 168H140" marker-end="url(#telephone-a)"/>
-  <path class="arrow st-warm" style="stroke-width:3.2" d="M170 168H196" marker-end="url(#telephone-a)"/>
-  <text x="129" y="187" class="sm">רפויים: זרם חלש</text>
-  <text x="186" y="187" class="sm">דחוסים: חזק</text>
+  <path class="fl-warm st-ink" stroke-width=".8" stroke-linejoin="round" d="M114 167.2H136V165L142 168L136 171V168.8H114z"/>
+  <path class="fl-warm st-ink" stroke-width=".8" stroke-linejoin="round" d="M170 165.5H190V162L199 168L190 174V170.5H170z"/>
+  <text x="129" y="187" class="sm">זרם חלש</text>
+  <text x="185" y="187" class="sm">זרם חזק</text>
   <text x="160" y="205">הקרום דוחס גרגרי פחם, והזרם עולה ויורד</text>
 </g>
 <g class="only-3">

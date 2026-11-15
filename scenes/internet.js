@@ -66,7 +66,7 @@ export default `
   <text class="sm" x="262" y="35" style="stroke:none">מאת: 10.0.0.5</text>
   <text class="sm" x="262" y="46" style="stroke:none">חבילה 2 מתוך 4</text>
   <text x="56" y="24">חותכים לחבילות</text>
-  <text x="56" y="39">כתובת ומספר על כל אחת</text>
+  <text x="56" y="39">עם כתובת ומספר</text>
 </g>
 <!-- שלב 2 -->
 <g class="only-2">
@@ -93,10 +93,10 @@ export default `
 </g>
 <!-- שלב 4 -->
 <g class="from-4">
-  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-9" y="-7" width="18" height="14" rx="2"/><rect class="fl-cold" x="-8" y="-6" width="16" height="3"/><text class="sm" y="5.4" style="stroke:none;font-weight:700">2</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.04;0.13;1" path="M76 100L40 100L34 120L71 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.04;0.05;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
-  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-9" y="-7" width="18" height="14" rx="2"/><rect class="fl-cold" x="-8" y="-6" width="16" height="3"/><text class="sm" y="5.4" style="stroke:none;font-weight:700">4</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.14;0.23;1" path="M76 100L40 100L34 120L27 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.14;0.15;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
-  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-9" y="-7" width="18" height="14" rx="2"/><rect class="fl-cold" x="-8" y="-6" width="16" height="3"/><text class="sm" y="5.4" style="stroke:none;font-weight:700">1</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.24;0.33;1" path="M76 100L40 100L34 120L93 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.24;0.25;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
-  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-9" y="-7" width="18" height="14" rx="2"/><rect class="fl-cold" x="-8" y="-6" width="16" height="3"/><text class="sm" y="5.4" style="stroke:none;font-weight:700">3</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.76;0.85;1" path="M76 100L40 100L34 120L49 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.76;0.77;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
+  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-8.5" y="-6.5" width="17" height="13" rx="2"/><rect class="fl-cold" x="-7.5" y="-5.5" width="15" height="3"/><text class="sm" y="4.9" style="stroke:none;font-weight:700">2</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.04;0.13;1" path="M76 100L40 100L34 120L71 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.04;0.05;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
+  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-8.5" y="-6.5" width="17" height="13" rx="2"/><rect class="fl-cold" x="-7.5" y="-5.5" width="15" height="3"/><text class="sm" y="4.9" style="stroke:none;font-weight:700">4</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.14;0.23;1" path="M76 100L40 100L34 120L27 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.14;0.15;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
+  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-8.5" y="-6.5" width="17" height="13" rx="2"/><rect class="fl-cold" x="-7.5" y="-5.5" width="15" height="3"/><text class="sm" y="4.9" style="stroke:none;font-weight:700">1</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.24;0.33;1" path="M76 100L40 100L34 120L93 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.24;0.25;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
+  <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-8.5" y="-6.5" width="17" height="13" rx="2"/><rect class="fl-cold" x="-7.5" y="-5.5" width="15" height="3"/><text class="sm" y="4.9" style="stroke:none;font-weight:700">3</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.76;0.85;1" path="M76 100L40 100L34 120L49 175"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.76;0.77;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
   <rect class="fl-none st-green" stroke-width="2.5" x="14" y="164" width="92" height="22" rx="4" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.86;.88;.97;1" dur="7s" begin="-2.5s" repeatCount="indefinite"/></rect>
 </g>
 <g class="only-4">
@@ -105,7 +105,7 @@ export default `
   <g opacity="0"><rect class="body" style="stroke-width:1.5" x="-7" y="-6" width="14" height="12" rx="2"/><rect class="fl-cold" x="-6" y="-5" width="12" height="3"/><text class="sm" y="4.4" style="stroke:none;font-weight:700">3</text><animateMotion dur="7s" begin="-2.5s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.58;.76;1" path="M282 100L236 100L196 138L116 138L76 100"/><animate attributeName="opacity" calcMode="discrete" values="0;1;0" keyTimes="0;.58;.76" dur="7s" begin="-2.5s" repeatCount="indefinite"/></g>
   <text x="56" y="24">מגיעות מבולבלות,</text>
   <text x="56" y="39">מסדרים לפי מספר</text>
-  <text x="160" y="176">חבילה 3 אבדה:</text>
+  <text x="160" y="176">חבילה 3 אבדה,</text>
   <text x="160" y="191">מבקשים אותה שוב</text>
 </g>
 `;

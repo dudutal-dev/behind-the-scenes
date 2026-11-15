@@ -7,7 +7,7 @@ export default `
   <clipPath id="radio-r2"><rect x="12" y="138" width="92" height="20"/></clipPath>
   <clipPath id="radio-r3"><rect x="12" y="162" width="92" height="20"/></clipPath>
   <clipPath id="radio-r4"><rect x="12" y="186" width="92" height="20"/></clipPath>
-  <clipPath id="radio-g"><rect x="166" y="114" width="84" height="44"/></clipPath>
+  <clipPath id="radio-g"><rect x="166" y="113" width="84" height="42"/></clipPath>
   <clipPath id="radio-m1"><rect x="168" y="114" width="60" height="38"/></clipPath>
   <clipPath id="radio-m2"><rect x="250" y="114" width="56" height="38"/></clipPath>
 </defs>
@@ -76,7 +76,7 @@ export default `
 
 <!-- ===== בתוך המקלט: מעגל כיוון, גלאי, מגבר, רמקול ===== -->
 <g class="hl-3 hl-4">
-  <path class="wire st-ink" style="stroke-width:1.6" d="M170 172V163M165 157L170 163L175 157M170 157V163M170 172H222"/>
+  <path class="wire st-ink" style="stroke-width:1.6" d="M170 172V166M166 161.5L170 166L174 161.5M170 161.5V166M170 172H222"/>
 </g>
 <g class="hl-3">
   <path class="wire st-warm" style="stroke-width:2" d="M184 172q7 2.75 0 5.5q7 2.75 0 5.5q7 2.75 0 5.5q7 2.75 0 5.5"/>
@@ -116,10 +116,10 @@ export default `
 </g>
 <!-- עקומת התהודה וחוגת הכיוון: בשלב 3 וגם בתמונה המלאה -->
 <g class="only-3 from-1">
-  <rect class="fl-panel st-line" stroke-width="1.2" x="164" y="112" width="88" height="48" rx="5"/>
-  <path class="thin st-ink" d="M170 154H246"/>
-  <path class="wire st-green" style="stroke-width:3" d="M184 153V132"/><path class="wire st-cold" style="stroke-width:3" d="M208 153V132"/><path class="wire st-warm" style="stroke-width:3" d="M232 153V132"/>
-  <g clip-path="url(#radio-g)"><g><animateTransform attributeName="transform" type="translate" values="-24 0;-24 0;0 0;0 0;-24 0" keyTimes="0;.12;.4;.88;1" dur="5s" begin="-2s" repeatCount="indefinite"/><path class="wire st-ink" style="stroke-width:1.8" d="M140 153.84L141 153.84L142 153.83L143 153.83L144 153.82L145 153.82L146 153.81L147 153.81L148 153.8L149 153.79L150 153.78L151 153.78L152 153.77L153 153.76L154 153.75L155 153.74L156 153.73L157 153.72L158 153.71L159 153.7L160 153.69L161 153.67L162 153.66L163 153.64L164 153.63L165 153.61L166 153.59L167 153.57L168 153.55L169 153.53L170 153.5L171 153.48L172 153.45L173 153.41L174 153.38L175 153.34L176 153.3L177 153.26L178 153.21L179 153.15L180 153.09L181 153.03L182 152.95L183 152.87L184 152.78L185 152.67L186 152.55L187 152.42L188 152.27L189 152.09L190 151.88L191 151.64L192 151.36L193 151.03L194 150.63L195 150.15L196 149.56L197 148.84L198 147.94L199 146.8L200 145.35L201 143.47L202 141.04L203 137.89L204 133.89L205 129.08L206 123.94L207 119.69L208 118L209 119.69L210 123.94L211 129.08L212 133.89L213 137.89L214 141.04L215 143.47L216 145.35L217 146.8L218 147.94L219 148.84L220 149.56L221 150.15L222 150.63L223 151.03L224 151.36L225 151.64L226 151.88L227 152.09L228 152.27L229 152.42L230 152.55L231 152.67L232 152.78L233 152.87L234 152.95L235 153.03L236 153.09L237 153.15L238 153.21L239 153.26L240 153.3L241 153.34L242 153.38L243 153.41L244 153.45L245 153.48L246 153.5L247 153.53L248 153.55L249 153.57L250 153.59L251 153.61L252 153.63L253 153.64L254 153.66L255 153.67L256 153.69L257 153.7L258 153.71L259 153.72L260 153.73L261 153.74L262 153.75L263 153.76L264 153.77L265 153.78L266 153.78L267 153.79L268 153.8L269 153.81L270 153.81L271 153.82L272 153.82L273 153.83L274 153.83L275 153.84L276 153.84"/></g></g>
+  <rect class="fl-panel st-line" stroke-width="1.2" x="164" y="111" width="88" height="46" rx="5"/>
+  <path class="thin st-ink" d="M170 151H246"/>
+  <path class="wire st-green" style="stroke-width:3" d="M184 150V130"/><path class="wire st-cold" style="stroke-width:3" d="M208 150V130"/><path class="wire st-warm" style="stroke-width:3" d="M232 150V130"/>
+  <g clip-path="url(#radio-g)"><g><animateTransform attributeName="transform" type="translate" values="-24 0;-24 0;0 0;0 0;-24 0" keyTimes="0;.12;.4;.88;1" dur="5s" begin="-2s" repeatCount="indefinite"/><path class="wire st-ink" style="stroke-width:1.8" d="M140 150.85L141 150.85L142 150.84L143 150.84L144 150.83L145 150.83L146 150.82L147 150.82L148 150.81L149 150.8L150 150.8L151 150.79L152 150.78L153 150.77L154 150.77L155 150.76L156 150.75L157 150.74L158 150.73L159 150.72L160 150.7L161 150.69L162 150.68L163 150.66L164 150.65L165 150.63L166 150.61L167 150.6L168 150.58L169 150.55L170 150.53L171 150.5L172 150.48L173 150.45L174 150.41L175 150.38L176 150.34L177 150.3L178 150.25L179 150.2L180 150.14L181 150.08L182 150.01L183 149.93L184 149.85L185 149.75L186 149.63L187 149.51L188 149.36L189 149.19L190 149L191 148.77L192 148.51L193 148.19L194 147.82L195 147.36L196 146.81L197 146.13L198 145.27L199 144.2L200 142.83L201 141.06L202 138.76L203 135.78L204 132.01L205 127.46L206 122.61L207 118.6L208 117L209 118.6L210 122.61L211 127.46L212 132.01L213 135.78L214 138.76L215 141.06L216 142.83L217 144.2L218 145.27L219 146.13L220 146.81L221 147.36L222 147.82L223 148.19L224 148.51L225 148.77L226 149L227 149.19L228 149.36L229 149.51L230 149.63L231 149.75L232 149.85L233 149.93L234 150.01L235 150.08L236 150.14L237 150.2L238 150.25L239 150.3L240 150.34L241 150.38L242 150.41L243 150.45L244 150.48L245 150.5L246 150.53L247 150.55L248 150.58L249 150.6L250 150.61L251 150.63L252 150.65L253 150.66L254 150.68L255 150.69L256 150.7L257 150.72L258 150.73L259 150.74L260 150.75L261 150.76L262 150.77L263 150.77L264 150.78L265 150.79L266 150.8L267 150.8L268 150.81L269 150.82L270 150.82L271 150.83L272 150.83L273 150.84L274 150.84L275 150.85L276 150.85"/></g></g>
   <path class="fl-panel st-ink" stroke-width="1.5" stroke-linejoin="round" d="M262 152A24 24 0 0 1 310 152z"/>
   <circle class="fl-green" cx="273.1" cy="139.2" r="2.2"/><circle class="fl-cold" cx="286" cy="133.5" r="2.2"/><circle class="fl-warm" cx="298.9" cy="139.2" r="2.2"/>
   <g><animateTransform attributeName="transform" type="rotate" values="-45 286 152;-45 286 152;0 286 152;0 286 152;-45 286 152" keyTimes="0;.12;.4;.88;1" dur="5s" begin="-2s" repeatCount="indefinite"/><path class="wire st-hot" style="stroke-width:2" d="M286 152V137"/></g>

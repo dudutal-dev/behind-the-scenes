@@ -41,7 +41,7 @@ export default `
   <circle class="fl-line st-ink" stroke-width="1.2" cx="84" cy="97" r="4.2"/><circle class="fl-line st-ink" stroke-width="1.2" cx="232" cy="97" r="4.2"/>
 </g>
 <g class="hl-2 hl-3">
-  <path class="arrow st-ink" style="stroke-width:1.5" d="M246 108A11 11 0 0 1 246 86" marker-end="url(#phonograph-a)"/>
+  <path class="arrow st-ink" style="stroke-width:1.5" d="M245 109A12 12 0 0 0 245 85" marker-end="url(#phonograph-a)"/>
 </g>
 
 <!-- ===== המשפך, הקרום והמחט ===== -->
@@ -80,19 +80,19 @@ export default `
   <text x="58" y="26" class="lg">1877</text>
   <text x="58" y="42" class="sm">פונוגרף יריעת הבדיל</text>
   <text x="160" y="176">המשפך מרכז את הקול אל קרום דק</text>
-  <text x="160" y="194">והקרום מרעיד מחט שמחוברת אליו</text>
+  <text x="160" y="194">והקרום מרעיד את המחט</text>
 </g>
 <g class="only-2">
   <text x="203" y="23" class="sm">גל הקול</text>
   <text x="203" y="49" class="sm">החריץ</text>
-  <text x="160" y="176">המחט חורטת חריץ ביריעת הבדיל</text>
-  <text x="160" y="194">עמוק יותר או פחות, לפי רעידות הקול</text>
+  <text x="160" y="176">המחט חורטת חריץ ביריעת בדיל</text>
+  <text x="160" y="194">עמוק או רדוד, לפי הקול</text>
 </g>
 <g class="only-3">
   <text x="203" y="23" class="sm">גל הקול</text>
   <text x="203" y="49" class="sm">החריץ</text>
-  <text x="160" y="176">עכשיו החריץ מרעיד את המחט והקרום</text>
-  <text x="160" y="194">והמשפך מגביר את הקול, בלי חשמל</text>
+  <text x="160" y="176">עכשיו החריץ מרעיד את המחט</text>
+  <text x="160" y="194">והמשפך מגביר, בלי חשמל</text>
 </g>
 
 <!-- ===== שלב 4: דיסקה שטוחה, חריץ מתפתל, הטבעה ועותקים ===== -->

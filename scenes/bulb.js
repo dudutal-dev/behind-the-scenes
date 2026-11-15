@@ -25,7 +25,7 @@ export default `
   <path class="fl-none st-hot" stroke-width="2.2" stroke-linecap="round" d="M88 90C84 66 86 40 100 40C114 40 116 66 112 90"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.06;.16;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
   <path class="fl-none st-warm" stroke-width="2.2" stroke-linecap="round" d="M88 90C84 66 86 40 100 40C114 40 116 66 112 90"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.16;.28;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
   <path class="fl-none st-elec" stroke-width="2.2" stroke-linecap="round" d="M88 90C84 66 86 40 100 40C114 40 116 66 112 90"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.28;.4;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
-  <path fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" d="M88 90C84 66 86 40 100 40C114 40 116 66 112 90"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.36;.46;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
+  <path fill="none" stroke="#fff" stroke-width=".8" stroke-linecap="round" d="M88 90C84 66 86 40 100 40C114 40 116 66 112 90"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;.36;.46;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
 </g>
 <rect class="fl-line st-ink" stroke-width=".8" x="86" y="88.5" width="4" height="4"/><rect class="fl-line st-ink" stroke-width=".8" x="110" y="88.5" width="4" height="4"/>
 <path class="fl-none st-ink" stroke-width="2" stroke-linejoin="round" d="M84 138C84 120 56 104 56 70A44 44 0 0 1 95.5 26.23Q97 20 100 17Q103 20 104.5 26.23A44 44 0 0 1 144 70C144 104 116 120 116 138z"/>
@@ -73,7 +73,7 @@ export default `
   <rect class="fl-none st-ink" stroke-width="1.5" x="178" y="22" width="14" height="130" rx="7"/>
   <path class="thin st-ink" d="M192 36H198M192 81.5H198M192 113.5H198"/>
   <path class="fl-ink" d="M164 144L175 149L164 154z"><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -113;0 -113;0 0" keyTimes="0;.06;.46;.93;1" dur="6s" begin="-2.9s" repeatCount="indefinite"/></path>
-  <text x="219" y="40" class="lg">2,500°</text><text x="272" y="40">לבן־צהבהב</text>
+  <text x="221" y="40" class="lg">2,500°</text><text x="277" y="40">לבן־צהבהב</text>
   <text x="217" y="85">1,500°</text><text x="256" y="85">כתום</text>
   <text x="212" y="117">800°</text><text x="256" y="117">אדום עמום</text>
   <text x="240" y="180">ככל שהחוט חם יותר</text>
