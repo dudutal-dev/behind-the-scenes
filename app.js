@@ -125,6 +125,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["fertilization", "המפגש ב־60 שניות"],
   ["heart", "פעימה אחת ב־60 שניות"],
   ["blackhole", "הנקודה שממנה אין חזרה ב־60 שניות"],
+  ["irondome", "יירוט ב־60 שניות"],
 ]);
 const GLYPH = {
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
