@@ -1,6 +1,7 @@
 // כל "דבר" הוא הסבר עצמאי: שאלת פתיחה, שלבי המנגנון, טעות נפוצה, שאלות בדיקה ומשפט לקחת.
-// כדי להוסיף דבר חדש — מוסיפים אובייקט לרשימה באותו מבנה (כאן או ב-content-more.js).
+// כדי להוסיף דבר חדש — מוסיפים אובייקט לרשימה באותו מבנה (כאן, ב-content-more.js או ב-content-extra.js).
 import { MORE_TOPICS } from "./content-more.js";
+import { EXTRA_TOPICS } from "./content-extra.js";
 
 export const CATEGORIES = [
   { id: "home", name: "בבית", emoji: "🏠" },
@@ -476,4 +477,4 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS];
