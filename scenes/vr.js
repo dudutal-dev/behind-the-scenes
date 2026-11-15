@@ -47,7 +47,7 @@ export default `
 </g>
 
 <!-- אלומות האור, העדשות והעיניים -->
-<g class="hl-1 hl-2"><path class="fl-warm" fill-opacity=".22" d="M50 84H150L127 126L106 149H94L73 126Z"/><path class="fl-warm" fill-opacity=".22" d="M170 84H270L247 126L226 149H214L193 126Z"/></g>
+<g class="hl-1 hl-2"><path class="fl-warm" fill-opacity=".22" d="M50 84H150L127 126L106 149H94L73 126Z"><animate attributeName="fill-opacity" values=".16;.28;.16" dur="2.400s" repeatCount="indefinite"/></path><path class="fl-warm" fill-opacity=".22" d="M170 84H270L247 126L226 149H214L193 126Z"><animate attributeName="fill-opacity" values=".16;.28;.16" dur="2.400s" repeatCount="indefinite"/></path></g>
 <g class="hl-2">
   <ellipse class="fl-cold-soft st-ink" stroke-width="2" cx="100" cy="126" rx="31" ry="6.500"/>
   <ellipse class="fl-cold-soft st-ink" stroke-width="2" cx="220" cy="126" rx="31" ry="6.500"/>

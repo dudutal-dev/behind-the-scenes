@@ -90,7 +90,7 @@ export default `
 <rect class="body" x="298" y="30" width="8" height="162"/>
 <rect class="body" x="116" y="24" width="194" height="10" rx="3"/>
 <rect class="body" x="114" y="190" width="198" height="16" rx="4"/>
-<circle class="fl-green" cx="126" cy="198" r="2.200"/>
+<circle class="fl-green" cx="126" cy="198" r="2.200"><animate attributeName="opacity" values="1;.3;1" dur="2.400s" repeatCount="indefinite"/></circle>
 <path class="thin" d="M136 198h20"/>
 
 <g class="only-2">

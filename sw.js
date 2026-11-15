@@ -1,5 +1,5 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "eich-ze-oved-v23";
+const CACHE = "eich-ze-oved-v24";
 // בהתקנה מביאים את הקבצים ישר מהרשת (cache: "reload"), כדי שגרסה חדשה לא תיבנה מעותקים ישנים של הדפדפן.
 const SCENES = [
   "fridge", "microwave", "induction", "solar-heater", "airplane", "ev-brake", "elevator", "gps", "touch", "wifi", "qr", "nfc", "https", "llm", "grid", "pv", "desal", "bridge", "lightning", "rainbow", "vaccine", "engine", "gearbox", "abs", "electricity", "acdc", "battery", "emotor", "led", "rcd", "wind", "nuclear", "toilet", "lock", "quartz", "cellular", "camera", "anc", "quake", "tides", "heart",
@@ -8,9 +8,10 @@ const SCENES = [
   "internet", "search", "cpu", "blockchain", "compression", "washer", "dishwasher", "soap",
   "press", "steam", "telegraph", "telephone", "bulb", "radio", "phonograph", "photo", "transistor", "telescope",
   "neural", "training", "imagegen", "recommend", "facerec", "selfdrive", "speech", "translate",
+  "quantum", "crispr", "mrna", "fusion", "print3d", "drone", "vr", "mri",
 ];
 const FILES = [
-  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "content-ai-a.js", "content-ai-b.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "sims/kit.js", ...["electricity", "transformer", "gearbox", "wind", "pressure", "anc", "orbit", "moon", "seasons", "lock", "telescope", "screen", "engine", "airplane", "gps", "elevator", "acdc", "battery", "led", "pv", "speaker", "nuclear", "heart", "cpu", "rocket", "tides", "eclipse", "rainbow"].map((id) => `sims/${id}.js`), "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
+  "./", "index.html", "app.js", "content.js", "content-more.js", "content-extra.js", "content-inventions.js", "history.js", "content-wave3.js", "content-ai-a.js", "content-ai-b.js", "content-frontier-a.js", "content-frontier-b.js", "manifest.webmanifest", "icon.svg", "sims/index.js", "sims/kit.js", ...["electricity", "transformer", "gearbox", "wind", "pressure", "anc", "orbit", "moon", "seasons", "lock", "telescope", "screen", "engine", "airplane", "gps", "elevator", "acdc", "battery", "led", "pv", "speaker", "nuclear", "heart", "cpu", "rocket", "tides", "eclipse", "rainbow"].map((id) => `sims/${id}.js`), "icon-180.png", "icon-192.png", "icon-512.png", "scenes/scene.css",
   "fonts/heebo-hebrew-wght-normal.woff2", "fonts/heebo-latin-wght-normal.woff2",
   ...SCENES.map((id) => `scenes/${id}.js`),
 ];

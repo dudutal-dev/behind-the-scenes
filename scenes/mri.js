@@ -26,9 +26,10 @@ export default `
 <!-- המיטה והנבדק -->
 <rect class="fl-dark" x="8" y="98" width="196" height="5" rx="2"/>
 <path class="fl-line" d="M10 103h8v47h-8zM194 103h8v47h-8z"/>
-<path class="body" d="M22 98V91q0-4 4-4H74V87q0-5 6-5H112q7 0 7 7V98Z"/>
-<circle class="body" cx="131" cy="89" r="8.500"/>
-<circle class="fl-none st-hot" stroke-width="1.500" cx="131" cy="89" r="4.500"/>
+<path class="fl-soft st-ink" stroke-width="2" stroke-linejoin="round" d="M20 98V83q0-2 2.500-2t2.500 2v5H72q1-6 8-6H110q9 0 9 9V98Z"/>
+<path class="thin st-ink" style="stroke-width:1.200" d="M80 91H104"/>
+<circle class="fl-soft st-ink" stroke-width="2" cx="130" cy="88.500" r="9"/>
+<circle class="fl-none st-hot" stroke-width="1.500" cx="130" cy="88.500" r="4"><animate attributeName="opacity" values="1;.35;1" dur="2s" repeatCount="indefinite"/></circle>
 
 <!-- הגדלה: גרעיני מימן ברקמה -->
 <path class="thin" d="M134 85.500L232 41M134.500 92.500L238 89"/>

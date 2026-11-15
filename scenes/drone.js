@@ -15,7 +15,7 @@ export default `
 <rect class="body" style="stroke-width:1.5" x="199" y="69" width="10" height="10" rx="2"/><g transform="translate(204 66)"><ellipse class="fl-cold-soft st-cold" fill-opacity="0.75" stroke-width="1.2" rx="30" ry="10"/><g transform="scale(1 .33)"><g class="spin fast"><ellipse class="fl-ink" cx="-15" rx="14" ry="5"/><ellipse class="fl-ink" cx="15" rx="14" ry="5"/></g></g><circle class="fl-ink" r="2.2"/></g><g class="hl-2"><path class="arrow st-cold dash" style="stroke-width:2" d="M234.3 73A35 14 0 0 1 173.7 73" marker-end="url(#drone-c)"/></g>
 <path class="thin st-ink" d="M146 112l-5 14M174 112l5 14M135 126h12M173 126h12"/>
 <rect class="body" x="137" y="88" width="46" height="26" rx="9"/><path class="thin" d="M141 106H179"/>
-<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/>
+<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/><circle class="fl-hot" cx="178" cy="109.500" r="1.800"><animate attributeName="opacity" values="1;1;.15;.15" keyTimes="0;.5;.5;1" dur="1.200s" repeatCount="indefinite"/></circle>
 <rect class="fl-green st-ink" stroke-width="1.2" x="152" y="92" width="16" height="10" rx="1.500"/><path class="st-ink fl-none" stroke-width="1" d="M155 92v-2.500M160 92v-2.500M165 92v-2.500M155 102v2.500M160 102v2.500M165 102v2.500"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L84 126"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L236 126"/>
@@ -33,7 +33,7 @@ export default `
 <rect class="body" style="stroke-width:1.5" x="199" y="69" width="10" height="10" rx="2"/><g transform="translate(204 66)"><ellipse class="fl-cold-soft st-cold" fill-opacity="0.75" stroke-width="1.2" rx="30" ry="10"/><g transform="scale(1 .33)"><g class="spin fast"><ellipse class="fl-ink" cx="-15" rx="14" ry="5"/><ellipse class="fl-ink" cx="15" rx="14" ry="5"/></g></g><circle class="fl-ink" r="2.2"/></g><path class="arrow st-green" d="M204 60V40" marker-end="url(#drone-g)"/>
 <path class="thin st-ink" d="M146 112l-5 14M174 112l5 14M135 126h12M173 126h12"/>
 <rect class="body" x="137" y="88" width="46" height="26" rx="9"/><path class="thin" d="M141 106H179"/>
-<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/>
+<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/><circle class="fl-hot" cx="178" cy="109.500" r="1.800"><animate attributeName="opacity" values="1;1;.15;.15" keyTimes="0;.5;.5;1" dur="1.200s" repeatCount="indefinite"/></circle>
 <rect class="fl-green st-ink" stroke-width="1.2" x="152" y="92" width="16" height="10" rx="1.500"/><path class="st-ink fl-none" stroke-width="1" d="M155 92v-2.500M160 92v-2.500M165 92v-2.500M155 102v2.500M160 102v2.500M165 102v2.500"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L84 126"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L236 126"/>
@@ -56,7 +56,7 @@ export default `
 <rect class="body" style="stroke-width:1.5" x="199" y="69" width="10" height="10" rx="2"/><g transform="translate(204 66)"><ellipse class="fl-cold-soft st-cold" fill-opacity="0.75" stroke-width="1.2" rx="30" ry="10"/><g transform="scale(1 .33)"><g class="spin fast"><ellipse class="fl-ink" cx="-15" rx="14" ry="5"/><ellipse class="fl-ink" cx="15" rx="14" ry="5"/></g></g><circle class="fl-ink" r="2.2"/></g><g class="hl-2"><path class="arrow st-cold dash" style="stroke-width:2" d="M234.3 73A35 14 0 0 1 173.7 73" marker-end="url(#drone-c)"/></g>
 <path class="thin st-ink" d="M146 112l-5 14M174 112l5 14M135 126h12M173 126h12"/>
 <rect class="body" x="137" y="88" width="46" height="26" rx="9"/><path class="thin" d="M141 106H179"/>
-<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/>
+<circle class="fl-dark st-ink" stroke-width="1.5" cx="137" cy="103" r="5.500"/><circle fill="#fff" fill-opacity=".7" cx="135.500" cy="101.500" r="1.400"/><circle class="fl-hot" cx="178" cy="109.500" r="1.800"><animate attributeName="opacity" values="1;1;.15;.15" keyTimes="0;.5;.5;1" dur="1.200s" repeatCount="indefinite"/></circle>
 <rect class="fl-green st-ink" stroke-width="1.2" x="152" y="92" width="16" height="10" rx="1.500"/><path class="st-ink fl-none" stroke-width="1" d="M155 92v-2.500M160 92v-2.500M165 92v-2.500M155 102v2.500M160 102v2.500M165 102v2.500"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L84 126"/>
 <path class="wire st-dark" style="stroke-width:5" d="M160 101L236 126"/>
