@@ -115,7 +115,11 @@ const CAT_GLYPH = {
   space: '<ellipse opacity=".5" cx="12" cy="12" rx="10.500" ry="3.700" transform="rotate(-20 12 12)"/><circle cx="12" cy="12" r="5.600"/>',
   digital: '<rect opacity=".5" x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.200"/><path d="M9 2.500h1.500V5H9zM13.500 2.500H15V5h-1.500zM9 19h1.500v2.500H9zM13.500 19H15v2.500h-1.500zM2.500 9H5v1.500H2.500zM2.500 13.500H5V15H2.500zM19 9h2.500v1.500H19zM19 13.500h2.500V15H19z"/>',
 };
+// סרטונים מונפשים: videos/<id>.mp4 + videos/<id>.jpg
+const VIDEOS = new Set([]);
 const GLYPH = {
+  play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
+  expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
   flame: '<path opacity=".5" d="M12 2.500c.500 3.500 5.500 6 5.500 11.500a5.500 5.500 0 0 1-11 0c0-2 .800-3.500 1.800-4.800.300 1.300 1 2.300 2 2.800-.300-3.500.200-7 1.700-9.500z"/><path d="M12 12.500c1.500 1.500 2.500 2.800 2.500 4.500a2.500 2.500 0 0 1-5 0c0-1.700 1-3 2.500-4.500z"/>',
   book: '<path opacity=".5" d="M4 5.500A2.500 2.500 0 0 1 6.500 3H18a2 2 0 0 1 2 2v13H6.500A2.500 2.500 0 0 0 4 20.500z"/><path d="M6.500 16.500H20V21H6.500a2.250 2.250 0 0 1 0-4.500zM8 7h8v2H8z"/>',
   loop: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 6.500a5.500 5.500 0 0 1 4.900 3h-2.400l3.500 3.500 3.500-3.500h-2.500A7.500 7.500 0 0 0 5.500 8.300l1.500 1.300A5.500 5.500 0 0 1 12 6.500zM12 17.500a5.500 5.500 0 0 1-4.900-3h2.400L6 11l-3.500 3.500H5a7.500 7.500 0 0 0 13.500 1.200L17 14.400a5.500 5.500 0 0 1-5 3.100z"/>',
@@ -544,6 +548,32 @@ function buildCards(t, scene, sim) {
       bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
     })
   );
+  if (VIDEOS.has(t.id)) cards.push({
+    html: `<div class="card film">
+        <span class="tag">${glyph(GLYPH.play)} סרטון</span>
+        <h3>מה קורה במוח ב־60 שניות</h3>
+        <div class="vid paused"><video src="videos/${t.id}.mp4" poster="videos/${t.id}.jpg" playsinline preload="metadata"></video>
+          <span class="vplay" aria-hidden="true">${glyph(GLYPH.play)}</span><span class="vbar"><i></i></span></div>
+        <button type="button" class="btn sm ghost fs">${glyph(GLYPH.expand)} צפייה במסך מלא</button>
+      </div>`,
+    bind(root) {
+      const v = root.querySelector("video");
+      const box = root.querySelector(".vid");
+      const bar = root.querySelector(".vbar i");
+      // בתוך הכרטיס: נגיעה מנגנת או עוצרת, בלי פקדי הדפדפן שמסתירים את הכתוביות
+      box.addEventListener("click", () => (v.paused ? v.play().catch(() => {}) : v.pause()));
+      v.addEventListener("play", () => box.classList.remove("paused"));
+      v.addEventListener("pause", () => box.classList.add("paused"));
+      v.addEventListener("timeupdate", () => { bar.style.width = `${(100 * v.currentTime) / (v.duration || 60)}%`; });
+      // מסך מלא: עם פקדי הדפדפן; ביציאה חוזרים לכרטיס
+      v.addEventListener("fullscreenchange", () => { v.controls = document.fullscreenElement === v; });
+      root.querySelector(".fs").addEventListener("click", () => {
+        v.play().catch(() => {});
+        if (v.requestFullscreen) v.requestFullscreen().catch(() => v.webkitEnterFullscreen?.());
+        else v.webkitEnterFullscreen?.(); // אייפון: מסך מלא קיים רק לווידאו עצמו, עם הפקדים שלו
+      });
+    },
+  });
   if (sim) cards.push({
     html: `<div class="card sim">
         <span class="tag">${glyph(GLYPH.spark)} נסה בעצמך</span>

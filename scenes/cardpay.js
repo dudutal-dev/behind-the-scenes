@@ -57,10 +57,10 @@ export default `
 <g class="only-1">
   <g class="st-cold fl-none" stroke-width="1.5" stroke-linecap="round"><g class="fade"><path d="M274 86q8 4 16 0"/></g><g class="fade d2"><path d="M270 91q12 5 24 0"/></g></g>
   <g class="pulse"><rect class="fl-none st-elec" stroke-width="2" x="273" y="53" width="18" height="16" rx="3"/></g>
-  <g><animateMotion dur="2.2s" repeatCount="indefinite" path="M0 0C-50 0-50 70 0 80"/>
+  <g><animateMotion dur="2.2s" repeatCount="indefinite" path="M250 56C222 66 226 98 244 110"/>
     <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="2.2s" repeatCount="indefinite"/>
-    <rect class="fl-violet" x="212" y="30" width="38" height="14" rx="3"/>
-    <text x="231" y="40" class="sm" style="fill:#fff;stroke:none">7F3A9C</text>
+    <rect class="fl-violet" x="-19" y="-7" width="38" height="14" rx="3"/>
+    <text x="0" y="3" class="sm" style="fill:#fff;stroke:none">7F3A9C</text>
   </g>
   <text x="150" y="22">השבב מחשב קוד חד־פעמי</text>
   <text x="150" y="36">מהסכום, התאריך</text>
@@ -72,16 +72,16 @@ export default `
 <g class="only-2">
   <rect class="fl-violet" x="271" y="34" width="22" height="14" rx="2"/>
   <path fill="#fff" d="M273 43h4v2h-4zM279 43h4v2h-4zM285 43h6v2h-6z"/>
-  <text x="212" y="38">טוקן, לא</text>
-  <text x="212" y="52">מספר הכרטיס</text>
-  <path class="arrow st-ink" style="stroke-width:1.5" d="M244 44H264" marker-end="url(#cardpay-a)"/>
+  <text x="206" y="38">טוקן, לא</text>
+  <text x="206" y="52">מספר הכרטיס</text>
+  <path class="arrow st-ink" style="stroke-width:1.5" d="M242 44H264" marker-end="url(#cardpay-a)"/>
   <rect class="body" style="stroke-width:1.5" x="104" y="64" width="36" height="26" rx="3"/>
   <path class="st-ink fl-none" stroke-width="1.6" d="M114 74v-3a8 8 0 0 1 16 0v3"/>
   <rect class="fl-elec st-ink" stroke-width="1.2" x="111" y="73" width="22" height="13" rx="2"/>
   <g class="blink"><circle class="fl-ink" cx="122" cy="79" r="2"/></g>
   <path class="thin" d="M122 90V104"/>
-  <text x="122" y="50">רק הרשת יודעת</text>
-  <text x="122" y="36">לתרגם את הטוקן</text>
+  <text x="122" y="36">רק הרשת יודעת</text>
+  <text x="122" y="50">לתרגם את הטוקן</text>
 </g>
 
 <!-- שלב 3: הבקשה עוברת בשרשרת -->

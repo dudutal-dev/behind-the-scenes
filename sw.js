@@ -33,6 +33,8 @@ self.addEventListener("activate", (e) => {
 // קודם מהמטמון, ובמקביל מרעננים מהרשת לפעם הבאה.
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
+  // סרטונים: ישר מהרשת (הדפדפן מבקש אותם בחלקים, והמטמון לא מתאים לזה)
+  if (new URL(e.request.url).pathname.includes("/videos/")) return;
   e.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(e.request, { ignoreSearch: true });

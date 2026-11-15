@@ -35,12 +35,12 @@ export default `
     <circle r="2.200"><animateMotion dur="1.4s" begin="-1.1s" repeatCount="indefinite" path="M86 54L91 47"/></circle>
     <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="1.4s" repeatCount="indefinite"/>
   </g>
-  <circle class="fl-dark" cx="26" cy="120" r="5"/>
-  <text x="50" y="124">דלק</text>
-  <rect class="fl-cold-soft st-cold" stroke-width="1.5" x="80" y="115" width="9" height="9" transform="rotate(20 84 119)"/>
-  <text x="114" y="124">מקור חמצן</text>
-  <text x="182" y="104">כל מה שהבעירה צריכה</text>
-  <text x="182" y="118">כבר בתוך הגרגר</text>
+  <circle class="fl-dark" cx="26" cy="130" r="5"/>
+  <text x="46" y="134">דלק</text>
+  <rect class="fl-cold-soft st-cold" stroke-width="1.5" x="72" y="125" width="9" height="9" transform="rotate(20 76 129)"/>
+  <text x="108" y="134">מקור חמצן</text>
+  <text x="200" y="98">כל מה שהבעירה צריכה</text>
+  <text x="200" y="112">כבר בתוך הגרגר</text>
 </g>
 
 <!-- הקנה -->
@@ -66,35 +66,34 @@ export default `
     <animateTransform attributeName="transform" type="translate" values="0 0;0 0;84 0;150 -2;150 -2" keyTimes="0;.15;.45;.62;1" dur="2.2s" repeatCount="indefinite"/>
   </path>
   <path class="arrow st-hot" d="M150 88H210" marker-end="url(#gunpowder-a)"/>
-  <path class="arrow st-hot" d="M130 34V40M150 34V40M170 34V40" />
   <text x="182" y="26">לחץ הגזים דוחף את הקליע</text>
   <text x="180" y="104">מוצק הופך לגז חם</text>
 </g>
 
 <!-- שלב 3: בעירה מול התפוצצות -->
 <g class="hl-3">
-  <rect class="fl-soft st-ink" stroke-width="1.5" x="22" y="148" width="214" height="18" rx="3"/>
-  <rect class="fl-soft st-ink" stroke-width="1.5" x="22" y="186" width="214" height="18" rx="3"/>
-  <text x="278" y="158">בעירה</text>
-  <text x="278" y="171" class="sm">לאט ממהירות הקול</text>
-  <text x="278" y="196">התפוצצות</text>
-  <text x="278" y="209" class="sm">גל הלם מהיר מהקול</text>
+  <rect class="fl-soft st-ink" stroke-width="1.5" x="22" y="148" width="204" height="18" rx="3"/>
+  <rect class="fl-soft st-ink" stroke-width="1.5" x="22" y="186" width="204" height="18" rx="3"/>
+  <text x="270" y="158">בעירה</text>
+  <text x="270" y="171" class="sm">חזית איטית מהקול</text>
+  <text x="270" y="196">התפוצצות</text>
+  <text x="270" y="209" class="sm">גל הלם מהיר מהקול</text>
 </g>
 <g class="only-3">
   <rect class="fl-dark" x="23" y="149" width="10" height="16">
-    <animate attributeName="width" values="0;212;212" keyTimes="0;.9;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="0;202;202" keyTimes="0;.9;1" dur="5s" repeatCount="indefinite"/>
   </rect>
   <path class="fl-warm st-hot" stroke-width="1" d="M0 149Q8 153 4 157Q9 161 0 165Z">
-    <animateTransform attributeName="transform" type="translate" values="23 0;235 0;235 0" keyTimes="0;.9;1" dur="5s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="23 0;225 0;225 0" keyTimes="0;.9;1" dur="5s" repeatCount="indefinite"/>
   </path>
   <rect class="fl-dark" x="23" y="187" width="10" height="16">
-    <animate attributeName="width" values="0;212;212" keyTimes="0;.08;1" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="0;202;202" keyTimes="0;.08;1" dur="5s" repeatCount="indefinite"/>
   </rect>
   <path class="wire st-elec" style="stroke-width:3" d="M0 182V208">
-    <animateTransform attributeName="transform" type="translate" values="23 0;235 0;235 0" keyTimes="0;.08;1" dur="5s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" values="23 0;225 0;225 0" keyTimes="0;.08;1" dur="5s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;.08;.12;1" dur="5s" repeatCount="indefinite"/>
   </path>
-  <text x="128" y="138">אותו אורך, זמן שונה מאוד</text>
+  <text x="124" y="138">אותו אורך, זמן שונה מאוד</text>
 </g>
 
 <!-- שלב 4: עשן ליד הלוע -->
@@ -110,6 +109,6 @@ export default `
   </g>
   <text x="276" y="96">כמחצית נשארת</text>
   <text x="276" y="110">מוצקה, כעשן</text>
-  <text x="182" y="26">ללא עשן: כמעט הכול גז</text>
+  <text x="182" y="26">באבקה ללא עשן: כמעט הכול גז</text>
 </g>
 `;

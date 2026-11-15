@@ -61,38 +61,34 @@ export default `
   <text x="52" y="100">18 משושים</text>
   <text x="52" y="114">מצופים זהב</text>
   <text x="252" y="54">מראה משנית</text>
-  <text x="168" y="156" class="sm">6.5 מטרים</text>
+  <text x="160" y="50">קוטר 6.5 מטרים</text>
 </g>
 
 <!-- שלב 3: חום השמש נעצר במגן -->
 <g class="only-3">
-  <path class="arrow st-hot" style="stroke-width:2.4" marker-end="url(#jwst-a)" d="M44 200L84 186"/>
-  <path class="arrow st-hot" style="stroke-width:2.4" marker-end="url(#jwst-a)" d="M56 214L124 182"/>
-  <path class="arrow st-warm" style="stroke-width:2" d="M98 184L134 200"><animate attributeName="opacity" values=".3;1;.3" dur="1.4s" repeatCount="indefinite"/></path>
-  <path class="arrow st-warm" style="stroke-width:2" d="M180 172L224 194"><animate attributeName="opacity" values=".3;1;.3" dur="1.4s" begin="-.5s" repeatCount="indefinite"/></path>
-  <path class="arrow st-warm" style="stroke-width:2" d="M210 166L260 186"><animate attributeName="opacity" values=".3;1;.3" dur="1.4s" begin="-.9s" repeatCount="indefinite"/></path>
-  <text x="56" y="140">צד מוצל:</text>
-  <text x="56" y="154">−233 מעלות</text>
-  <text x="250" y="206">צד מואר: 85 מעלות</text>
-  <text x="208" y="136">חמש שכבות; החום</text>
-  <text x="208" y="150" style="font-size:0">.</text>
+  <path class="arrow st-hot" style="stroke-width:2.4" marker-end="url(#jwst-a)" d="M40 202L82 186"/>
+  <path class="arrow st-hot" style="stroke-width:2.4" marker-end="url(#jwst-a)" d="M56 214L120 183"/>
+  <path class="arrow st-warm" style="stroke-width:2" marker-end="url(#jwst-a)" d="M293 160.5h17"><animate attributeName="opacity" values=".25;1;.25" dur="1.4s" begin="-0.00s" repeatCount="indefinite"/></path><path class="arrow st-warm" style="stroke-width:2" marker-end="url(#jwst-a)" d="M293 167.5h17"><animate attributeName="opacity" values=".25;1;.25" dur="1.4s" begin="-0.45s" repeatCount="indefinite"/></path><path class="arrow st-warm" style="stroke-width:2" marker-end="url(#jwst-a)" d="M293 174.5h17"><animate attributeName="opacity" values=".25;1;.25" dur="1.4s" begin="-0.90s" repeatCount="indefinite"/></path>
+  <text x="54" y="140">צד מוצל:</text>
+  <text x="54" y="154">−233 מעלות</text>
+  <text x="244" y="140">חמש שכבות</text>
+  <text x="196" y="206">צד מואר: 85 מעלות</text>
 </g>
 
 <!-- שלב 4: מיקום בנקודת L2 -->
 <g class="only-4">
-  <rect class="fl-panel st-line" stroke-width="1.2" x="8" y="12" width="132" height="66" rx="8"/>
-  <circle class="fl-elec" cx="22" cy="40" r="7"/>
-  <circle class="thin" style="stroke-width:.8;stroke-dasharray:1.5 2" cx="86" cy="40" r="9"/>
-  <circle class="fl-cold st-ink" stroke-width="1" cx="86" cy="40" r="3.6"/>
-  <circle class="fl-line" r="1.6"><animateMotion dur="5s" repeatCount="indefinite" path="M95 40A9 9 0 1 1 77 40A9 9 0 1 1 95 40"/></circle>
-  <ellipse class="thin" style="stroke-width:.8" cx="120" cy="40" rx="5" ry="10"/>
-  <circle class="fl-ink" r="2"><animateMotion dur="3s" repeatCount="indefinite" path="M125 40A5 10 0 1 1 115 40A5 10 0 1 1 125 40"/><animate attributeName="opacity" values="1;.6;1" dur="3s" repeatCount="indefinite"/></circle>
-  <path class="thin" style="stroke-width:1;stroke-dasharray:2 3" d="M30 40H112"/>
-  <text x="22" y="62" class="sm">שמש</text>
-  <text x="86" y="62" class="sm">כדור הארץ</text>
-  <text x="122" y="62" class="sm">L2</text>
-  <text x="76" y="94">1.5 מיליון ק״מ</text>
-  <text x="76" y="108">מכדור הארץ</text>
-  <text x="246" y="200">מגן אחד מסתיר שמש, ארץ וירח</text>
+  <rect class="fl-panel st-line" stroke-width="1.2" x="6" y="8" width="96" height="62" rx="8"/>
+  <circle class="fl-elec" cx="18" cy="30" r="6"/>
+  <circle class="thin" style="stroke-width:.8;stroke-dasharray:1.5 2" cx="62" cy="30" r="8"/>
+  <circle class="fl-cold st-ink" stroke-width="1" cx="62" cy="30" r="3.4"/>
+  <circle class="fl-line" r="1.6"><animateMotion dur="5s" repeatCount="indefinite" path="M70 30A8 8 0 1 1 54 30A8 8 0 1 1 70 30"/></circle>
+  <ellipse class="thin" style="stroke-width:.8" cx="88" cy="30" rx="4" ry="9"/>
+  <circle class="fl-ink" r="2"><animateMotion dur="3s" repeatCount="indefinite" path="M92 30A4 9 0 1 1 84 30A4 9 0 1 1 92 30"/><animate attributeName="opacity" values="1;.6;1" dur="3s" repeatCount="indefinite"/></circle>
+  <path class="thin" style="stroke-width:1;stroke-dasharray:2 3" d="M25 30H84"/>
+  <text x="18" y="50" class="sm">שמש</text>
+  <text x="58" y="50" class="sm">כדור הארץ</text>
+  <text x="91" y="50" class="sm">L2</text>
+  <text x="54" y="64" class="sm">1.5 מיליון ק״מ מהארץ</text>
+  <text x="196" y="206">מגן אחד מסתיר שמש, ארץ וירח</text>
 </g>
 `;
