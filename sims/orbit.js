@@ -10,12 +10,12 @@ import { range, readouts, wire, out, fmt, clamp, loop } from "./kit.js";
 
 const GM = 398600.4418, RE = 6371, H = 200, R0 = RE + H;
 const VC = Math.sqrt(GM / R0), VE = Math.sqrt((2 * GM) / R0);
-const CX = 160, CY = 60, RP = 30, S = RP / RE; // פיקסלים לק״מ
+const CX = 160, CY = 68, RP = 38, S = RP / RE; // פיקסלים לק״מ
 const TAU = 2 * Math.PI;
 
-// מיפוי לציור: קנה מידה אמיתי, ועוד "הגבהה" של עד 7 פיקסלים לגבהים נמוכים (אחרת 200 ק״מ הם פחות מפיקסל
-// ומסלולי הנפילה נבלעים בקו המתאר של כדור הארץ). ההגבהה רוויה מעל כ-800 ק״מ, כך שצורת המסלולים הגדולים נשמרת.
-const BUMP = 7, HS = 250;
+// מיפוי לציור: קנה מידה אמיתי, ועוד "הגבהה" של עד 10 פיקסלים לגבהים נמוכים (אחרת 200 ק״מ הם פחות מפיקסל
+// ומסלולי הנפילה נבלעים בקו המתאר של כדור הארץ). ההגבהה רוויה מעל כ-1,000 ק״מ, כך שצורת המסלולים הגדולים נשמרת.
+const BUMP = 10, HS = 300;
 const px = (x, y) => {
   const r = Math.hypot(x, y) || 1;
   const rp = RP + (r - RE) * S + BUMP * (1 - Math.exp(-Math.max(0, r - RE) / HS));
@@ -81,8 +81,8 @@ export default {
     root.innerHTML = `
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="כדור הארץ ותותח על הר שיורה פגז אופקית; מסלול הפגז מצויר בזמן הטיסה">
         <circle class="fl-cold st-ink" stroke-width="2" cx="${CX}" cy="${CY}" r="${RP}"/>
-        <path class="fl-green" opacity=".85" d="M146 44c6-5 14-4 17 1 2 5-3 8-2 13 1 6-6 9-10 5-3-4 1-8-2-11-2-3-5-5-3-8zM171 62c5-2 10 1 10 6s-4 10-8 9c-4-2-1-6-3-9-1-2-2-5 1-6zM140 70c3-1 6 1 6 4s-2 5-4 4c-3-1-4-7-2-8z"/>
-        <path class="fl-ink" d="M155 30.6L160 ${(TOP + 0.5).toFixed(1)} 165 30.6Z"/>
+        <path class="fl-green" opacity=".85" transform="translate(${CX} ${CY}) scale(${RP / 30}) translate(-160 -60)" d="M146 44c6-5 14-4 17 1 2 5-3 8-2 13 1 6-6 9-10 5-3-4 1-8-2-11-2-3-5-5-3-8zM171 62c5-2 10 1 10 6s-4 10-8 9c-4-2-1-6-3-9-1-2-2-5 1-6zM140 70c3-1 6 1 6 4s-2 5-4 4c-3-1-4-7-2-8z"/>
+        <path class="fl-ink" d="M154 ${CY - RP + 0.8}L160 ${(TOP + 0.5).toFixed(1)} 166 ${CY - RP + 0.8}Z"/>
         <g id="old"></g>
         <path id="aim" class="arrow st-hot" style="stroke-width:1.8"/>
         <path id="cur" class="wire st-hot" style="stroke-width:2.2"/>
@@ -93,7 +93,7 @@ export default {
         <text id="n2" x="66" y="190" class="sm"></text>
       </svg>
       ${readouts([{ id: "res", label: "תוצאה" }, { id: "val", label: "זמן טיסה" }])}
-      ${range({ id: "v", label: "מהירות", min: 0, max: 11.5, step: 0.1, value: 7 })}
+      ${range({ id: "v", label: "מהירות", min: 0, max: 11.5, step: 0.1, value: 7.4 })}
       <div style="display:flex;gap:8px;margin-top:12px">
         <button type="button" id="fire" style="${btn}flex:2;background:linear-gradient(140deg,var(--c1),var(--c2));border-color:transparent;color:#fff">ירי</button>
         <button type="button" id="clear" style="${btn}background:var(--card);color:var(--muted)">ניקוי</button>
@@ -103,7 +103,7 @@ export default {
     const old = q("#old"), cur = q("#cur"), ball = q("#ball"), aim = q("#aim");
     const res = q("#res"), val = q("#val"), valLabel = val.nextElementSibling;
     res.style.fontSize = "18px"; res.style.lineHeight = "25px";
-    let speed = 7, shot = null; // shot: { sim, tp, i, d, done }
+    let speed = 7.4, shot = null; // shot: { sim, tp, i, d, done }
 
     const addOld = (sim) => {
       const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -130,7 +130,7 @@ export default {
         res.textContent = "נמלט";
         val.textContent = `${fmt(Math.sqrt(Math.max(0, s.v * s.v - VE * VE)), 1)} ק״מ/ש`;
         valLabel.textContent = "המהירות שתישאר לו";
-        n1 = `מהר ממהירות המילוט, ${VE.toFixed(1)} ק״מ/ש:`;
+        n1 = "מהר ממהירות המילוט:";
         n2 = "כוח המשיכה לא יחזיר אותו";
       } else {
         res.textContent = s.kind === "circle" ? "מסלול מעגלי" : "מסלול אליפטי";
@@ -161,12 +161,12 @@ export default {
     wire(root, ({ v }) => {
       speed = v;
       out(root, "v-out", `${v.toFixed(1)} ק״מ/ש`);
-      const x1 = CX + 5 + v * 3.2, y = TOP;
+      const x1 = CX + 5 + v * 3.2, y = TOP - 5;
       aim.setAttribute("d", v > 0 ? `M${CX + 3} ${y}H${x1}M${x1 - 4} ${y - 3}L${x1} ${y}L${x1 - 4} ${y + 3}` : "");
     });
 
     // שתי יריות חלשות לדוגמה, ואז ירייה ראשונה חיה
-    addOld(simulate(4)); addOld(simulate(6));
+    addOld(simulate(5)); addOld(simulate(6.6));
     fire(speed);
 
     loop(root, (dt) => {
