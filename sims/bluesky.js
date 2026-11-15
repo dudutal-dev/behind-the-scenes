@@ -53,7 +53,7 @@ const pathLen = (h) => { const s = Math.sin(h * DEG), c = Math.cos(h * DEG); ret
 
 export default {
   title: "הורידו את השמש לאופק",
-  hint: "ככל שהשמש נמוכה, האור עובר יותר אוויר. הכחול מתפזר הצידה ראשון, ולכן השמש מצהיבה, מכתימה ומאדימה. האיור אינו בקנה מידה: בפועל ליד האופק הדרך ארוכה פי 38.",
+  hint: "ככל שהשמש נמוכה, האור עובר יותר אוויר והכחול מתפזר הצידה ראשון. האיור אינו בקנה מידה: ליד האופק הדרך ארוכה פי 38.",
   mount(root) {
     const arcE = `M0 ${(C[1] - Math.sqrt(RE * RE - 26 * 26)).toFixed(1)}A${RE} ${RE} 0 0 1 ${C[0] + 170} ${(C[1] - Math.sqrt(RE * RE - 170 * 170)).toFixed(1)}`;
     const xa = 200 - C[0], arcA = `M0 ${(C[1] - Math.sqrt((RE + HA) ** 2 - 26 * 26)).toFixed(1)}A${RE + HA} ${RE + HA} 0 0 1 200 ${(C[1] - Math.sqrt((RE + HA) ** 2 - xa * xa)).toFixed(1)}`;
@@ -66,6 +66,7 @@ export default {
           <path class="fl-soft" d="${arcE}L200 200H0z"/>
           <path class="thin st-ink" d="${arcE}"/>
           <path id="rayOut" class="thin" style="stroke-dasharray:2 3"/>
+          <path id="rayU" class="wire st-ink" style="stroke-width:5.5"/>
           <path id="rayIn" class="wire" style="stroke-width:3.5"/>
           <g id="ph"></g>
           <circle id="sun" r="9" class="st-ink" stroke-width="1"/>
@@ -103,7 +104,8 @@ export default {
       am = airMass(el);
       out(root, "el-out", `${el}°`);
       out(root, "am", `פי ${fmt(am, am < 10 ? 1 : 0)}`);
-      out(root, "tb", `${fmt(100 * Math.exp(-tau(450) * am), am > 20 ? 1 : 0)}%`);
+      const tb = 100 * Math.exp(-tau(450) * am);
+      out(root, "tb", `${fmt(tb, tb < 1 ? 2 : 0)}%`);
       out(root, "tr", `${fmt(100 * Math.exp(-tau(650) * am), 0)}%`);
       const sunC = colour(directSpec(am)), skyC = colour(skySpec(am));
       q("#sun").setAttribute("fill", sunC);
@@ -120,12 +122,14 @@ export default {
       // גאומטריה: מהצופה לכיוון השמש
       const L = pathLen(el), d = [Math.cos(el * DEG), -Math.sin(el * DEG)];
       const A = [O[0] + d[0] * L, O[1] - 16 + d[1] * L];
-      const Sx = [O[0] + d[0] * (L + 22), O[1] - 16 + d[1] * (L + 22)];
+      const Sx = [O[0] + d[0] * (L + 16), O[1] - 16 + d[1] * (L + 16)];
       const E = [O[0] + d[0] * 5, O[1] - 16 + d[1] * 5];
       geo = { S: Sx, A, E, L };
       q("#sun").setAttribute("cx", Sx[0].toFixed(1));
       q("#sun").setAttribute("cy", Sx[1].toFixed(1));
-      q("#rayIn").setAttribute("d", `M${A[0].toFixed(1)} ${A[1].toFixed(1)}L${E[0].toFixed(1)} ${E[1].toFixed(1)}`);
+      const rd = `M${A[0].toFixed(1)} ${A[1].toFixed(1)}L${E[0].toFixed(1)} ${E[1].toFixed(1)}`;
+      q("#rayIn").setAttribute("d", rd);
+      q("#rayU").setAttribute("d", rd);
       q("#rayIn").style.stroke = sunC;
       q("#rayOut").setAttribute("d", `M${Sx[0].toFixed(1)} ${Sx[1].toFixed(1)}L${A[0].toFixed(1)} ${A[1].toFixed(1)}`);
       let n1, n2;
@@ -145,9 +149,8 @@ export default {
         acc -= 1;
         const k = Math.floor(Math.random() * BARS.length);
         const depth = -Math.log(1 - Math.random()) / tau(BARS[k]); // במונחי מסות אוויר
-        const sc = depth < am ? depth / am : null; // מקום הפיזור, כחלק מהדרך באוויר
         const side = Math.random() < 0.5 ? -1 : 1;
-        parts.push({ k, s: 0, sc, side, t: 0 });
+        parts.push({ k, s: 0, depth, side, t: 0, f: 0 });
       }
       if (acc > 1) acc = 1;
       const { S, A, E } = geo;
@@ -159,7 +162,9 @@ export default {
         p.s += (dt * v) / tot;
         // החלק שעבר מהקטע שבתוך האוויר, מהכניסה (A) אל הצופה. גם נקודת הפיזור נמדדת מהכניסה
         const inFrac = clamp((p.s * tot - segOut) / segIn, 0, 1);
-        if (p.sc !== null && p.s * tot > segOut && inFrac >= p.sc) p.t += dt; // התפזר: עף הצידה
+        // מקום הפיזור כחלק מהדרך באוויר; מחושב מחדש מול מסת האוויר הנוכחית, כך ששינוי במחוון משפיע מיד
+        if (p.t > 0) p.t += dt;
+        else if (p.depth < am && p.s * tot > segOut && inFrac >= p.depth / am) { p.t = dt; p.f = p.depth / am; } // התפזר: עף הצידה
         if (p.s >= 1 || p.t > 0.7) parts.splice(i, 1);
       }
       dots.forEach((c, i) => {
@@ -168,7 +173,7 @@ export default {
         let x, y;
         const d = p.s * tot;
         if (p.t > 0) {
-          const f = p.sc; // הנקודה שבה התפזר
+          const f = p.f; // הנקודה שבה התפזר
           x = A[0] + (E[0] - A[0]) * f + nx * p.side * p.t * 60;
           y = A[1] + (E[1] - A[1]) * f + ny * p.side * p.t * 60;
         } else if (d < segOut) { x = S[0] + ((A[0] - S[0]) * d) / segOut; y = S[1] + ((A[1] - S[1]) * d) / segOut; }
