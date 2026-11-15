@@ -262,6 +262,17 @@ function renderHome() {
       ${IC.fwd}</a>` : ""}
 
     <section>
+      <div class="sec-head"><h2>סרטונים</h2></div>
+      <div class="rail vrail">
+        ${[...VIDEOS.keys()].map((id) => `<a class="vcard" href="#/t/${id}/v">
+          <img src="videos/${id}.jpg" alt="" loading="lazy">
+          <span class="vplay-s">${glyph(GLYPH.play)}</span>
+          <span class="vcap"><b>${h(byId[id].title)}</b><small>${h(VIDEOS.get(id))}</small></span>
+        </a>`).join("")}
+      </div>
+    </section>
+
+    <section>
       <div class="sec-head"><h2>תחומים</h2><a href="#/lib">הכול ${IC.fwd}</a></div>
       <div class="tiles">
         ${CATEGORIES.map((c) => {
@@ -543,19 +554,9 @@ function questionCard(label, q, onDone) {
 
 function buildCards(t, scene, sim) {
   const cards = [questionCard("לפני שמתחילים", t.hook)];
-  t.steps.forEach((s, i) =>
-    cards.push({
-      html: `<div class="card">
-          ${scene ? sceneSvg(scene, i + 1, `איור: ${s.t}`) : `<div class="big">${s.e}</div>`}
-          <span class="tag">שלב ${i + 1} מתוך ${t.steps.length}</span>
-          <h3>${h(s.t)}</h3>
-          <p>${h(s.x)}</p>
-          ${canSpeak ? `<button class="speak">${IC.speak} הקראה</button>` : ""}
-        </div>`,
-      bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
-    })
-  );
+  // הסרטון מיד אחרי שאלת הפתיחה, כדי שלא יפספסו אותו
   if (VIDEOS.has(t.id)) cards.push({
+    film: true,
     html: `<div class="card film">
         <span class="tag">${glyph(GLYPH.play)} סרטון</span>
         <h3>${h(VIDEOS.get(t.id))}</h3>
@@ -581,6 +582,18 @@ function buildCards(t, scene, sim) {
       });
     },
   });
+  t.steps.forEach((s, i) =>
+    cards.push({
+      html: `<div class="card">
+          ${scene ? sceneSvg(scene, i + 1, `איור: ${s.t}`) : `<div class="big">${s.e}</div>`}
+          <span class="tag">שלב ${i + 1} מתוך ${t.steps.length}</span>
+          <h3>${h(s.t)}</h3>
+          <p>${h(s.x)}</p>
+          ${canSpeak ? `<button class="speak">${IC.speak} הקראה</button>` : ""}
+        </div>`,
+      bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
+    })
+  );
   if (sim) cards.push({
     html: `<div class="card sim">
         <span class="tag">${glyph(GLYPH.spark)} נסה בעצמך</span>
@@ -627,13 +640,14 @@ const playerTop = (i, n, title, favId) => `
     ${favId ? `<button id="fav" class="fav${state.favs[favId] ? " on" : ""}" aria-pressed="${!!state.favs[favId]}" aria-label="מועדפים">${glyph(GLYPH.mark)}</button>` : ""}
   </header>`;
 
-async function renderTopic(id) {
+async function renderTopic(id, toFilm = false) {
   const t = byId[id];
   if (!t) return (location.hash = "#/");
   const [scene, sim] = await Promise.all([loadScene(id), loadSim(id)]);
-  if (location.hash !== `#/t/${id}`) return; // המשתמש כבר עבר למסך אחר
+  if (!location.hash.startsWith(`#/t/${id}`)) return; // המשתמש כבר עבר למסך אחר
   const cards = buildCards(t, scene, sim);
-  let i = 0;
+  let i = toFilm ? Math.max(0, cards.findIndex((c) => c.film)) : 0;
+  if (i) cards[0].locked = false; // מדלגים על שאלת הפתיחה
   app.className = `player c-${t.cat}`;
 
   function finish() {
@@ -745,9 +759,9 @@ function runReview(queue) {
 
 // ---------- ניתוב ----------
 function route() {
-  const [, view, id] = location.hash.split("/");
+  const [, view, id, sub] = location.hash.split("/");
   if (view !== "t" && !seenIntro()) { renderWelcome(); window.scrollTo(0, 0); return; }
-  if (view === "t") renderTopic(id);
+  if (view === "t") renderTopic(id, sub === "v");
   else {
     backTo = location.hash || "#/";
     if (view === "lib") renderLibrary(id);
