@@ -85,14 +85,13 @@ export default `
 <!-- שלב 4: מדרגים לפי ההרס -->
 <g class="only-4">
   <rect class="body" style="stroke-width:1.5" x="228" y="98" width="86" height="94" rx="6"/>
-  <text x="271" y="111" class="sm">רוח לפי הנזק</text>
-  <text x="271" y="122" class="sm">(קמ״ש, מ־)</text>
-  <text x="243" y="136" class="sm" style="direction:ltr">EF0</text><rect x="256" y="129" width="6" height="8" rx="2" style="fill:var(--s-green)"/><text x="265" y="136" class="sm" style="text-anchor:start;direction:ltr">105</text>
-  <text x="243" y="147" class="sm" style="direction:ltr">EF1</text><rect x="256" y="140" width="11" height="8" rx="2" style="fill:var(--s-green)"/><text x="270" y="147" class="sm" style="text-anchor:start;direction:ltr">138</text>
-  <text x="243" y="158" class="sm" style="direction:ltr">EF2</text><rect x="256" y="151" width="16" height="8" rx="2" style="fill:var(--s-elec)"/><text x="275" y="158" class="sm" style="text-anchor:start;direction:ltr">178</text>
-  <text x="243" y="169" class="sm" style="direction:ltr">EF3</text><rect x="256" y="162" width="21" height="8" rx="2" style="fill:var(--s-warm)"/><text x="280" y="169" class="sm" style="text-anchor:start;direction:ltr">218</text>
-  <text x="243" y="180" class="sm" style="direction:ltr">EF4</text><rect x="256" y="173" width="26" height="8" rx="2" style="fill:var(--s-hot)"/><text x="285" y="180" class="sm" style="text-anchor:start;direction:ltr">267</text>
-  <text x="243" y="191" class="sm" style="direction:ltr">EF5</text><rect x="256" y="184" width="31" height="8" rx="2" style="fill:var(--s-hot)"/><text x="290" y="191" class="sm" style="text-anchor:start;direction:ltr">322+</text>
+  <text x="271" y="111" class="sm">רוח בקמ״ש, מ־</text>
+  <text x="243" y="127" class="sm" style="direction:ltr">EF0</text><rect x="256" y="120" width="6" height="8" rx="2" style="fill:var(--s-green)"/><text x="265" y="127" class="sm" style="text-anchor:start;direction:ltr">105</text>
+  <text x="243" y="138" class="sm" style="direction:ltr">EF1</text><rect x="256" y="131" width="11" height="8" rx="2" style="fill:var(--s-green)"/><text x="270" y="138" class="sm" style="text-anchor:start;direction:ltr">138</text>
+  <text x="243" y="149" class="sm" style="direction:ltr">EF2</text><rect x="256" y="142" width="16" height="8" rx="2" style="fill:var(--s-elec)"/><text x="275" y="149" class="sm" style="text-anchor:start;direction:ltr">178</text>
+  <text x="243" y="160" class="sm" style="direction:ltr">EF3</text><rect x="256" y="153" width="21" height="8" rx="2" style="fill:var(--s-warm)"/><text x="280" y="160" class="sm" style="text-anchor:start;direction:ltr">218</text>
+  <text x="243" y="171" class="sm" style="direction:ltr">EF4</text><rect x="256" y="164" width="26" height="8" rx="2" style="fill:var(--s-hot)"/><text x="285" y="171" class="sm" style="text-anchor:start;direction:ltr">267</text>
+  <text x="243" y="182" class="sm" style="direction:ltr">EF5</text><rect x="256" y="175" width="31" height="8" rx="2" style="fill:var(--s-hot)"/><text x="290" y="182" class="sm" style="text-anchor:start;direction:ltr">322+</text>
   <!-- בית שנפגע: הגג נתלש ושברים עפים -->
   <path class="body" d="M112 196V170H146V196"/>
   <path class="thin st-ink" d="M124 196V182H134V196"/>
