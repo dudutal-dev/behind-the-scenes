@@ -165,8 +165,8 @@ function renderHome() {
   page("home", `
     <header class="hello">
       <div>
-        <span class="hello-sub">${greeting()}</span>
-        <h1 class="brand">איך זה <em>עובד</em></h1>
+        <span class="hello-sub">${greeting()} · איך דברים עובדים</span>
+        <h1 class="brand">מאחורי <em>הקלעים</em></h1>
       </div>
       <a class="streak" href="#/me" aria-label="התקדמות">
         ${badge(GLYPH.flame, "c-flame sm")}
