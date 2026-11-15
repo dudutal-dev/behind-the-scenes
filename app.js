@@ -89,12 +89,17 @@ const CAT_GLYPH = {
   energy: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M13.300 3.200 6.300 13.300h4.400l-1 7.500 7.500-10.300h-4.700z"/>',
   infra: '<path opacity=".5" d="M3 20.500V10a1.500 1.500 0 0 1 1.500-1.500H11v12z"/><path d="M11 20.500V5a1.500 1.500 0 0 1 1.500-1.500h7A1.500 1.500 0 0 1 21 5v15.500z"/>',
   nature: '<path opacity=".5" d="M20.500 3.500C11 3.500 4.500 8 4.500 15a5.500 5.500 0 0 0 5.500 5.500c7 0 10.500-7.500 10.500-17z"/><path d="M3.800 21.200a1.100 1.100 0 0 1-.800-1.900l8.600-8.600a1.100 1.100 0 0 1 1.600 1.600l-8.600 8.600a1.100 1.100 0 0 1-.800.300z"/>',
+  invent: '<path opacity=".5" d="M12 2.500a7 7 0 0 0-4 12.700V17h8v-1.800a7 7 0 0 0-4-12.700z"/><path d="M9 18.500h6V20a1.500 1.500 0 0 1-1.500 1.500h-3A1.500 1.500 0 0 1 9 20zM11 9h2v6h-2z"/>',
+  body: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 17.800s-5.300-3.200-5.300-7.100a3 3 0 0 1 5.300-1.900 3 3 0 0 1 5.300 1.900c0 3.900-5.300 7.100-5.300 7.100z"/>',
+  space: '<ellipse opacity=".5" cx="12" cy="12" rx="10.500" ry="3.700" transform="rotate(-20 12 12)"/><circle cx="12" cy="12" r="5.600"/>',
+  digital: '<rect opacity=".5" x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.200"/><path d="M9 2.500h1.500V5H9zM13.500 2.500H15V5h-1.500zM9 19h1.500v2.500H9zM13.500 19H15v2.500h-1.500zM2.500 9H5v1.500H2.500zM2.500 13.500H5V15H2.500zM19 9h2.500v1.500H19zM19 13.500h2.500V15H19z"/>',
 };
 const GLYPH = {
   flame: '<path opacity=".5" d="M12 2.500c.500 3.500 5.500 6 5.500 11.500a5.500 5.500 0 0 1-11 0c0-2 .800-3.500 1.800-4.800.300 1.300 1 2.300 2 2.800-.300-3.500.200-7 1.700-9.500z"/><path d="M12 12.500c1.500 1.500 2.500 2.800 2.500 4.500a2.500 2.500 0 0 1-5 0c0-1.700 1-3 2.500-4.500z"/>',
   book: '<path opacity=".5" d="M4 5.500A2.500 2.500 0 0 1 6.500 3H18a2 2 0 0 1 2 2v13H6.500A2.500 2.500 0 0 0 4 20.500z"/><path d="M6.500 16.500H20V21H6.500a2.250 2.250 0 0 1 0-4.500zM8 7h8v2H8z"/>',
   loop: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 6.500a5.500 5.500 0 0 1 4.900 3h-2.400l3.500 3.500 3.500-3.500h-2.500A7.500 7.500 0 0 0 5.500 8.300l1.500 1.300A5.500 5.500 0 0 1 12 6.500zM12 17.500a5.500 5.500 0 0 1-4.900-3h2.400L6 11l-3.500 3.500H5a7.500 7.500 0 0 0 13.500 1.200L17 14.400a5.500 5.500 0 0 1-5 3.100z"/>',
   spark: '<path d="M12 2.500l2.300 6.200 6.200 2.300-6.200 2.300L12 19.500l-2.300-6.200L3.500 11l6.200-2.300z"/><path opacity=".55" d="M19 15.500l.900 2.100 2.100.900-2.100.900-.900 2.100-.900-2.100-2.100-.900 2.100-.900z"/>',
+  clock: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M11 6.500h2v5.100l3.600 2.100-1 1.700L11 12.700z"/>',
   check: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10.700 16.300 6.900 12.500l1.500-1.500 2.300 2.300 5-5 1.500 1.500z"/>',
 };
 const badge = (d, cls = "") => `<span class="badge ${cls}">${glyph(d)}</span>`;
@@ -102,16 +107,16 @@ const catBadge = (cat, cls = "") => badge(CAT_GLYPH[cat], `c-${cat} ${cls}`);
 const catName = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.name]));
 
 const TAB_IC = {
-  home: '<path d="M4 10.800 12 4l8 6.800V19a1.500 1.500 0 0 1-1.500 1.500h-4v-5.500h-5v5.500h-4A1.500 1.500 0 0 1 4 19z"/>',
-  lib: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
-  review: '<path d="M17 3.500l3 3-3 3M20 6.500H8.500a4.500 4.500 0 0 0-4.500 4.500v.500M7 20.500l-3-3 3-3M4 17.500h11.500a4.500 4.500 0 0 0 4.500-4.500v-.500"/>',
-  me: '<path d="M5 20v-7M12 20V5M19 20v-10"/>',
+  home: CAT_GLYPH.home,
+  lib: '<rect opacity=".5" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect opacity=".5" x="13" y="13" width="7.500" height="7.500" rx="2.200"/>',
+  review: GLYPH.loop,
+  me: '<rect opacity=".5" x="4" y="12" width="4.200" height="8.500" rx="1.600"/><rect x="9.900" y="4" width="4.200" height="16.500" rx="1.600"/><rect opacity=".5" x="15.800" y="8.500" width="4.200" height="12" rx="1.600"/>',
 };
 const TABS = [
-  { id: "home", href: "#/", label: "בית" },
-  { id: "lib", href: "#/lib", label: "ספרייה" },
-  { id: "review", href: "#/review", label: "חזרה" },
-  { id: "me", href: "#/me", label: "התקדמות" },
+  { id: "home", href: "#/", label: "בית", c: "t-home" },
+  { id: "lib", href: "#/lib", label: "ספרייה", c: "t-lib" },
+  { id: "review", href: "#/review", label: "חזרה", c: "t-review" },
+  { id: "me", href: "#/me", label: "התקדמות", c: "t-me" },
 ];
 let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
 
@@ -119,8 +124,8 @@ let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
 function tabbar(active) {
   const due = dueCards().length;
   return `<nav class="tabbar" aria-label="ניווט ראשי">${TABS.map((t) => `
-    <a href="${t.href}" class="tab${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
-      <span class="tab-ic">${icon(TAB_IC[t.id])}${t.id === "review" && due ? `<i class="dot"></i>` : ""}</span>
+    <a href="${t.href}" class="tab ${t.c}${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
+      <span class="tab-ic">${glyph(TAB_IC[t.id])}${t.id === "review" && due ? `<i class="dot"></i>` : ""}</span>
       <span>${t.label}</span>
     </a>`).join("")}</nav>`;
 }
@@ -346,6 +351,12 @@ function buildCards(t, scene) {
       bind(root) { root.querySelector(".speak")?.addEventListener("click", () => speak(`${s.t}. ${s.x}`)); },
     })
   );
+  if (t.history) cards.push({
+    html: `<div class="card past">
+        <span class="tag past-tag">${glyph(GLYPH.clock)} קצת היסטוריה</span>
+        <p>${h(t.history)}</p>
+      </div>`,
+  });
   cards.push({
     html: `<div class="card myth">
         <span class="tag warn">טעות נפוצה</span>
@@ -361,6 +372,7 @@ function buildCards(t, scene) {
         <span class="tag done">${glyph(GLYPH.check)} סיימת · בשורה אחת</span>
         <h3>${h(t.take)}</h3>
         <p class="muted">שאלות הבדיקה יחזרו אליך מחר, ואחר כך במרווחים הולכים וגדלים.</p>
+        <div id="upnext"></div>
       </div>`,
   });
   return cards;
@@ -398,18 +410,25 @@ async function renderTopic(id) {
     const c = cards[i];
     const last = i === cards.length - 1;
     if (c.end) finish();
-    const next = ORDERED.find((x) => !state.done[x.id]);
+    // "הבא": הדבר הבא שלא נקרא אחרי הנוכחי — קודם באותו תחום, ואז בתחומים הבאים
+    const at = ORDERED.indexOf(t);
+    const next = [...ORDERED.slice(at + 1), ...ORDERED.slice(0, at)].find((x) => !state.done[x.id] && x.id !== t.id);
     app.innerHTML = `
       ${playerTop(i, cards.length, t.title)}
       <main class="stage">${c.html}</main>
       <nav class="p-nav">
         <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
         ${last
-          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? `הבא: ${h(next.title)}` : "לספרייה"} ${IC.fwd}</a>`
+          ? `<a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך ${IC.fwd}</button>`}
       </nav>`;
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
     c.bind?.(app.querySelector(".stage"), unlock);
+    const up = document.getElementById("upnext");
+    if (up && next) up.innerHTML = `<a class="upnext c-${next.cat}" href="#/t/${next.id}">
+        ${catBadge(next.cat, "sm")}
+        <span class="row-text"><small>${next.cat === t.cat ? "הבא בתחום" : "הבא"} · ${h(catName[next.cat])}</small><b>${h(next.title)}</b></span>
+        ${IC.fwd}</a>`;
     document.getElementById("back").addEventListener("click", () => { i--; show(); });
     document.getElementById("next")?.addEventListener("click", () => { i++; show(); });
     window.scrollTo(0, 0);
