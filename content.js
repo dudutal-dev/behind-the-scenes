@@ -2,6 +2,8 @@
 // כדי להוסיף דבר חדש — מוסיפים אובייקט לרשימה באותו מבנה (כאן, ב-content-more.js או ב-content-extra.js).
 import { MORE_TOPICS } from "./content-more.js";
 import { EXTRA_TOPICS } from "./content-extra.js";
+import { INVENTION_TOPICS } from "./content-inventions.js";
+import { HISTORY } from "./history.js";
 
 export const CATEGORIES = [
   { id: "home", name: "בבית", emoji: "🏠" },
@@ -10,6 +12,7 @@ export const CATEGORIES = [
   { id: "energy", name: "חשמל ואנרגיה", emoji: "⚡" },
   { id: "infra", name: "תשתיות", emoji: "🏗️" },
   { id: "nature", name: "טבע וגוף", emoji: "🌩️" },
+  { id: "invent", name: "המצאות", emoji: "💡" },
 ];
 
 const BASE_TOPICS = [
@@ -477,4 +480,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...INVENTION_TOPICS];
+// קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
+for (const t of TOPICS) t.history ??= HISTORY[t.id];

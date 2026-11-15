@@ -23,7 +23,7 @@
 :root{
   --bg:#f5f6fb; --card:#ffffff; --ink:#0e1120; --muted:#5d6278; --faint:#9499ad; --line:#e6e8f1; --soft:#eceefa;
   --a1:#5457f0; --a2:#9b5cf6; --accent:#5457f0; --accent-ink:#ffffff;
-  --ok:#12a150; --ok-bg:#e3f7ea; --bad:#e0413a; --bad-bg:#fdeae8; --warn:#d97706; --warn-bg:#fdf1dd;
+  --ok:#12a150; --ok-bg:#e3f7ea; --bad:#e0413a; --bad-bg:#fdeae8; --warn:#d97706; --warn-bg:#fdf1dd; --past:#8a5a2b; --past-bg:#f4e9dc;
   --shadow:0 1px 2px rgba(14,17,32,.04),0 10px 30px -16px rgba(14,17,32,.22);
   --c1:var(--a1); --c2:var(--a2);
   --sans:"Heebo",system-ui,-apple-system,"Segoe UI","Arial Hebrew",Arial,sans-serif;
@@ -32,13 +32,14 @@
   :root{
     --bg:#0b0d15; --card:#141725; --ink:#eef0f8; --muted:#a0a5bb; --faint:#6c7189; --line:#22263a; --soft:#1a1e33;
     --a1:#7c7ffb; --a2:#b58cff; --accent:#8f92ff; --accent-ink:#0b0d15;
-    --ok:#4fd28a; --ok-bg:#11301f; --bad:#ff7f76; --bad-bg:#3a1917; --warn:#fbbf4d; --warn-bg:#3a2a0e;
+    --ok:#4fd28a; --ok-bg:#11301f; --bad:#ff7f76; --bad-bg:#3a1917; --warn:#fbbf4d; --warn-bg:#3a2a0e; --past:#e0b98a; --past-bg:#33271a;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -18px rgba(0,0,0,.8);
   }
 }
 /* צבע לכל תחום */
 .c-home{--c1:#ff9f43;--c2:#ff5c6c} .c-move{--c1:#38bdf8;--c2:#3b6cf6} .c-tech{--c1:#e060f5;--c2:#8b5cf6}
 .c-energy{--c1:#fbbf24;--c2:#f97316} .c-infra{--c1:#22d3c5;--c2:#0e9fb8} .c-nature{--c1:#84d955;--c2:#16a34a}
+.c-invent{--c1:#fb7fa5;--c2:#e11d6a}
 .c-flame{--c1:#ffb238;--c2:#ff5a3c} .c-done{--c1:#4ade80;--c2:#12a150} .c-review{--c1:#8f8dff;--c2:#5457f0}
 
 *{box-sizing:border-box}
@@ -68,6 +69,7 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
   background:color-mix(in srgb,var(--c2) 13%,transparent);border-radius:999px;padding:3px 10px}
 .tag svg{width:14px;height:14px;fill:currentColor}
 .tag.warn{color:var(--warn);background:var(--warn-bg)}
+.tag.past-tag{color:var(--past);background:var(--past-bg)}
 .tag.done{color:var(--ok);background:var(--ok-bg)}
 @media (prefers-color-scheme: dark){.tag{color:var(--c1);background:color-mix(in srgb,var(--c1) 16%,transparent)}}
 .meta{font-size:13px;color:var(--faint)}
@@ -135,6 +137,12 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .tile b{font-size:15.5px;font-weight:700;line-height:1.2}
 .tile small{font-size:12.5px;color:var(--muted);margin:2px 0 11px}
 .tile .bar{margin-top:auto}
+/* אריח בודד בשורה האחרונה נמתח לכל הרוחב */
+.tile:last-child:nth-child(3n+1){grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;padding:14px 16px}
+.tile:last-child:nth-child(3n+1) .badge{grid-row:1/3;margin:0}
+.tile:last-child:nth-child(3n+1) b{align-self:end;font-size:16.5px}
+.tile:last-child:nth-child(3n+1) small{align-self:start;margin:0}
+.tile:last-child:nth-child(3n+1) .bar{grid-column:1/-1;margin-top:12px}
 
 .rail{display:flex;gap:12px;overflow-x:auto;margin:0 -20px;padding:2px 20px 14px;scroll-snap-type:x proximity;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
@@ -239,6 +247,7 @@ footer{margin-top:auto;padding-top:34px;text-align:center}
 .truth{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow)}
 .truth b{display:block;font-size:13px;font-weight:800;color:var(--ok);margin-bottom:2px}
 .truth p{margin:0;font-size:16.5px;line-height:1.65}
+.past p{font-size:20px;line-height:1.7;margin-top:14px;padding-inline-start:16px;border-inline-start:4px solid var(--past)}
 .end h3{font-size:23px;line-height:1.35;font-weight:700}
 .center-card{display:flex;flex-direction:column;align-items:center;text-align:center}
 .center-card h3{margin-top:20px}
