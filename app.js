@@ -131,6 +131,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["engine", "ארבע פעימות ב־60 שניות"],
 ]);
 const GLYPH = {
+  sound: '<path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path opacity=".6" d="M15 8.600a4.600 4.600 0 0 1 0 6.800l-1.100-1.100a3 3 0 0 0 0-4.600zM17.400 6.200a8 8 0 0 1 0 11.600l-1.100-1.100a6.400 6.400 0 0 0 0-9.400z"/>',
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
   expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
   flame: '<path opacity=".5" d="M12 2.500c.500 3.500 5.500 6 5.500 11.500a5.500 5.500 0 0 1-11 0c0-2 .800-3.500 1.800-4.800.300 1.300 1 2.300 2 2.800-.300-3.500.200-7 1.700-9.500z"/><path d="M12 12.500c1.500 1.500 2.500 2.800 2.500 4.500a2.500 2.500 0 0 1-5 0c0-1.700 1-3 2.500-4.500z"/>',
@@ -148,6 +149,7 @@ const catName = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.name]));
 
 const TAB_IC = {
   home: CAT_GLYPH.home,
+  feed: '<rect opacity=".5" x="5" y="2.500" width="14" height="19" rx="4"/><path d="M10 8.300v7.400l5.800-3.700z"/>',
   lib: '<rect opacity=".5" x="3.500" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="13" y="3.500" width="7.500" height="7.500" rx="2.200"/><rect x="3.500" y="13" width="7.500" height="7.500" rx="2.200"/><rect opacity=".5" x="13" y="13" width="7.500" height="7.500" rx="2.200"/>',
   review: GLYPH.loop,
   settings: '<circle opacity=".5" cx="12" cy="12" r="8.200"/><path d="M12 8.600a3.400 3.400 0 1 0 0 6.800 3.400 3.400 0 0 0 0-6.800zM10.700 2.500h2.600l.500 2.600h-3.600zM10.700 21.500h2.600l.500-2.600h-3.600zM2.500 10.700v2.600l2.600.500v-3.600zM21.500 10.700v2.600l-2.600.500v-3.600zM4.400 6.200l1.800-1.800 2.200 1.500-2.500 2.500zM19.600 17.800l-1.800 1.800-2.200-1.500 2.500-2.500zM6.200 19.600l-1.800-1.800 1.500-2.200 2.500 2.500zM17.800 4.400l1.800 1.800-1.500 2.200-2.500-2.500z"/>',
@@ -155,6 +157,7 @@ const TAB_IC = {
 };
 const TABS = [
   { id: "home", href: "#/", label: "בית", c: "t-home" },
+  { id: "feed", href: "#/feed", label: "פיד", c: "t-feed" },
   { id: "lib", href: "#/lib", label: "ספרייה", c: "t-lib" },
   { id: "review", href: "#/review", label: "חזרה", c: "t-review" },
   { id: "me", href: "#/me", label: "התקדמות", c: "t-me" },
@@ -224,6 +227,53 @@ function renderWelcome() {
     try { localStorage.setItem(INTRO_KEY, "1"); } catch { /* מצב פרטי */ }
     if (location.hash && location.hash !== "#/") location.hash = "#/"; else route();
   });
+}
+
+// ---------- פיד: כל הסרטונים בסדר אקראי, אחד אחרי השני ----------
+let feedSound = false; // אחרי שהמשתמש הפעיל קול פעם אחת, הוא נשאר פעיל
+function renderFeed() {
+  const ids = [...VIDEOS.keys()];
+  for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
+  page("feed", `<div class="feed" id="feed">${ids.map((id) => {
+    const t = byId[id];
+    return `<section class="fslide" data-id="${id}">
+      <img class="fposter" src="videos/${id}.jpg" alt="">
+      <div class="fmeta">
+        <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(VIDEOS.get(id))}</small></span>
+        <a class="btn sm" href="#/t/${id}">לנושא ${IC.fwd}</a>
+      </div>
+      <span class="fbar"><i></i></span>
+    </section>`;
+  }).join("")}</div>
+  <button type="button" class="fsound" id="fsound" aria-label="קול">${glyph(GLYPH.sound)}</button>
+  <div class="fhint" id="fhint">החליקו למעלה לסרטון הבא</div>`);
+  app.classList.add("feed-mode");
+  const feed = document.getElementById("feed");
+  const snd = document.getElementById("fsound");
+  // נגן אחד שעובר בין השקפים: כך באייפון הקול נשאר פעיל אחרי נגיעה אחת
+  const v = document.createElement("video");
+  v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto"; v.muted = !feedSound;
+  v.className = "fvid";
+  let cur = null;
+  const setSnd = () => { snd.classList.toggle("off", v.muted); snd.setAttribute("aria-pressed", String(!v.muted)); };
+  setSnd();
+  const activate = (slide) => {
+    if (cur === slide) return;
+    cur = slide;
+    slide.prepend(v);
+    v.src = `videos/${slide.dataset.id}.mp4`;
+    v.poster = `videos/${slide.dataset.id}.jpg`;
+    v.currentTime = 0;
+    v.play().catch(() => { v.muted = true; setSnd(); v.play().catch(() => {}); });
+  };
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && e.intersectionRatio > 0.6) activate(e.target); }), { root: feed, threshold: [0.6] });
+  feed.querySelectorAll(".fslide").forEach((s) => io.observe(s));
+  v.addEventListener("timeupdate", () => { const b = cur?.querySelector(".fbar i"); if (b) b.style.width = `${(100 * v.currentTime) / (v.duration || 60)}%`; });
+  v.addEventListener("ended", () => { const n = cur?.nextElementSibling; if (n) n.scrollIntoView({ behavior: "smooth" }); });
+  // נגיעה בסרטון: עצירה / המשך; כפתור הקול: השתקה / הפעלה
+  feed.addEventListener("click", (e) => { if (e.target.closest("a")) return; if (v.paused) v.play().catch(() => {}); else v.pause(); });
+  snd.addEventListener("click", () => { v.muted = !v.muted; feedSound = !v.muted; setSnd(); if (v.paused) v.play().catch(() => {}); });
+  feed.addEventListener("scroll", () => document.getElementById("fhint")?.remove(), { once: true });
 }
 
 // ---------- בית ----------
@@ -763,6 +813,7 @@ function route() {
     else if (view === "review") renderReview();
     else if (view === "me") renderMe();
     else if (view === "settings") renderSettings();
+    else if (view === "feed") renderFeed();
     else renderHome();
   }
   window.scrollTo(0, 0);
