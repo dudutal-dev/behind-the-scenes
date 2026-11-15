@@ -98,8 +98,8 @@ export default `
 <g class="only-1">
   <text x="36" y="168">בארות</text>
   <text x="36" y="182">מלאות אבן</text>
-  <text x="282" y="24">קשתות מפזרות</text>
-  <text x="282" y="38">את העומס</text>
+  <text x="277" y="17">קשתות מפזרות</text>
+  <text x="277" y="31">את העומס</text>
   <text x="290" y="140">יאמונה</text>
 </g>
 <g class="only-2">
@@ -108,12 +108,12 @@ export default `
   <path class="arrow st-ink" style="stroke-width:1.6" d="M84 108Q100 110 110 116" marker-end="url(#tajmahal-a)"/>
 </g>
 <g class="only-3">
-  <text x="282" y="24">נוטים החוצה,</text>
-  <text x="282" y="38">הרחק מהכיפה</text>
+  <text x="277" y="17">נוטים החוצה,</text>
+  <text x="277" y="31">הרחק מהכיפה</text>
 </g>
 <g class="only-4">
-  <text x="282" y="24">האותיות גדלות</text>
-  <text x="282" y="38">כלפי מעלה</text>
+  <text x="277" y="17">האותיות גדלות</text>
+  <text x="277" y="31">כלפי מעלה</text>
   <text x="292" y="104">נראות</text>
   <text x="292" y="118">אחידות</text>
 </g>

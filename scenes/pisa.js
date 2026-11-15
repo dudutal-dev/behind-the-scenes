@@ -40,14 +40,14 @@ export default `
   <rect class="fl-dark st-ink" stroke-width="1.5" x="96" y="118" width="12" height="12" rx="1"/>
   <rect class="fl-dark st-ink" stroke-width="1.5" x="110" y="118" width="12" height="12" rx="1"/>
   <rect class="fl-dark st-ink" stroke-width="1.5" x="103" y="106" width="12" height="12" rx="1"/>
-  <path class="pipe st-dark" d="M36 126L130 150"/>
-  <path class="wire st-ink" style="stroke-width:1.5" d="M30 118L42 122L38 132L26 128z"/>
+  <path class="pipe st-dark" d="M54 130L130 150"/>
+  <path class="wire st-ink" style="stroke-width:1.5" d="M48 118L60 122L56 132L44 128z"/>
 </g>
 <g class="only-4">
   <g class="fl-warm st-ink" stroke-width=".8">
-    <circle r="2.4"><animateMotion dur="2s" repeatCount="indefinite" path="M130 150L38 127"/></circle>
-    <circle r="2.4"><animateMotion dur="2s" begin="-.7s" repeatCount="indefinite" path="M130 150L38 127"/></circle>
-    <circle r="2.4"><animateMotion dur="2s" begin="-1.4s" repeatCount="indefinite" path="M130 150L38 127"/></circle>
+    <circle r="2.4"><animateMotion dur="2s" repeatCount="indefinite" path="M130 150L56 130"/></circle>
+    <circle r="2.4"><animateMotion dur="2s" begin="-.7s" repeatCount="indefinite" path="M130 150L56 130"/></circle>
+    <circle r="2.4"><animateMotion dur="2s" begin="-1.4s" repeatCount="indefinite" path="M130 150L56 130"/></circle>
   </g>
   <path class="arrow st-hot" style="stroke-width:2" d="M196 30Q186 20 172 22" marker-end="url(#pisa-h)"><animate attributeName="opacity" values=".3;1;.3" dur="1.6s" repeatCount="indefinite"/></path>
 </g>
@@ -78,7 +78,7 @@ export default `
   </g>
 </g>
 
-<text class="sm" x="22" y="122">צפון</text>
+<text class="sm" x="20" y="122">צפון</text>
 <text class="sm" x="298" y="122">דרום</text>
 
 <!-- תוויות -->
