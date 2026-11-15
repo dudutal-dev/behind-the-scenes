@@ -116,6 +116,7 @@ const GLYPH = {
   spark: '<path d="M12 2.500l2.300 6.200 6.200 2.300-6.200 2.300L12 19.500l-2.300-6.200L3.500 11l6.200-2.300z"/><path opacity=".55" d="M19 15.500l.900 2.100 2.100.900-2.100.900-.900 2.100-.900-2.100-2.100-.900 2.100-.900z"/>',
   clock: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M11 6.500h2v5.100l3.600 2.100-1 1.700L11 12.700z"/>',
   mark: '<path d="M7 3.500h10A1.500 1.500 0 0 1 18.500 5v15.200a.600.600 0 0 1-.950.490L12 16.700l-5.550 3.990a.600.600 0 0 1-.950-.490V5A1.500 1.500 0 0 1 7 3.500z"/>',
+  tune: '<rect opacity=".5" x="3" y="3" width="18" height="18" rx="5"/><path d="M6.500 8.200h6.200a2.300 2.300 0 0 1 4.400 0h.400v1.600h-.400a2.300 2.300 0 0 1-4.400 0H6.500zM6.500 14.200h.400a2.300 2.300 0 0 1 4.400 0h6.200v1.600h-6.200a2.300 2.300 0 0 1-4.400 0h-.400z"/>',
   check: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10.700 16.300 6.900 12.500l1.500-1.500 2.300 2.300 5-5 1.500 1.500z"/>',
 };
 const badge = (d, cls = "") => `<span class="badge ${cls}">${glyph(d)}</span>`;
@@ -169,6 +170,38 @@ function lazyScenes(root) {
     if (e.isIntersecting) fill(e.target); else e.target.innerHTML = "";
   }), { rootMargin: "80px" });
   root.querySelectorAll("[data-scene]").forEach((el) => io.observe(el));
+}
+
+// ---------- מסך פתיחה (בכניסה הראשונה) ----------
+const INTRO_KEY = "eich-ze-oved-intro";
+const seenIntro = () => { try { return !!localStorage.getItem(INTRO_KEY); } catch { return true; } };
+function renderWelcome() {
+  app.className = "welcome";
+  const feature = (g, cls, title, text) => `<li>${badge(g, `${cls} sm`)}<span><b>${title}</b><small>${text}</small></span></li>`;
+  app.innerHTML = `
+    <div class="w-scroll">
+      <div class="w-hero">
+        <img src="icon-192.png" alt="" width="84" height="84">
+        <h1 class="brand">מאחורי <em>הקלעים</em></h1>
+        <p>איך דברים עובדים באמת — בשתי דקות לכל דבר</p>
+        <p class="w-stats"><b>${TOPICS.length}</b> דברים · <b>${CATEGORIES.length}</b> תחומים · <b>${SIMS.size}</b> הדמיות</p>
+      </div>
+      <div class="w-cats" aria-hidden="true">${CATEGORIES.map((c, i) => `<span style="animation-delay:${-i * 0.35}s">${catBadge(c.id, "sm")}</span>`).join("")}</div>
+      <ul class="w-list">
+        ${feature(GLYPH.spark, "c-review", "המנגנון, לא הכותרת", "ארבעה שלבים קצרים ואיור מונפש לכל דבר.")}
+        ${feature(GLYPH.tune, "c-energy", "נסה בעצמך", "הדמיות שמזיזים בהן, ורואים מיד מה משתנה.")}
+        ${feature(GLYPH.clock, "c-invent", "הסיפור שמאחור", "קצת היסטוריה, וטעות נפוצה אחת.")}
+        ${feature(GLYPH.loop, "c-done", "כדי שזה יישאר", "שאלות קצרות שחוזרות אליך מדי פעם.")}
+      </ul>
+    </div>
+    <div class="w-foot">
+      <button id="start" class="btn">בואו נתחיל ${IC.fwd}</button>
+      <small>בלי הרשמה. הכול נשמר במכשיר, ועובד גם בלי רשת.</small>
+    </div>`;
+  document.getElementById("start").addEventListener("click", () => {
+    try { localStorage.setItem(INTRO_KEY, "1"); } catch { /* מצב פרטי */ }
+    if (location.hash && location.hash !== "#/") location.hash = "#/"; else route();
+  });
 }
 
 // ---------- בית ----------
@@ -403,6 +436,7 @@ function renderSettings() {
         <p><b>פרטיות.</b> האפליקציה אינה אוספת מידע ואינה שולחת דבר לשום שרת. הכול נשמר במכשיר, והיא עובדת גם בלי רשת.</p>
         <p><b>על התוכן.</b> הטקסטים והאיורים נוצרו בעזרת בינה מלאכותית. הפרטים ההיסטוריים נבדקו מול מקורות ותוקנו, אבל ייתכנו אי־דיוקים; ההסברים מפושטים בכוונה ואינם תחליף לספר לימוד או לייעוץ מקצועי.</p>
         <p class="muted">הגופן Heebo מופץ ברישיון Open Font License.</p>
+        <button id="intro" class="link">הצגת מסך הפתיחה</button>
       </div>
     </section>`);
 
@@ -438,6 +472,7 @@ function renderSettings() {
   document.getElementById("reset").addEventListener("click", () => {
     if (confirm("למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים?")) { state = EMPTY(); save(); renderSettings(); }
   });
+  document.getElementById("intro").addEventListener("click", () => { renderWelcome(); window.scrollTo(0, 0); });
 }
 
 // ---------- נגן ----------
@@ -653,6 +688,7 @@ function runReview(queue) {
 // ---------- ניתוב ----------
 function route() {
   const [, view, id] = location.hash.split("/");
+  if (view !== "t" && !seenIntro()) { renderWelcome(); window.scrollTo(0, 0); return; }
   if (view === "t") renderTopic(id);
   else {
     backTo = location.hash || "#/";
