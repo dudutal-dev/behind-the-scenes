@@ -36,7 +36,7 @@ export default {
           <rect class="fl-cold st-ink" stroke-width="2" x="${-HALF}" y="-3.500" width="${2 * HALF}" height="7" rx="1.500"/>
           <rect id="tint" x="${-HALF}" y="-3.500" width="${2 * HALF}" height="7" rx="1.500" opacity="0"/>
           <path class="st-ink" fill="none" stroke-width="1" d="M-21 -3.500v7M-7 -3.500v7M7 -3.500v7M21 -3.500v7"/>
-          <g id="heat" class="thin st-hot" style="stroke-width:1.500"><path class="fade" d="M-22 -8q-3 -3 0 -6t0 -6"/><path class="fade d2" d="M0 -8q-3 -3 0 -6t0 -6"/><path class="fade d4" d="M22 -8q-3 -3 0 -6t0 -6"/></g>
+          <g id="heat"><path class="wire st-hot fade" style="stroke-width:1.600" d="M-22 -8q-3 -3 0 -6t0 -6"/><path class="wire st-hot fade d2" style="stroke-width:1.600" d="M0 -8q-3 -3 0 -6t0 -6"/><path class="wire st-hot fade d4" style="stroke-width:1.600" d="M22 -8q-3 -3 0 -6t0 -6"/></g>
         </g>
         <text id="tlab" x="106" y="194" class="sm"></text>
         <!-- חוטים, ממיר ובית -->
@@ -98,7 +98,7 @@ export default {
         if (!hit && d[0] < -0.01) s = Math.max(s, (188 - bx) / d[0]);
         if (!hit && d[0] > 0.01) s = Math.max(s, (4 - bx) / d[0]);
         el.setAttribute("d", `M${(bx + d[0] * 74).toFixed(1)} ${(by + d[1] * 74).toFixed(1)}L${(bx + d[0] * s).toFixed(1)} ${(by + d[1] * s).toFixed(1)}`);
-        el.setAttribute("class", hit ? "wire st-elec dash" : "thin st-elec dash");
+        el.setAttribute("class", "wire st-elec dash");
         el.style.strokeWidth = hit ? 2.2 : 1.2;
         el.setAttribute("opacity", ((hit ? 1 : 0.45) * (0.25 + 0.75 * kC)).toFixed(2));
       });

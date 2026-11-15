@@ -13,7 +13,7 @@ const CAR = 1000, PERSON = 75, MAXN = 10, RATED = PERSON * MAXN, G = 9.81, V = 1
 const SX = 96, SY = 36, SR = 26;         // גלגל ההנעה
 const CARX = SX - SR, CWX = SX + SR;     // ציר התא וציר המשקולת
 const CW_W = 24, CAR_W = 46, CAR_H = 40;
-const TOP = 66, RUN = 62;                // גובה גג התא בקומה העליונה, ואורך הנסיעה בפיקסלים
+const TOP = 66, RUN = 58;                // גובה גג התא בקומה העליונה, ואורך הנסיעה בפיקסלים
 const BX = 256, BY = 46, BARM = 34;      // מאזניים
 const GXC = 256, GY = 134, GHALF = 44;   // מד ההספק
 const PMAX = RATED * G * V / 1000;       // 11.0 קילוואט: ההספק הגדול ביותר האפשרי כאן
@@ -30,7 +30,7 @@ export default {
     root.innerHTML = `
       <svg class="scene sim-stage" viewBox="0 0 320 200" role="img" aria-label="פיר מעלית: גלגל הנעה למעלה, תא עם נוסעים בצד אחד ומשקולת נגד בצד השני, ולצידם מאזניים ומד הספק של המנוע">
         <!-- פיר -->
-        <rect class="fl-soft st-line" stroke-width="1.500" x="42" y="52" width="${CWX + 18 - 42}" height="126" rx="3"/>
+        <rect class="fl-soft st-line" stroke-width="1.500" x="42" y="52" width="${CWX + 18 - 42}" height="122" rx="3"/>
         ${[0, 1, 2, 3].map((k) => `<path class="thin" d="M30 ${TOP + CAR_H + (k * RUN) / 3}H42"/><text x="22" y="${TOP + CAR_H + (k * RUN) / 3 + 3}" class="sm">${4 - k}</text>`).join("")}
         <!-- כבלים -->
         <path id="rope" class="st-ink fl-none" stroke-width="2"/>
@@ -53,7 +53,7 @@ export default {
         <g id="car">
           <rect class="body" x="${CARX - CAR_W / 2}" y="0" width="${CAR_W}" height="${CAR_H}" rx="3"/>
           <g transform="translate(${CARX} 0)">${Array.from({ length: MAXN }, (_, k) => person(k)).join("")}</g>
-          <path id="dir" class="arrow st-ink" stroke-width="2"/>
+          <path id="going" class="arrow st-ink" stroke-width="2"/>
         </g>
         <!-- מאזניים -->
         <text x="${BX}" y="13">מי כבד יותר?</text>
@@ -75,8 +75,8 @@ export default {
         <path class="st-ink fl-none" stroke-width="1.500" d="M${GXC} ${GY - 3}V${GY + 15}"/>
         <text x="${GXC - GHALF + 12}" y="${GY + 24}" class="sm">בולם</text>
         <text x="${GXC + GHALF - 12}" y="${GY + 24}" class="sm">מרים</text>
-        <text id="n1" x="160" y="186" class="sm"></text>
-        <text id="n2" x="160" y="196" class="sm"></text>
+        <text id="n1" x="160" y="185" class="sm"></text>
+        <text id="n2" x="160" y="195" class="sm"></text>
       </svg>
       ${readouts([{ id: "dm", label: "ק״ג" }, { id: "pw", label: "קילוואט" }])}
       ${range({ id: "n", label: "נוסעים", min: 0, max: MAXN, value: 8 })}
@@ -138,7 +138,7 @@ export default {
         tqh.setAttribute("d", `M${pt(a0, r - 5.500)}L${pt(a0, r + 5.500)}L${pt(a0 + s * 16)}z`);
         tqh.setAttribute("class", `fl-${cls}`);
       }
-      q("#dir").setAttribute("d", d > 0 ? `M${CARX - 17} 12V5M${CARX - 20} 8l3-3.500 3 3.500` : `M${CARX - 17} 5V12M${CARX - 20} 9l3 3.500 3-3.500`);
+      q("#going").setAttribute("d", d > 0 ? `M${CARX - 13} -3V-11M${CARX - 16.500} -7.500l3.500-4 3.500 4` : `M${CARX - 13} -11V-3M${CARX - 16.500} -6.500l3.500 4 3.500-4`);
 
       let n1, n2 = "";
       const kw = fmt(Math.abs(power), 1), alone = fmt((mCar * G * V) / 1000, 1);

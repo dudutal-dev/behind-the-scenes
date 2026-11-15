@@ -27,7 +27,7 @@ const PH = [{ x: 254, label: "מביא" }, { x: 197, label: "מפענח" }, { x:
 
 export default {
   title: "הרץ מעבד צעד אחר צעד",
-  hint: "כל צעד עושה דבר אחד קטן: מעתיק, מחבר, משווה או קופץ. הסכום כולו נבנה רק מחזרה על הצעדים האלה.",
+  hint: "כל צעד עושה דבר קטן אחד. התוצאה כולה נבנית מחזרה עליהם.",
   mount(root) {
     root.innerHTML = `
       <style>
@@ -76,7 +76,7 @@ export default {
         <path class="body" style="stroke-width:1.2" d="M150 98H298L286 140H162Z"/>
         <path id="alulit" class="cp-lit fl-elec" d="M150 98H298L286 140H162Z" opacity="0"/>
         <text x="224" y="110" class="sm cp-nb">יחידת החשבון</text>
-        <text id="alu" x="224" y="129" class="lg cp-nb"></text>
+        <text id="alu" x="224" y="129" class="lg cp-nb" direction="ltr"></text>
         <!-- הסבר -->
         <text id="cap" x="160" y="165"></text>
         <text id="note" x="160" y="186" class="sm"></text>
@@ -126,7 +126,7 @@ export default {
             else { pc++; cap = "מבצע: התשובה הייתה לא, ממשיך הלאה"; }
             break;
           default: halted = true; running = false; manual = 0; changed = "";
-            cap = `נעצר. 1 + 2 + … + ${fmt(N, 0)} = ${fmt(a, 0)}`;
+            cap = `נעצר. התוצאה: \u20661 + 2 + … + ${fmt(N, 0)} = ${fmt(a, 0)}\u2069`;
         }
       }
     };

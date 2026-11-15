@@ -396,6 +396,15 @@ function renderSettings() {
     <header class="page-head"><h1>הגדרות</h1></header>
 
     <section>
+      <div class="sec-head"><h2>תצוגה</h2></div>
+      <div class="panel">
+        <div class="seg-btns" id="theme" role="group" aria-label="ערכת צבעים">
+          ${[["light", "בהירה"], ["dark", "כהה"], ["auto", "לפי המכשיר"]].map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${v === window.applyTheme()}">${l}</button>`).join("")}
+        </div>
+      </div>
+    </section>
+
+    <section>
       <div class="sec-head"><h2>גיבוי ושחזור</h2></div>
       <div class="panel">
         <p>ההתקדמות, הרצף, החזרות והמועדפים שמורים רק במכשיר הזה. גיבוי שומר אותם בקובץ, שאפשר לשחזר ממנו אחרי החלפת טלפון, ניקוי הדפדפן או התקנה מחדש.</p>
@@ -470,6 +479,13 @@ function renderSettings() {
   });
   document.getElementById("reset").addEventListener("click", () => {
     if (confirm("למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים?")) { state = EMPTY(); save(); renderSettings(); }
+  });
+  document.getElementById("theme").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    try { localStorage.setItem("eich-ze-oved-theme", b.dataset.v); } catch { /* מצב פרטי */ }
+    window.applyTheme();
+    b.parentNode.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   });
   document.getElementById("intro").addEventListener("click", () => { renderWelcome(); window.scrollTo(0, 0); });
 }
