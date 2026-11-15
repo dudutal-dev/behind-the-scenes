@@ -50,10 +50,10 @@ export default {
         <g id="bands" class="fl-cold" shape-rendering="crispEdges"></g>
         <g id="parts" class="fl-ink" opacity=".8"></g>
         <!-- סרגל אורך הגל -->
-        <path id="lam" class="thin st-hot" style="stroke-width:1.6"/>
+        <path id="lam" class="thin" style="stroke:var(--s-hot);stroke-width:1.6"/>
         <text id="lamt" y="17" class="sm"></text>
         <!-- קנה מידה -->
-        <path class="thin st-ink" d="M214 138H314M214 135v6M314 135v6"/>
+        <path class="thin" style="stroke:var(--s-ink)" d="M214 138H314M214 135v6M314 135v6"/>
         <text x="194" y="141" class="sm">מטר אחד</text>
         <!-- הרמקול -->
         <text id="cname" x="56" y="16" class="sm"></text>

@@ -9,7 +9,7 @@
   "lang": "he",
   "dir": "rtl",
   "background_color": "#f5f6fb",
-  "theme_color": "#5457f0",
+  "theme_color": "#1668e3",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },

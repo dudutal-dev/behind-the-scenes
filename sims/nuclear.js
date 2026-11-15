@@ -19,13 +19,13 @@ const kOf = (d) => 1 + 0.06 * (0.5 - d);
 
 const CX0 = 30, CX1 = 186, CY0 = 44, CY1 = 140, CL = CY1 - CY0; // הליבה
 const FUEL = [44, 76, 108, 140, 172], RODS = [60, 92, 124, 156], FW = 10, RW = 7;
-const GX0 = 208, GX1 = 312, GY0 = 30, GY1 = 122, GMAX = 150, SPAN = 30, DT_S = 0.25; // גרף ההספק
+const GX0 = 216, GX1 = 312, GY0 = 30, GY1 = 122, GMAX = 150, SPAN = 30, DT_S = 0.25; // גרף ההספק
 const gy = (p) => GY1 - (clamp(p, 0, GMAX) / GMAX) * (GY1 - GY0);
 const MAXN = 60;
 
 export default {
   title: "החזק את הכור יציב",
-  hint: "נסה להביא את ההספק ל־100% ולהשאיר אותו שם. רק כשכל ביקוע גורם בדיוק לביקוע אחד נוסף ההספק עומד במקום. קצב השינוי כאן אטי בכוונה.",
+  hint: "נסה להביא את ההספק ל־100% ולייצב אותו שם. בסטיות גדולות כור אמיתי מגיב מהר בהרבה מכאן.",
   mount(root) {
     root.innerHTML = `
       <style>
@@ -41,7 +41,7 @@ export default {
         ${FUEL.map((x) => `<rect class="fl-warm st-ink" stroke-width="1.200" x="${x - FW / 2}" y="${CY0 + 2}" width="${FW}" height="${CL - 4}" rx="2.500"/>`).join("")}
         <g id="heat" class="fl-hot" opacity="0">${FUEL.map((x) => `<rect x="${x - FW / 2 + 0.6}" y="${CY0 + 2.6}" width="${FW - 1.2}" height="${CL - 5.2}" rx="2"/>`).join("")}</g>
         <!-- קו המצב הקריטי -->
-        <path class="thin st-green" style="stroke-dasharray:4 3;stroke-width:1.6" d="M${CX0 - 12} ${CY0 + CL / 2}H${CX1 + 12}"/>
+        <path class="thin" style="stroke:var(--s-green);stroke-dasharray:4 3;stroke-width:1.8" d="M${CX0 - 12} ${CY0 + CL / 2}H${CX1 + 12}"/>
         <text x="15" y="${CY0 + CL / 2 - 5}" class="sm">קריטי</text>
         <!-- נייטרונים והבזקי ביקוע -->
         <g id="flash" class="fl-elec"></g>
@@ -51,13 +51,13 @@ export default {
         <path id="bar" class="wire st-ink" style="stroke-width:3" d="M${RODS[0] - 8} 8H${RODS[3] + 8}"/>
         <text x="108" y="158" class="sm">כתום: דלק · כהה: מוטות בקרה</text>
         <!-- גרף ההספק -->
-        <text x="260" y="14" class="sm">הספק ב־30 השניות האחרונות</text>
+        <text x="262" y="14" class="sm">הספק ב־30 השניות האחרונות</text>
         <rect class="fl-panel" x="${GX0}" y="${GY0 - 8}" width="${GX1 - GX0}" height="${GY1 - GY0 + 8}" rx="4" opacity=".6"/>
-        <path class="thin st-hot" style="stroke-dasharray:3 3" d="M${GX0} ${gy(TRIP)}H${GX1}"/>
-        <path class="thin st-ink" style="stroke-dasharray:1 3" d="M${GX0} ${gy(100)}H${GX1}"/>
+        <path class="thin" style="stroke:var(--s-hot);stroke-dasharray:3 3" d="M${GX0} ${gy(TRIP)}H${GX1}"/>
+        <path class="thin" style="stroke:var(--s-ink);stroke-dasharray:1 3" d="M${GX0} ${gy(100)}H${GX1}"/>
         <path class="thin st-ink" d="M${GX0} ${GY0 - 8}V${GY1}H${GX1}"/>
-        <text x="${GX0 - 9}" y="${gy(100) + 3}" class="sm">100</text>
-        <text x="${GX0 - 9}" y="${gy(TRIP) + 1}" class="sm" style="fill:var(--s-hot)">120</text>
+        <text x="${GX0 - 10}" y="${gy(100) + 4}" class="sm">100</text>
+        <text x="${GX0 - 10}" y="${gy(TRIP) + 1}" class="sm" style="fill:var(--s-hot)">120</text>
         <text x="${GX0 - 6}" y="${GY1 + 3}" class="sm">0</text>
         <path id="plot" class="wire st-hot" style="stroke-width:2"/>
         <circle id="pdot" class="fl-hot st-ink" stroke-width="1.2" cx="${GX1}" r="3.200"/>
