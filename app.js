@@ -1,4 +1,8 @@
 import { CATEGORIES, TOPICS } from "./content.js";
+import { SIM_IDS } from "./sims/index.js";
+
+const VERSION = "2.0";
+const SIMS = new Set(SIM_IDS);
 
 const KEY = "eich-ze-oved-v1";
 const INTERVALS = [1, 3, 7, 16, 35]; // ימים בין חזרות, לפי "קופסה"
@@ -9,7 +13,7 @@ const byId = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
 const ORDERED = CATEGORIES.flatMap((c) => TOPICS.filter((t) => t.cat === c.id));
 
 // ---------- מצב ----------
-const EMPTY = () => ({ done: {}, srs: {}, streak: { last: "", count: 0 } });
+const EMPTY = () => ({ done: {}, srs: {}, favs: {}, streak: { last: "", count: 0 } });
 function load() {
   try { return { ...EMPTY(), ...JSON.parse(localStorage.getItem(KEY) || "{}") }; }
   catch { return EMPTY(); }
@@ -55,6 +59,7 @@ const IC = {
   fwd: icon('<path d="M14 6l-6 6 6 6"/>'), // "קדימה" בכיוון הקריאה מימין לשמאל
   check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
   search: icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>'),
+  settings: icon('<path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.600"/><circle cx="8" cy="17" r="2.600"/>'),
   speak: icon('<path d="M4 10v4h3.5l4.5 4V6l-4.5 4z"/><path d="M15.5 9a4.2 4.2 0 010 6M18 6.5a7.8 7.8 0 010 11"/>'),
 };
 function speak(text) {
@@ -100,6 +105,7 @@ const GLYPH = {
   loop: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 6.500a5.500 5.500 0 0 1 4.900 3h-2.400l3.500 3.500 3.500-3.500h-2.500A7.500 7.500 0 0 0 5.500 8.300l1.500 1.300A5.500 5.500 0 0 1 12 6.500zM12 17.500a5.500 5.500 0 0 1-4.900-3h2.400L6 11l-3.500 3.500H5a7.500 7.500 0 0 0 13.500 1.200L17 14.400a5.500 5.500 0 0 1-5 3.100z"/>',
   spark: '<path d="M12 2.500l2.300 6.200 6.200 2.300-6.200 2.300L12 19.500l-2.300-6.200L3.500 11l6.200-2.300z"/><path opacity=".55" d="M19 15.500l.900 2.100 2.100.900-2.100.900-.900 2.100-.900-2.100-2.100-.900 2.100-.900z"/>',
   clock: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M11 6.500h2v5.100l3.600 2.100-1 1.700L11 12.700z"/>',
+  mark: '<path d="M7 3.500h10A1.500 1.500 0 0 1 18.500 5v15.200a.600.600 0 0 1-.950.490L12 16.700l-5.550 3.990a.600.600 0 0 1-.950-.490V5A1.500 1.500 0 0 1 7 3.500z"/>',
   check: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10.700 16.300 6.900 12.500l1.500-1.500 2.300 2.300 5-5 1.500 1.500z"/>',
 };
 const badge = (d, cls = "") => `<span class="badge ${cls}">${glyph(d)}</span>`;
@@ -168,10 +174,13 @@ function renderHome() {
         <span class="hello-sub">${greeting()} · איך דברים עובדים</span>
         <h1 class="brand">מאחורי <em>הקלעים</em></h1>
       </div>
-      <a class="streak" href="#/me" aria-label="התקדמות">
-        ${badge(GLYPH.flame, "c-flame sm")}
-        <span><b>${streak}</b>${streak === 1 ? "יום" : "ימים"}</span>
-      </a>
+      <div class="hello-side">
+        <a class="streak" href="#/me" aria-label="התקדמות">
+          ${badge(GLYPH.flame, "c-flame sm")}
+          <span><b>${streak}</b>${streak === 1 ? "יום" : "ימים"}</span>
+        </a>
+        <a class="icon-btn" href="#/settings" aria-label="הגדרות">${IC.settings}</a>
+      </div>
     </header>
 
     <a class="hero c-${today.cat}" href="#/t/${today.id}">
@@ -223,38 +232,63 @@ function renderHome() {
 
 // ---------- ספרייה ----------
 let query = "";
-function topicRow(t) {
+// טקסט מלא של כל דבר, לחיפוש בתוכן
+const HAY = Object.fromEntries(TOPICS.map((t) => [t.id,
+  [t.title, t.sub, ...t.steps.flatMap((s) => [s.t, s.x]), t.history || "", t.myth.claim, t.myth.truth, t.take].join(" · ")]));
+function snippet(text, q) {
+  const i = text.indexOf(q);
+  if (i < 0) return "";
+  const a = Math.max(0, i - 26), b = Math.min(text.length, i + q.length + 38);
+  return `${a ? "…" : ""}${h(text.slice(a, i))}<mark>${h(q)}</mark>${h(text.slice(i + q.length, b))}${b < text.length ? "…" : ""}`;
+}
+function topicRow(t, q = "") {
   const done = !!state.done[t.id];
+  const inHead = !q || t.title.includes(q) || t.sub.includes(q);
   return `<a class="row${done ? " done" : ""}" href="#/t/${t.id}">
     ${catBadge(t.cat, "sm")}
-    <span class="row-text"><b>${h(t.title)}</b><small>${h(t.sub)}</small></span>
+    <span class="row-text"><b>${h(t.title)}${SIMS.has(t.id) ? `<i class="pill">הדמיה</i>` : ""}${
+      state.favs[t.id] ? `<i class="fav-mark">${glyph(GLYPH.mark)}</i>` : ""}</b><small>${inHead ? h(t.sub) : snippet(HAY[t.id], q)}</small></span>
     <span class="row-mark">${done ? glyph(GLYPH.check) : IC.fwd}</span>
   </a>`;
 }
 function listHtml(filter) {
   const q = query.trim();
-  const match = (t) => (!q || t.title.includes(q) || t.sub.includes(q)) && (filter === "all" || q || t.cat === filter);
+  if (q) {
+    // חיפוש: בכל התוכן, כותרות קודם
+    const rank = (t) => (t.title.includes(q) ? 0 : t.sub.includes(q) ? 1 : 2);
+    const found = ORDERED.filter((t) => HAY[t.id].includes(q)).sort((a, b) => rank(a) - rank(b));
+    return found.length
+      ? `<h2 class="group">תוצאות <span>${found.length}</span></h2><div class="rows">${found.map((t) => topicRow(t, q)).join("")}</div>`
+      : `<p class="empty">לא נמצא דבר שמזכיר את ״${h(q)}״.</p>`;
+  }
+  if (filter === "fav") {
+    const favs = ORDERED.filter((t) => state.favs[t.id]);
+    return favs.length
+      ? `<div class="rows">${favs.map((t) => topicRow(t)).join("")}</div>`
+      : `<p class="empty">עוד אין מועדפים.<br>כדי להוסיף, פותחים דבר ולוחצים על הסימנייה שבראש המסך.</p>`;
+  }
+  const match = (t) => filter === "all" || t.cat === filter;
   const html = CATEGORIES.map((c) => {
     const items = ORDERED.filter((t) => t.cat === c.id && match(t));
     if (!items.length) return "";
-    const head = filter === "all" || q ? `<h2 class="group">${h(c.name)} <span>${items.length}</span></h2>` : "";
-    return `<section>${head}<div class="rows">${items.map(topicRow).join("")}</div></section>`;
+    const head = filter === "all" ? `<h2 class="group">${h(c.name)} <span>${items.length}</span></h2>` : "";
+    return `<section>${head}<div class="rows">${items.map((t) => topicRow(t)).join("")}</div></section>`;
   }).join("");
   return html || `<p class="empty">לא נמצא דבר כזה.</p>`;
 }
 function renderLibrary(cat) {
-  const filter = CATEGORIES.some((c) => c.id === cat) ? cat : "all";
+  const filter = cat === "fav" || CATEGORIES.some((c) => c.id === cat) ? cat : "all";
   page("lib", `
     <header class="page-head">
       <h1>ספרייה</h1>
       <span class="meta">${Object.keys(state.done).length} מתוך ${TOPICS.length} נקראו</span>
     </header>
     <div class="tools">
-      <label class="search">${IC.search}<input id="search" type="search" placeholder="חיפוש בכל הדברים" value="${h(query)}" autocomplete="off" aria-label="חיפוש"></label>
+      <label class="search">${IC.search}<input id="search" type="search" placeholder="חיפוש בשמות ובתוכן" value="${h(query)}" autocomplete="off" aria-label="חיפוש"></label>
       <div class="chips" role="group" aria-label="סינון לפי תחום">
-        ${[{ id: "all", name: "הכול" }, ...CATEGORIES].map((c) =>
+        ${[{ id: "all", name: "הכול" }, { id: "fav", name: "מועדפים" }, ...CATEGORIES].map((c) =>
           `<a class="chip${c.id === "all" ? "" : ` c-${c.id}`}" href="#/lib${c.id === "all" ? "" : `/${c.id}`}" aria-current="${filter === c.id}">${
-            c.id === "all" ? "" : `<i></i>`}${h(c.name)}</a>`).join("")}
+            c.id === "all" ? "" : c.id === "fav" ? glyph(GLYPH.mark) : `<i></i>`}${h(c.name)}</a>`).join("")}
       </div>
     </div>
     <div id="list">${listHtml(filter)}</div>`);
@@ -298,9 +332,102 @@ function renderMe() {
       }).join("")}
       </div>
     </section>
-    <footer><button id="reset" class="link">איפוס ההתקדמות</button></footer>`);
+    <a class="notice" href="#/settings">
+      <span class="icon-btn flat">${IC.settings}</span>
+      <span class="notice-text"><b>הגדרות</b><small>גיבוי ושחזור, איפוס, אודות</small></span>
+      ${IC.fwd}</a>`);
+}
+
+// ---------- הגדרות, גיבוי ואודות ----------
+function importState(raw) {
+  const data = typeof raw === "string" ? JSON.parse(raw) : raw;
+  const s = data && data.state ? data.state : data;
+  if (!s || typeof s !== "object" || typeof s.done !== "object" || typeof s.srs !== "object") throw new Error("bad");
+  const known = (o) => Object.fromEntries(Object.entries(o || {}).filter(([k]) => byId[k.split(":")[0]]));
+  return {
+    ...EMPTY(),
+    done: known(s.done), srs: known(s.srs), favs: known(s.favs),
+    streak: { last: String(s.streak?.last || ""), count: Number(s.streak?.count) || 0 },
+  };
+}
+function renderSettings() {
+  const doneCount = Object.keys(state.done).length;
+  page("me", `
+    <header class="page-head"><h1>הגדרות</h1><a class="meta" href="#/me">להתקדמות ${IC.fwd}</a></header>
+
+    <section>
+      <div class="sec-head"><h2>גיבוי ושחזור</h2></div>
+      <div class="panel">
+        <p>ההתקדמות, הרצף, החזרות והמועדפים שמורים רק במכשיר הזה. גיבוי שומר אותם בקובץ, שאפשר לשחזר ממנו אחרי החלפת טלפון, ניקוי הדפדפן או התקנה מחדש.</p>
+        <div class="btn-row">
+          <button id="export" class="btn sm">שמירת גיבוי לקובץ</button>
+          <button id="import" class="btn sm ghost">שחזור מקובץ</button>
+        </div>
+        <div class="btn-row">
+          <button id="copy" class="link">העתקת הגיבוי כטקסט</button>
+          <button id="paste" class="link">שחזור מטקסט</button>
+        </div>
+        <input id="file" type="file" accept="application/json,.json" hidden>
+        <p id="msg" class="msg" role="status" hidden></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>איפוס</h2></div>
+      <div class="panel">
+        <p>מוחק את כל מה שנקרא (${doneCount} דברים), את הרצף, את שאלות החזרה ואת המועדפים. אי אפשר לבטל.</p>
+        <button id="reset" class="btn sm danger">איפוס ההתקדמות</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>אודות</h2></div>
+      <div class="panel about">
+        <img src="icon-192.png" alt="" width="64" height="64">
+        <div>
+          <b>מאחורי הקלעים</b>
+          <small>גרסה ${VERSION} · ${TOPICS.length} דברים ב־${CATEGORIES.length} תחומים</small>
+        </div>
+      </div>
+      <div class="panel">
+        <p>הסברים קצרים ומאוירים על איך דברים עובדים — מהמקרר ועד מופעי הירח. כל דבר עומד בפני עצמו: שאלת פתיחה, ארבעה שלבים של המנגנון, קצת היסטוריה, טעות נפוצה ושאלות בדיקה שחוזרות במרווחים הולכים וגדלים.</p>
+        <p><b>פרטיות.</b> האפליקציה אינה אוספת מידע ואינה שולחת דבר לשום שרת. הכול נשמר במכשיר, והיא עובדת גם בלי רשת.</p>
+        <p><b>על התוכן.</b> הטקסטים והאיורים נוצרו בעזרת בינה מלאכותית. הפרטים ההיסטוריים נבדקו מול מקורות ותוקנו, אבל ייתכנו אי־דיוקים; ההסברים מפושטים בכוונה ואינם תחליף לספר לימוד או לייעוץ מקצועי.</p>
+        <p class="muted">הגופן Heebo מופץ ברישיון Open Font License.</p>
+      </div>
+    </section>`);
+
+  const msg = (text, bad) => { const m = document.getElementById("msg"); m.hidden = false; m.textContent = text; m.classList.toggle("bad", !!bad); };
+  const payload = () => JSON.stringify({ app: "behind-the-scenes", format: 1, exported: new Date().toISOString(), state }, null, 1);
+  const restore = (raw) => {
+    let next;
+    try { next = importState(raw); } catch { return msg("הקובץ אינו גיבוי תקין של האפליקציה.", true); }
+    const n = Object.keys(next.done).length;
+    if (!confirm(`לשחזר גיבוי עם ${n} דברים שנקראו? ההתקדמות הנוכחית במכשיר תוחלף.`)) return;
+    state = next; save(); renderSettings();
+    document.getElementById("msg").hidden = false;
+    document.getElementById("msg").textContent = `הגיבוי שוחזר: ${n} דברים שנקראו.`;
+  };
+  document.getElementById("export").addEventListener("click", () => {
+    const url = URL.createObjectURL(new Blob([payload()], { type: "application/json" }));
+    const a = Object.assign(document.createElement("a"), { href: url, download: `behind-the-scenes-backup-${dayKey()}.json` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    msg("קובץ הגיבוי נשמר בתיקיית ההורדות.");
+  });
+  const file = document.getElementById("file");
+  document.getElementById("import").addEventListener("click", () => file.click());
+  file.addEventListener("change", async () => { if (file.files[0]) restore(await file.files[0].text()); file.value = ""; });
+  document.getElementById("copy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(payload()); msg("הגיבוי הועתק. אפשר להדביק אותו בפתק או בהודעה לעצמך."); }
+    catch { msg("ההעתקה נחסמה במכשיר הזה. אפשר להשתמש בשמירה לקובץ.", true); }
+  });
+  document.getElementById("paste").addEventListener("click", () => {
+    const raw = prompt("הדבק כאן את טקסט הגיבוי:");
+    if (raw) restore(raw);
+  });
   document.getElementById("reset").addEventListener("click", () => {
-    if (confirm("למחוק את כל ההתקדמות, הרצף והחזרות?")) { state = EMPTY(); save(); renderMe(); }
+    if (confirm("למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים?")) { state = EMPTY(); save(); renderSettings(); }
   });
 }
 
@@ -378,13 +505,14 @@ function buildCards(t, scene) {
   return cards;
 }
 
-const playerTop = (i, n, title) => `
+const playerTop = (i, n, title, favId) => `
   <header class="p-top">
     <a class="close" href="${backTo}" aria-label="סגירה">${IC.close}</a>
     <div class="segs" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}">
       ${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}
     </div>
     <span class="p-title">${h(title)}</span>
+    ${favId ? `<button id="fav" class="fav${state.favs[favId] ? " on" : ""}" aria-pressed="${!!state.favs[favId]}" aria-label="מועדפים">${glyph(GLYPH.mark)}</button>` : ""}
   </header>`;
 
 async function renderTopic(id) {
@@ -414,7 +542,7 @@ async function renderTopic(id) {
     const at = ORDERED.indexOf(t);
     const next = [...ORDERED.slice(at + 1), ...ORDERED.slice(0, at)].find((x) => !state.done[x.id] && x.id !== t.id);
     app.innerHTML = `
-      ${playerTop(i, cards.length, t.title)}
+      ${playerTop(i, cards.length, t.title, t.id)}
       <main class="stage">${c.html}</main>
       <nav class="p-nav">
         <button id="back" class="back" ${i === 0 ? "disabled" : ""}>הקודם</button>
@@ -424,6 +552,13 @@ async function renderTopic(id) {
       </nav>`;
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
     c.bind?.(app.querySelector(".stage"), unlock);
+    const fav = document.getElementById("fav");
+    fav.addEventListener("click", () => {
+      if (state.favs[t.id]) delete state.favs[t.id]; else state.favs[t.id] = dayKey();
+      save();
+      fav.classList.toggle("on", !!state.favs[t.id]);
+      fav.setAttribute("aria-pressed", !!state.favs[t.id]);
+    });
     const up = document.getElementById("upnext");
     if (up && next) up.innerHTML = `<a class="upnext c-${next.cat}" href="#/t/${next.id}">
         ${catBadge(next.cat, "sm")}
@@ -503,6 +638,7 @@ function route() {
     if (view === "lib") renderLibrary(id);
     else if (view === "review") renderReview();
     else if (view === "me") renderMe();
+    else if (view === "settings") renderSettings();
     else renderHome();
   }
   window.scrollTo(0, 0);
