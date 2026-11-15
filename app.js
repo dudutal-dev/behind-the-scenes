@@ -131,6 +131,14 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["engine", "ארבע פעימות ב־60 שניות"],
   ["internet", "מסע של הודעה ב־60 שניות"], ["llm", "המילה הבאה ב־60 שניות"], ["lightning", "30,000 מעלות ב־60 שניות"], ["tsunami", "הגל שאי אפשר לראות ב־60 שניות"], ["vaccine", "מלחמה בתוכך ב־60 שניות"],
 ]);
+// סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
+const EXTRA_FILMS = new Map([ // vid → { topic, title }
+]);
+const FILMS = [
+  ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
+  ...[...EXTRA_FILMS].map(([vid, o]) => ({ vid, ...o })),
+];
+const filmsOf = (topic) => FILMS.filter((f) => f.topic === topic);
 const GLYPH = {
   heart: '<path d="M12 20.300s-7.800-4.700-7.800-10.500a4.500 4.500 0 0 1 7.800-3 4.500 4.500 0 0 1 7.800 3c0 5.800-7.800 10.500-7.800 10.500z"/>',
   sound: '<path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path opacity=".6" d="M15 8.600a4.600 4.600 0 0 1 0 6.800l-1.100-1.100a3 3 0 0 0 0-4.600zM17.400 6.200a8 8 0 0 1 0 11.600l-1.100-1.100a6.400 6.400 0 0 0 0-9.400z"/>',
@@ -236,15 +244,15 @@ let feedSound = false; // אחרי שהמשתמש הפעיל קול פעם אח�
 function renderFeed() {
   // קודם סרטונים שעוד לא נצפו, כל קבוצה בסדר אקראי
   const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  const all = [...VIDEOS.keys()];
-  const ids = [...shuffle(all.filter((id) => !state.vseen[id])), ...shuffle(all.filter((id) => state.vseen[id]))];
-  page("feed", `<div class="feed" id="feed">${ids.map((id) => {
-    const t = byId[id];
-    return `<section class="fslide" data-id="${id}">
-      <div class="fbg" style="background-image:url(videos/${id}.jpg)"></div>
-      <img class="fposter" src="videos/${id}.jpg" alt="">
+  const all = FILMS.filter((f) => byId[f.topic]);
+  const list = [...shuffle(all.filter((f) => !state.vseen[f.vid])), ...shuffle(all.filter((f) => state.vseen[f.vid]))];
+  page("feed", `<div class="feed" id="feed">${list.map((f) => {
+    const t = byId[f.topic], id = t.id, vid = f.vid;
+    return `<section class="fslide" data-id="${vid}">
+      <div class="fbg" style="background-image:url(videos/${vid}.jpg)"></div>
+      <img class="fposter" src="videos/${vid}.jpg" alt="">
       <div class="fmeta">
-        <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(VIDEOS.get(id))}</small></span>
+        <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small></span>
         <button type="button" class="fheart${state.favs[id] ? " on" : ""}" data-id="${id}" aria-pressed="${!!state.favs[id]}" aria-label="שמירה במועדפים">${glyph(GLYPH.heart)}</button>
         <a class="btn sm" href="#/t/${id}">לנושא ${IC.fwd}</a>
       </div>
@@ -635,12 +643,12 @@ function questionCard(label, q, onDone) {
 function buildCards(t, scene, sim) {
   const cards = [questionCard("לפני שמתחילים", t.hook)];
   // הסרטון מיד אחרי שאלת הפתיחה, כדי שלא יפספסו אותו
-  if (VIDEOS.has(t.id)) cards.push({
+  for (const f of filmsOf(t.id)) cards.push({
     film: true,
     html: `<div class="card film">
         <span class="tag">${glyph(GLYPH.play)} סרטון</span>
-        <h3>${h(VIDEOS.get(t.id))}</h3>
-        <div class="vid paused"><video src="videos/${t.id}.mp4" poster="videos/${t.id}.jpg" playsinline preload="metadata"></video>
+        <h3>${h(f.title)}</h3>
+        <div class="vid paused"><video src="videos/${f.vid}.mp4" poster="videos/${f.vid}.jpg" playsinline preload="metadata"></video>
           <span class="vplay" aria-hidden="true">${glyph(GLYPH.play)}</span><span class="vbar"><i></i></span></div>
         <button type="button" class="btn sm ghost fs">${glyph(GLYPH.expand)} צפייה במסך מלא</button>
       </div>`,
