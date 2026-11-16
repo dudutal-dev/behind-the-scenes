@@ -57,7 +57,7 @@ export default `
 
 <!-- שלב 1 -->
 <g class="only-1">
-  <text x="255" y="102">שפשוף מיישר תחומים</text>
+  <text x="255" y="110">שפשוף מיישר תחומים</text>
 </g>
 
 <!-- שלב 2 -->
@@ -75,11 +75,11 @@ export default `
 <!-- שלב 4 -->
 <g class="only-4">
   <path class="thin st-ink" style="stroke-width:1.2;stroke-dasharray:3 3" d="M255 156V124"/>
-  <path class="fl-none st-hot" stroke-width="1.6" d="M255 138A18 18 0 0 1 258.7 138.4"/>
+  <path class="fl-none st-hot" stroke-width="1.6" d="M255 131A25 25 0 0 1 260.2 131.5"/>
   <path class="fl-none st-hot" stroke-width="1.2" stroke-dasharray="1 3" d="M97.1 65.1Q103.1 57.1 107.1 63.1"/>
   <circle class="ring st-hot" cx="107.1" cy="63.1" r="9"/>
   <text x="96" y="22">הקוטב המגנטי</text>
-  <text x="96" y="38">אינו הקוטב, והוא נודד</text>
-  <text x="255" y="206">סטייה מהצפון האמיתי</text>
+  <text x="96" y="38">סוטה מהגאוגרפי ונודד</text>
+  <text x="255" y="206">זווית הסטייה</text>
 </g>
 `;

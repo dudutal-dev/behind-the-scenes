@@ -6,7 +6,7 @@ export default `
 <!-- פני השטח -->
 <path class="fl-soft st-line" stroke-width="1.5" stroke-linejoin="round" d="M0 46L90 50Q100 54 104 74L108 150H150L154 76Q158 58 168 58L180 62Q188 66 194 92L204 202H246L254 98Q262 98 272 98H320V220H0Z"/>
 <!-- מעיין -->
-<ellipse class="fl-cold-soft st-cold" stroke-width="1.4" cx="14" cy="62" rx="8" ry="4"/>
+<ellipse class="fl-cold-soft st-cold" stroke-width="1.4" cx="14" cy="62" rx="8" ry="4"><animate attributeName="opacity" values="1;.6;1" dur="2s" repeatCount="indefinite"/></ellipse>
 
 <!-- 2 גשר קשתות -->
 <g class="hl-2">

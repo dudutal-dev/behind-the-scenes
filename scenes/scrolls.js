@@ -3,7 +3,7 @@ export default `
 <defs>
   <marker id="scrolls-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fl-ink"/></marker>
   <clipPath id="scrolls-frag"><path d="M126 22L150 16L176 20L200 18L206 40L202 62L206 84L184 98L160 92L138 98L124 76L128 52Z"/></clipPath>
-  <clipPath id="scrolls-reveal"><rect x="132" y="150" width="0" height="52"><animate attributeName="width" values="0;180;180" keyTimes="0;.75;1" dur="5s" repeatCount="indefinite"/></rect></clipPath>
+  <clipPath id="scrolls-reveal"><rect x="312" y="150" width="0" height="52"><animate attributeName="width" values="0;180;180" keyTimes="0;.75;1" dur="5s" repeatCount="indefinite"/><animate attributeName="x" values="312;132;132" keyTimes="0;.75;1" dur="5s" repeatCount="indefinite"/></rect></clipPath>
 </defs>
 
 <!-- 1 מערה בצוק, ובה כד -->
@@ -43,7 +43,7 @@ export default `
 </g>
 <g class="only-4">
   <g><animateTransform attributeName="transform" type="rotate" from="0 58 176" to="360 58 176" dur="3s" repeatCount="indefinite"/>
-    <path class="st-cold fl-none" stroke-width="2.4" stroke-linecap="round" d="M58 176L102 176"/></g>
+    <path class="st-cold fl-none" stroke-width="2.4" stroke-linecap="round" d="M58 176L102 176"><animate attributeName="opacity" values="1;.5;1" dur="1s" repeatCount="indefinite"/></path></g>
   <rect class="fl-bg" x="134" y="152" width="176" height="48"/>
   <path class="fl-none st-ink" stroke-width="1.6" stroke-linecap="round" clip-path="url(#scrolls-reveal)" d="M306.0 162.0h-4.0v6.0M299.0 162.0h-4.0M297.0 162.0v6.0M287.0 162.0h-6.0M284.0 162.0v6.0M278.0 162.0h-4.0M276.0 162.0v6.0M271.0 162.0v3.0M263.0 162.0v3.0M256.0 162.0h-6.0v6.0M247.0 162.0v3.0M233.0 162.0h5.0v6.0h-5.0M219.0 162.0h6.0v6.0h-6.0M211.0 162.0h-4.0M209.0 162.0v6.0M204.0 162.0v6.0h-4.0M197.0 162.0h-4.0v6.0M190.0 162.0h-6.0v6.0M181.0 162.0h-6.0v6.0M167.0 162.0v3.0M160.0 162.0v6.0h-6.0M151.0 162.0v6.0h-6.0M302.0 176.0h4.0v6.0h-4.0M294.0 176.0h5.0v6.0h-5.0M291.0 176.0h-4.0M289.0 176.0v6.0M279.0 176.0v6.0h-5.0M271.0 176.0h-6.0M268.0 176.0v6.0M262.0 176.0v3.0M255.0 176.0v3.0M246.0 176.0v6.0h-6.0M237.0 176.0v6.0h-4.0M230.0 176.0v6.0h-4.0M223.0 176.0v3.0M214.0 176.0h-5.0M211.5 176.0v6.0M206.0 176.0h-4.0M204.0 176.0v6.0M199.0 176.0h-6.0M196.0 176.0v6.0M190.0 176.0v6.0h-5.0M182.0 176.0v6.0h-4.0M175.0 176.0v3.0M168.0 176.0v6.0h-5.0M160.0 176.0h-5.0v6.0M148.0 176.0h4.0v6.0h-4.0M141.0 176.0h4.0v6.0h-4.0M306.0 188.0h-6.0v6.0M297.0 188.0v6.0h-6.0M288.0 188.0h-4.0v6.0M281.0 188.0h-6.0M278.0 188.0v6.0M268.0 188.0h4.0v6.0h-4.0M265.0 188.0h-5.0v6.0M251.0 188.0h6.0v6.0h-6.0M248.0 188.0h-6.0v6.0M239.0 188.0h-4.0M237.0 188.0v6.0M221.0 188.0h6.0v6.0h-6.0M218.0 188.0v3.0M211.0 188.0v6.0h-5.0M203.0 188.0h-6.0M200.0 188.0v6.0M189.0 188.0h-6.0v6.0M176.0 188.0h4.0v6.0h-4.0M173.0 188.0h-4.0M171.0 188.0v6.0M161.0 188.0v6.0h-4.0M154.0 188.0v6.0h-6.0M145.0 188.0h-5.0M142.5 188.0v6.0"/>
 </g>
