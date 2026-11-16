@@ -143,6 +143,7 @@ const EXTRA_FILMS = new Map([ // vid → { topic, title }
   ["lsd-sketch", { topic: "lsd", title: "מערכון: שאול מתלבט" }],
   ["recommend-sketch", { topic: "recommend", title: "מערכון: מי בחר את הסרטון?" }],
   ["quantum-sketch", { topic: "quantum", title: "מערכון: אפצ'י קוונטי" }],
+  ["microwave-sketch", { topic: "microwave", title: "מערכון: לזניה מבחוץ פנימה" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
