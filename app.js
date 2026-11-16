@@ -142,6 +142,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
   ["lsd-sketch", { topic: "lsd", title: "מערכון: שאול מתלבט" }],
   ["recommend-sketch", { topic: "recommend", title: "מערכון: מי בחר את הסרטון?" }],
+  ["quantum-sketch", { topic: "quantum", title: "מערכון: אפצ'י קוונטי" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
