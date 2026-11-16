@@ -140,6 +140,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["fusion", "שמש קטנה ב־60 שניות"],
   ["aurora", "רוח מהשמש ב־60 שניות"],
   ["bioluminescence", "אור קר ב־60 שניות"],
+  ["volcano", "זרם או פיצוץ ב־60 שניות"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
