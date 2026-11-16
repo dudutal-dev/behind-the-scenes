@@ -21,6 +21,9 @@ import { MIX2_TOPICS } from "./content-mix2.js";
 import { NATURE2_A_TOPICS } from "./content-nature2-a.js";
 import { WONDERS_A_TOPICS } from "./content-wonders-a.js";
 import { WONDERS_B_TOPICS } from "./content-wonders-b.js";
+import { SECRETS_A_TOPICS } from "./content-secrets-a.js";
+import { SECRETS_B_TOPICS } from "./content-secrets-b.js";
+import { SECRETS_C_TOPICS } from "./content-secrets-c.js";
 import { NATURE2_B_TOPICS } from "./content-nature2-b.js";
 import { LIFE_A_TOPICS } from "./content-life-a.js";
 import { LIFE_B_TOPICS } from "./content-life-b.js";
@@ -47,6 +50,7 @@ export const CATEGORIES = [
   { id: "arms", name: "נשק ולחימה", emoji: "🛡️" },
   { id: "invent", name: "המצאות", emoji: "💡" },
   { id: "wonders", name: "פלאי תבל", emoji: "🏛️" },
+  { id: "secrets", name: "סודות העבר", emoji: "📜" },
 ];
 
 const BASE_TOPICS = [
@@ -514,6 +518,6 @@ const BASE_TOPICS = [
   },
 ];
 
-export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...NATURE2_A_TOPICS, ...NATURE2_B_TOPICS, ...LIFE_A_TOPICS, ...LIFE_B_TOPICS, ...CARS_A_TOPICS, ...CARS_B_TOPICS, ...CARS_C_TOPICS, ...INVENTION_TOPICS, ...WONDERS_A_TOPICS, ...WONDERS_B_TOPICS];
+export const TOPICS = [...BASE_TOPICS, ...MORE_TOPICS, ...EXTRA_TOPICS, ...WAVE3_TOPICS, ...BRAIN_A_TOPICS, ...BRAIN_B_TOPICS, ...AI_A_TOPICS, ...AI_B_TOPICS, ...FRONTIER_A_TOPICS, ...FRONTIER_B_TOPICS, ...PSY_MDMA_TOPICS, ...PSY_MUSHROOM_TOPICS, ...PSY_LSD_TOPICS, ...ARMS_A_TOPICS, ...ARMS_B_TOPICS, ...ARMS_C_TOPICS, ...SPACE2_TOPICS, ...MIX2_TOPICS, ...NATURE2_A_TOPICS, ...NATURE2_B_TOPICS, ...LIFE_A_TOPICS, ...LIFE_B_TOPICS, ...CARS_A_TOPICS, ...CARS_B_TOPICS, ...CARS_C_TOPICS, ...INVENTION_TOPICS, ...WONDERS_A_TOPICS, ...WONDERS_B_TOPICS, ...SECRETS_A_TOPICS, ...SECRETS_B_TOPICS, ...SECRETS_C_TOPICS];
 // קצת היסטוריה לכל דבר: מהאובייקט עצמו, ואם אין — מהקובץ history.js
 for (const t of TOPICS) t.history ??= HISTORY[t.id];
