@@ -8,9 +8,10 @@ export default `
 <path class="thin st-cold" d="M0 166H320"/>
 
 <!-- הספינה הביזנטית בחתך -->
-<path class="fl-warm st-ink" fill-opacity=".4" stroke-width="2" stroke-linejoin="round" d="M8 100H140L154 94Q152 140 128 178H26Q10 150 8 100Z"/>
-<path class="fl-panel" d="M16 106H136Q134 140 120 168H32Q18 146 16 106Z"/>
-<path class="thin st-ink" style="stroke-width:1.2" d="M16 162H124"/>
+<path class="fl-warm st-ink" fill-opacity=".4" stroke-width="2" stroke-linejoin="round" d="M6 84Q8 98 22 100H138Q150 98 160 82Q158 118 146 150Q136 176 112 178H44Q20 176 12 150Q6 120 6 84Z"/>
+<path class="fl-panel" d="M18 106H136Q132 140 122 158Q114 168 104 168H50Q32 168 24 150Q18 130 18 106Z"/>
+<path class="thin st-ink" style="stroke-width:1" d="M22 100H138"/>
+<path class="thin st-ink" style="stroke-width:1.2" d="M26 162H120"/>
 
 <!-- 1 המכל והדלק -->
 <g class="hl-1 hl-2">
@@ -54,7 +55,8 @@ export default `
 <g>
   <path class="thin st-ink" style="stroke-width:2" d="M276 150V70"/>
   <path class="fl-panel st-ink" stroke-width="1.5" stroke-linejoin="round" d="M258 78H294L298 130H254Z"/>
-  <path class="fl-panel st-ink" stroke-width="2" stroke-linejoin="round" d="M230 148H314V160Q310 174 296 178H246Q234 170 230 148Z"/>
+  <path class="fl-panel st-ink" stroke-width="2" stroke-linejoin="round" d="M228 146Q240 150 256 150H314V158Q310 174 296 178H248Q234 170 228 146Z"/>
+  <path class="thin st-ink" style="stroke-width:1.2" d="M252 168L246 190M268 170L263 192M284 170L281 192M300 168L298 190"/>
 </g>
 
 <!-- 3-4 הסילון -->
@@ -65,7 +67,7 @@ export default `
 
 <!-- 4 שכבה בוערת על המים -->
 <g class="hl-4">
-  <path class="fl-dark" opacity=".75" d="M186 166Q250 163 314 166V170Q250 172 186 170Z"/>
+  <path class="fl-hot" opacity=".4" d="M186 166Q250 163 314 166V170Q250 172 186 170Z"/>
   <path class="fl-hot" d="M192 165Q192 159 196 153Q197 159 200 161Q200 165 196 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0" dur="0.70s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="0.90s" repeatCount="indefinite"/></path><path class="fl-warm" d="M208.4 165Q208.4 159.6 212 154.2Q212.9 159.6 215.6 161.4Q215.6 165 212 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.35;0 0" dur="0.87s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="1.07s" repeatCount="indefinite"/></path><path class="fl-hot" d="M221.2 165Q221.2 157.8 226 150.6Q227.2 157.8 230.8 160.2Q230.8 165 226 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.7999999999999998;0 0" dur="1.04s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="1.24s" repeatCount="indefinite"/></path><path class="fl-warm" d="M240.8 165Q240.8 157.2 246 149.4Q247.3 157.2 251.2 159.8Q251.2 165 246 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.9500000000000002;0 0" dur="0.70s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="0.90s" repeatCount="indefinite"/></path><path class="fl-hot" d="M259.6 165Q259.6 158.4 264 151.8Q265.1 158.4 268.4 160.6Q268.4 165 264 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.6500000000000001;0 0" dur="0.87s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="1.07s" repeatCount="indefinite"/></path><path class="fl-warm" d="M277.2 165Q277.2 157.8 282 150.6Q283.2 157.8 286.8 160.2Q286.8 165 282 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.7999999999999998;0 0" dur="1.04s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="1.24s" repeatCount="indefinite"/></path><path class="fl-hot" d="M296 165Q296 159 300 153Q301 159 304 161Q304 165 300 165Z"><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0" dur="0.70s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.55;1" dur="0.90s" repeatCount="indefinite"/></path>
 </g>
 
@@ -104,6 +106,5 @@ export default `
   <text x="236" y="24">נפט צף על המים</text>
   <text x="236" y="40">ובוער סביב הדופן</text>
   <path class="fl-dark" opacity=".7" d="M200 166H222V169H200Z"><animate attributeName="opacity" values=".2;.8;.2" dur="1.5s" repeatCount="indefinite"/></path>
-  <path class="thin st-ink" style="stroke-width:1" d="M206 46L206 150"/>
 </g>
 `;
