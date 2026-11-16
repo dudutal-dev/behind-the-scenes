@@ -225,6 +225,13 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .vcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,15,.85))}
 .vplay-s{position:absolute;top:10px;inset-inline-start:10px;z-index:1;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(6px)}
 .vplay-s svg{width:20px;height:20px;fill:#fff}
+.vlinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.vlink{position:relative;display:flex;align-items:center;gap:10px;padding:8px;min-width:0;border:1px solid var(--line);border-radius:16px;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.vlink img{flex:none;width:48px;aspect-ratio:4/5;object-fit:cover;border-radius:10px;background:#05070f}
+.vlink .vplay-s{top:auto;inset-inline-start:16px;width:32px;height:32px}
+.vlink b{display:block;font-size:15px}
+.vlink small{display:block;font-size:13px;line-height:1.25;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.vlink:active{transform:scale(.985)}
 .vcap{position:absolute;inset-inline:12px;bottom:10px;z-index:1}
 .vcap b{display:block;font-size:16px;font-weight:800;line-height:1.2}
 .vcap small{display:block;font-size:12px;opacity:.8;margin-top:2px}
@@ -375,16 +382,6 @@ footer{margin-top:auto;padding-top:34px;text-align:center}
 .upnext>svg.ic{color:var(--faint)}
 /* ---------- הדמיות ---------- */
 .card.sim h3{font-size:22px}
-.card.film h3{font-size:22px}
-.vid{position:relative;margin:12px 0 12px;border-radius:18px;overflow:hidden;background:#05070f;aspect-ratio:4/5;box-shadow:var(--shadow);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.vplay{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .2s;pointer-events:none}
-.vid.paused .vplay{opacity:1}
-.vplay svg{width:84px;height:84px;fill:#fff;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
-.vbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.15)}
-.vbar i{position:absolute;right:0;top:0;bottom:0;width:0;background:#fff}
-.vid video{display:block;width:100%;height:100%;object-fit:contain;background:#05070f}
-.card.film .fs{width:100%}
-.card.film .fs svg{width:18px;height:18px;fill:currentColor}
 .sim-stage{touch-action:pan-y}
 .card .sim-stage{margin-bottom:12px}
 .sim-read{display:flex;gap:8px;margin-bottom:4px}
