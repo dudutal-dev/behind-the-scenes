@@ -145,11 +145,17 @@ const FILMS = [
   ...[...EXTRA_FILMS].map(([vid, o]) => ({ vid, ...o })),
 ];
 const filmsOf = (topic) => FILMS.filter((f) => f.topic === topic);
+// בדף הנושא: קישור קטן לכל סרטון, שפותח אותו בפיד במסך מלא
+const filmLinks = (topic) => {
+  const fs = filmsOf(topic);
+  return fs.length ? `<div class="vlinks">${fs.map((f) => `<a class="vlink" href="#/feed/${f.vid}">
+    <img src="videos/${f.vid}.jpg" alt="" loading="lazy"><span class="vplay-s">${glyph(GLYPH.play)}</span>
+    <span><b>${f.vid.endsWith("-sketch") ? "מערכון" : "סרטון"} · דקה</b><small>${h(f.title.replace(/^מערכון:\s*/, ""))}</small></span></a>`).join("")}</div>` : "";
+};
 const GLYPH = {
   heart: '<path d="M12 20.300s-7.800-4.700-7.800-10.500a4.500 4.500 0 0 1 7.800-3 4.500 4.500 0 0 1 7.800 3c0 5.800-7.800 10.500-7.800 10.500z"/>',
   sound: '<path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path opacity=".6" d="M15 8.600a4.600 4.600 0 0 1 0 6.800l-1.100-1.100a3 3 0 0 0 0-4.600zM17.400 6.200a8 8 0 0 1 0 11.600l-1.100-1.100a6.400 6.400 0 0 0 0-9.400z"/>',
   play: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10 8.200v7.600L16.200 12z"/>',
-  expand: '<path d="M4 9V4h5v2H6v3zM15 4h5v5h-2V6h-3zM20 15v5h-5v-2h3v-3zM9 20H4v-5h2v3h3z"/>',
   flame: '<path opacity=".5" d="M12 2.500c.500 3.500 5.500 6 5.500 11.500a5.500 5.500 0 0 1-11 0c0-2 .800-3.500 1.800-4.800.300 1.300 1 2.300 2 2.800-.300-3.500.200-7 1.700-9.500z"/><path d="M12 12.500c1.500 1.500 2.500 2.800 2.500 4.500a2.500 2.500 0 0 1-5 0c0-1.700 1-3 2.500-4.500z"/>',
   book: '<path opacity=".5" d="M4 5.500A2.500 2.500 0 0 1 6.500 3H18a2 2 0 0 1 2 2v13H6.500A2.500 2.500 0 0 0 4 20.500z"/><path d="M6.500 16.500H20V21H6.500a2.250 2.250 0 0 1 0-4.500zM8 7h8v2H8z"/>',
   loop: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M12 6.500a5.500 5.500 0 0 1 4.900 3h-2.400l3.500 3.500 3.500-3.500h-2.500A7.500 7.500 0 0 0 5.500 8.300l1.500 1.300A5.500 5.500 0 0 1 12 6.500zM12 17.500a5.500 5.500 0 0 1-4.900-3h2.400L6 11l-3.500 3.500H5a7.500 7.500 0 0 0 13.500 1.200L17 14.400a5.500 5.500 0 0 1-5 3.100z"/>',
@@ -247,11 +253,14 @@ function renderWelcome() {
 
 // ---------- פיד: כל הסרטונים בסדר אקראי, אחד אחרי השני ----------
 let feedSound = false; // אחרי שהמשתמש הפעיל קול פעם אחת, הוא נשאר פעיל
-function renderFeed() {
+function renderFeed(start) {
   // קודם סרטונים שעוד לא נצפו, כל קבוצה בסדר אקראי
   const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const all = FILMS.filter((f) => byId[f.topic]);
   const list = [...shuffle(all.filter((f) => !state.vseen[f.vid])), ...shuffle(all.filter((f) => state.vseen[f.vid]))];
+  // הגעה מדף נושא: הסרטון המבוקש ראשון
+  const si = list.findIndex((f) => f.vid === start);
+  if (si > 0) list.unshift(...list.splice(si, 1));
   page("feed", `<div class="feed" id="feed">${list.map((f) => {
     const t = byId[f.topic], id = t.id, vid = f.vid;
     return `<section class="fslide" data-id="${vid}">
@@ -613,13 +622,14 @@ function renderSettings() {
 }
 
 // ---------- נגן ----------
-function questionCard(label, q, onDone) {
+function questionCard(label, q, onDone, extra = "") {
   return {
     html: `<div class="card">
         <span class="tag">${h(label)}</span>
         <h3>${h(q.q)}</h3>
         <div class="opts">${q.o.map((o, i) => `<button class="opt" data-i="${i}"><i>${LETTERS[i]}</i><span>${h(o)}</span></button>`).join("")}</div>
         <div class="reveal" hidden></div>
+        ${extra}
       </div>`,
     locked: true,
     bind(root, unlock) {
@@ -647,35 +657,7 @@ function questionCard(label, q, onDone) {
 }
 
 function buildCards(t, scene, sim) {
-  const cards = [questionCard("לפני שמתחילים", t.hook)];
-  // הסרטון מיד אחרי שאלת הפתיחה, כדי שלא יפספסו אותו
-  for (const f of filmsOf(t.id)) cards.push({
-    film: true,
-    html: `<div class="card film">
-        <span class="tag">${glyph(GLYPH.play)} סרטון</span>
-        <h3>${h(f.title)}</h3>
-        <div class="vid paused"><video src="videos/${f.vid}.mp4" poster="videos/${f.vid}.jpg" playsinline preload="metadata"></video>
-          <span class="vplay" aria-hidden="true">${glyph(GLYPH.play)}</span><span class="vbar"><i></i></span></div>
-        <button type="button" class="btn sm ghost fs">${glyph(GLYPH.expand)} צפייה במסך מלא</button>
-      </div>`,
-    bind(root) {
-      const v = root.querySelector("video");
-      const box = root.querySelector(".vid");
-      const bar = root.querySelector(".vbar i");
-      // בתוך הכרטיס: נגיעה מנגנת או עוצרת, בלי פקדי הדפדפן שמסתירים את הכתוביות
-      box.addEventListener("click", () => (v.paused ? v.play().catch(() => {}) : v.pause()));
-      v.addEventListener("play", () => box.classList.remove("paused"));
-      v.addEventListener("pause", () => box.classList.add("paused"));
-      v.addEventListener("timeupdate", () => { bar.style.width = `${(100 * v.currentTime) / (v.duration || 60)}%`; });
-      // מסך מלא: עם פקדי הדפדפן; ביציאה חוזרים לכרטיס
-      v.addEventListener("fullscreenchange", () => { v.controls = document.fullscreenElement === v; });
-      root.querySelector(".fs").addEventListener("click", () => {
-        v.play().catch(() => {});
-        if (v.requestFullscreen) v.requestFullscreen().catch(() => v.webkitEnterFullscreen?.());
-        else v.webkitEnterFullscreen?.(); // אייפון: מסך מלא קיים רק לווידאו עצמו, עם הפקדים שלו
-      });
-    },
-  });
+  const cards = [questionCard("לפני שמתחילים", t.hook, null, filmLinks(t.id))];
   t.steps.forEach((s, i) =>
     cards.push({
       html: `<div class="card">
@@ -718,6 +700,7 @@ function buildCards(t, scene, sim) {
         <span class="tag done">${glyph(GLYPH.check)} סיימת · בשורה אחת</span>
         <h3>${h(t.take)}</h3>
         <p class="muted">שאלות הבדיקה יחזרו אליך מחר, ואחר כך במרווחים הולכים וגדלים.</p>
+        ${filmLinks(t.id)}
         <div id="upnext"></div>
       </div>`,
   });
@@ -734,14 +717,13 @@ const playerTop = (i, n, title, favId) => `
     ${favId ? `<button id="fav" class="fav${state.favs[favId] ? " on" : ""}" aria-pressed="${!!state.favs[favId]}" aria-label="מועדפים">${glyph(GLYPH.mark)}</button>` : ""}
   </header>`;
 
-async function renderTopic(id, toFilm = false) {
+async function renderTopic(id) {
   const t = byId[id];
   if (!t) return (location.hash = "#/");
   const [scene, sim] = await Promise.all([loadScene(id), loadSim(id)]);
   if (!location.hash.startsWith(`#/t/${id}`)) return; // המשתמש כבר עבר למסך אחר
   const cards = buildCards(t, scene, sim);
-  let i = toFilm ? Math.max(0, cards.findIndex((c) => c.film)) : 0;
-  if (i) cards[0].locked = false; // מדלגים על שאלת הפתיחה
+  let i = 0;
   app.className = `player c-${t.cat}`;
 
   function finish() {
@@ -855,14 +837,15 @@ function runReview(queue) {
 function route() {
   const [, view, id, sub] = location.hash.split("/");
   if (view !== "t" && !seenIntro()) { renderWelcome(); window.scrollTo(0, 0); return; }
-  if (view === "t") renderTopic(id, sub === "v");
+  if (view === "t" && sub === "v" && filmsOf(id).length) { location.replace(`#/feed/${filmsOf(id)[0].vid}`); return; }
+  if (view === "t") renderTopic(id);
   else {
     backTo = location.hash || "#/";
     if (view === "lib") renderLibrary(id);
     else if (view === "review") renderReview();
     else if (view === "me") renderMe();
     else if (view === "settings") renderSettings();
-    else if (view === "feed") renderFeed();
+    else if (view === "feed") renderFeed(id);
     else renderHome();
   }
   window.scrollTo(0, 0);
