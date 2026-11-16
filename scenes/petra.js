@@ -28,9 +28,9 @@ export default `
   <rect class="fl-panel st-ink" stroke-width="1.4" x="18" y="196" width="110" height="4"/>
   <g class="fl-ink"><circle cx="70" cy="42" r=".8"/><circle cx="75" cy="44" r=".8"/><circle cx="72" cy="46" r=".7"/></g></g>
 <g class="only-1">
-  <rect class="fl-bg" x="16" y="34" width="114" height="168"><animate attributeName="y" values="34;34;200;200" dur="7s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/><animate attributeName="height" values="168;168;2;2" dur="7s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/></rect>
-  <rect class="fl-warm" fill-opacity=".45" x="16" y="34" width="114" height="168"><animate attributeName="y" values="34;34;200;200" dur="7s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/><animate attributeName="height" values="168;168;2;2" dur="7s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/></rect>
-  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 166;0 166" dur="7s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/>
+  <rect class="fl-bg" x="16" y="34" width="114" height="168"><animate attributeName="y" values="34;34;200;200" dur="7s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/><animate attributeName="height" values="168;168;2;2" dur="7s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/></rect>
+  <rect class="fl-warm" fill-opacity=".45" x="16" y="34" width="114" height="168"><animate attributeName="y" values="34;34;200;200" dur="7s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/><animate attributeName="height" values="168;168;2;2" dur="7s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/></rect>
+  <g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 166;0 166" dur="7s" begin="-3.4s" repeatCount="indefinite" keyTimes="0;.08;.8;1"/>
     <path class="st-ink fl-none" stroke-width="1.2" stroke-dasharray="3 3" d="M16 34H130"/>
     <circle class="fl-ink" cx="100" cy="24" r="2.6"/><path class="st-ink fl-none" stroke-width="2" stroke-linecap="round" d="M100 27v5l-3 2M100 32l3 2M100 29l-6 3"/>
     <path class="fl-ink" d="M92 36l2 2-2 1zM96 38l1 2-2 0z"><animate attributeName="opacity" values="0;1;0" dur=".6s" repeatCount="indefinite"/></path>
