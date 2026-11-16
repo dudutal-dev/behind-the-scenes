@@ -142,6 +142,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["bioluminescence", "אור קר ב־60 שניות"],
   ["volcano", "זרם או פיצוץ ב־60 שניות"],
   ["crispr", "מספריים לגנים ב־60 שניות"],
+  ["rocket", "נשענת על כלום ב־60 שניות"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
