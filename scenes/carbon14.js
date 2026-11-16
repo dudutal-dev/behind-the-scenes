@@ -28,7 +28,7 @@ export default `
 <g class="only-2">
   <use href="#carbon14-co2"><animateMotion dur="2.6s" repeatCount="indefinite" path="M128 22Q100 50 62 84"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="2.6s" repeatCount="indefinite"/></use>
   <use href="#carbon14-co2"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M150 30Q110 54 70 92"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="2.6s" begin="-1.3s" repeatCount="indefinite"/></use>
-  <path class="arrow st-line" style="stroke-width:1.6" stroke-dasharray="3 3" d="M150 58L126 106"/><path class="st-hot fl-none" stroke-width="2.4" stroke-linecap="round" d="M120 104l10 10M130 104l-10 10"/>
+  <path class="arrow st-line" style="stroke-width:1.6" stroke-dasharray="3 3" d="M170 58L146 104"/><path class="st-hot fl-none" stroke-width="2.4" stroke-linecap="round" d="M138 106l10 10M148 106l-10 10"/>
 </g>
 <g class="hl-2 hl-3">
   <path class="fl-panel st-ink" stroke-width="1.6" stroke-linejoin="round" d="M96 140Q90 134 96 130Q102 128 104 134H142Q144 128 150 130Q156 134 150 140Q156 146 150 150Q144 152 142 146H104Q102 152 96 150Q90 146 96 140Z"/>
@@ -66,7 +66,7 @@ export default `
 
 <!-- תוויות -->
 <g class="only-1"><text x="118" y="80">קרינה קוסמית</text><text x="118" y="94">יוצרת פחמן 14</text></g>
-<g class="only-2"><text x="118" y="80">נקלט בחיים,</text><text x="118" y="94">ובמוות נפסק</text></g>
+<g class="only-2"><text x="112" y="80">נקלט בחיים,</text><text x="112" y="94">ובמוות נפסק</text></g>
 <g class="only-3"><text x="118" y="80">מחצית נעלמת</text><text x="118" y="94">כל כ־5,700 שנה</text><text class="sm" x="245" y="136">שנים מהמוות</text></g>
 <g class="only-4"><text x="118" y="80">טבעות עצים</text><text x="118" y="94">מתרגמות לשנים</text><text class="sm" x="212" y="216">גיל לפי לוח השנה</text></g>
 `;
