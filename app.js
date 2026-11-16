@@ -135,6 +135,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
+  ["recommend-sketch", { topic: "recommend", title: "מערכון: מי בחר את הסרטון?" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
