@@ -53,8 +53,12 @@ export default `
   <rect class="fl-warm st-ink" stroke-width="1.2" x="114" y="112" width="24" height="20"/>
   <path class="thin st-ink" style="stroke-width:.8" d="M114 117H138M114 122H138M114 127H138M120 112V117M130 112V117M125 117V122M135 117V122M120 122V127M130 122V127M125 127V132M135 127V132"/>
   <rect class="fl-panel st-ink" stroke-width="1.2" x="109" y="112" width="5" height="9"/>
+  <rect class="fl-panel st-ink" stroke-width="1.2" x="109" y="122" width="5" height="10"/>
+</g>
+<g class="only-2">
   <g>
     <animateTransform attributeName="transform" type="translate" values="-16 0;-16 0;0 0;0 0" keyTimes="0;.3;.7;1" calcMode="spline" keySplines="0 0 1 1;.4 0 .6 1;0 0 1 1" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;1;0" keyTimes="0;.7;.95;1" dur="3s" repeatCount="indefinite"/>
     <rect class="fl-panel st-ink" stroke-width="1.2" x="109" y="122" width="5" height="10"/>
   </g>
 </g>
@@ -81,12 +85,10 @@ export default `
   <path class="arrow st-ink" style="stroke-width:1.6" d="M62 70Q44 92 40 118" marker-end="url(#tajmahal-a)"/>
 </g>
 
-<!-- שלב 4: אותיות שגדלות כלפי מעלה, ומבט מלמטה -->
+<!-- שלב 4: כתב משובץ באבן כהה; האותיות גדלות כלפי מעלה -->
 <g class="hl-4">
-  <g class="fl-ink">
-    <rect x="144" y="127" width="3" height="2"/><rect x="144" y="119" width="3" height="3"/><rect x="143.5" y="109" width="4" height="4"/><rect x="143" y="96" width="5" height="6"/>
-    <rect x="173" y="127" width="3" height="2"/><rect x="173" y="119" width="3" height="3"/><rect x="172.5" y="109" width="4" height="4"/><rect x="172" y="96" width="5" height="6"/>
-  </g>
+  <path fill="#f3f0e8" d="M143 89H177V97H143zM143 97H148.5V133H143zM171.5 97H177V133H171.5z"/>
+  <path fill="none" stroke="#24201c" stroke-width="1" stroke-linecap="round" d="M144.1 130.0v-1.6M145.7 130.0q1.4 0 1.4-1.6M143.5 124.0v-2.2M145.7 124.0q2.0 0 2.0-2.2M143.0 117.0v-2.8M145.7 117.0q2.5 0 2.5-2.8M142.3 109.0v-3.5M145.7 109.0q3.1 0 3.1-3.5M141.6 100.0v-4.3M145.7 100.0q3.9 0 3.9-4.3M173.1 130.0v-1.6M174.7 130.0q1.4 0 1.4-1.6M172.5 124.0v-2.2M174.7 124.0q2.0 0 2.0-2.2M172.0 117.0v-2.8M174.7 117.0q2.5 0 2.5-2.8M171.3 109.0v-3.5M174.7 109.0q3.1 0 3.1-3.5M170.6 100.0v-4.3M174.7 100.0q3.9 0 3.9-4.3M150.0 95v-4.6M151.5 95q2.2 0 2.2-4.6M155.0 95v-4.6M156.5 95q2.2 0 2.2-4.6M160.0 95v-4.6M161.5 95q2.2 0 2.2-4.6M165.0 95v-4.6M166.5 95q2.2 0 2.2-4.6M170.0 95v-4.6M171.5 95q2.2 0 2.2-4.6"/>
 </g>
 <g class="only-4">
   <path class="wire st-violet dash" style="stroke-width:1.4" d="M288 140L178 99M288 140L178 128"/>

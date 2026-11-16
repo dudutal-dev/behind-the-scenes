@@ -80,6 +80,7 @@ export default `
 
 <text class="sm" x="20" y="122">צפון</text>
 <text class="sm" x="298" y="122">דרום</text>
+<text class="sm" x="264" y="212">ההטיה מוגדלת באיור</text>
 
 <!-- תוויות -->
 <g class="only-1">
