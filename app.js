@@ -149,6 +149,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["hurricane", "מנוע של מים חמים ב־60 שניות"],
   ["evolution", "אף אחד לא תכנן ב־60 שניות"],
   ["submarine", "שותה את הים ב־60 שניות"],
+  ["antibiotics", "רק למה שיש לחיידק ב־60 שניות"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
