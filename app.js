@@ -174,6 +174,7 @@ const EXTRA_FILMS = new Map([ // vid → { topic, title }
   ["facerec-sketch", { topic: "facerec", title: "מערכון: שפם מודבק" }],
   ["camera-sketch", { topic: "camera", title: "מערכון: סלפי בחושך" }],
   ["soap-sketch", { topic: "soap", title: "מערכון: שתי שניות של סבון" }],
+  ["twins-sketch", { topic: "twins", title: "מערכון: מי המקורי?" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
