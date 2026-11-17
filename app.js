@@ -164,6 +164,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["neuron", "חשמל וכימיה ב־60 שניות"],
   ["nuclear", "נייטרון אחד ב־60 שניות"],
   ["rainbow", "הקשת שייכת רק לך"],
+  ["snowflake", "למה לפתית שלג יש שש פינות?"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
