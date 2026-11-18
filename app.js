@@ -175,6 +175,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["antikythera", "המחשב שנמצא בספינה טרופה"],
   ["fiber", "הסרטון הזה הגיע אליך כהבזקי אור"],
   ["greekfire", "האש שצפה על פני הים"],
+  ["damascus", "הגלים שנולדו בתוך המתכת"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
