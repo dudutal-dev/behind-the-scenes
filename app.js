@@ -177,6 +177,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס
   ["greekfire", "האש שצפה על פני הים"],
   ["damascus", "הגלים שנולדו בתוך המתכת"],
   ["eratosthenes", "איך מודדים את כדור הארץ עם צל אחד"],
+  ["geyser", "מתחת לגייזר, המים חמים ממאה מעלות"],
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
