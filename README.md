@@ -21,9 +21,10 @@ python3 -m http.server 8000
 - `content.js`, `content-more.js`, `content-extra.js`, `content-inventions.js`, `content-wave3.js`, `history.js` — כל התוכן; מוסיפים "דבר" חדש כאובייקט נוסף ברשימה
 - `fonts/` — הגופן Heebo (רישיון OFL, מצורף)
 - `scenes/` — איור מונפש לכל דבר (`<id>.js`), ערכת הסגנון `scene.css`, וכלי תצוגה `preview.html?id=fridge`
+- `lic.js` — קישורי הפעלה אישיים ומתגים לכל קישור (פיד, הדמיות, חזרה, תחומים). השרת ואפליקציית הניהול נמצאים ב-`dudutal-dev/Fitness-studio` (`worker/lic.js`, `admin/`); מזהה האפליקציה שם: `behind`. האכיפה כבויה כברירת מחדל, ובלי קישור הכול פתוח
 - `sw.js` — עבודה בלי רשת
 - `tools/release.mjs` — מריצים לפני כל העלאה: מעלה את מספר המטמון ובודק שכל איור והדמיה רשומים
 - `tools/smoke.cjs` — בדיקת עשן: עובר על כל המסכים בשתי הערכות ונכשל על שגיאה (דורש Playwright)
 - `manifest.webmanifest`, `icon.svg` — התקנה למסך הבית
 
-ההתקדמות נשמרת במכשיר בלבד (`localStorage`).
+ההתקדמות נשמרת במכשיר בלבד (`localStorage`). בפתיחה האפליקציה שואלת את השרת רק אם נדרש קישור הפעלה; למי שהפעיל קישור, השרת רושם מתי האפליקציה נפתחה.

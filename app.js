@@ -1,5 +1,6 @@
 import { CATEGORIES, TOPICS } from "./content.js";
 import { SIM_IDS } from "./sims/index.js";
+import { initLicense, onLicenseChange, allowed, licenseText } from "./lic.js";
 
 const VERSION = "3.0";
 // ?sim=<id> בכתובת מפעיל הדמיה שעוד לא רשומה ב-sims/index.js (לפיתוח)
@@ -12,6 +13,11 @@ const app = document.getElementById("app");
 const byId = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
 // סדר התצוגה: לפי קטגוריה
 const ORDERED = CATEGORIES.flatMap((c) => TOPICS.filter((t) => t.cat === c.id));
+
+// מתגי הקישור (נקבעים בניהול, לכל קישור הפעלה): feed, sims, review, ותחום cat-<id>. בלי קישור — הכול פתוח.
+const openT = (t) => allowed(`cat-${t.cat}`);
+const PERM_KEYS = ["feed", "sims", "review", ...CATEGORIES.map((c) => `cat-${c.id}`)];
+const permSig = () => PERM_KEYS.map((k) => +allowed(k)).join("");
 
 // ---------- מצב ----------
 const EMPTY = () => ({ done: {}, srs: {}, favs: {}, vseen: {}, pos: null, streak: { last: "", count: 0 } });
@@ -39,15 +45,17 @@ function liveStreak() {
   return l === dayKey() || l === addDays(-1) ? state.streak.count : 0;
 }
 function dueCards() {
+  if (!allowed("review")) return [];
   const today = dayKey();
   return Object.entries(state.srs)
     .filter(([, v]) => v.due <= today)
     .map(([k]) => { const [tid, i] = k.split(":"); return { key: k, topic: byId[tid], q: byId[tid]?.quiz[+i] }; })
-    .filter((c) => c.q);
+    .filter((c) => c.q && openT(c.topic));
 }
 function todaysTopic() {
-  const pool = TOPICS.filter((t) => !state.done[t.id]);
-  const list = pool.length ? pool : TOPICS;
+  const avail = TOPICS.filter(openT);
+  const pool = avail.filter((t) => !state.done[t.id]);
+  const list = pool.length ? pool : avail.length ? avail : TOPICS;
   const dayNum = Math.floor(new Date(dayKey()).getTime() / 864e5);
   return list[dayNum % list.length];
 }
@@ -61,6 +69,7 @@ const IC = {
   check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
   search: icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>'),
   settings: icon('<path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.600"/><circle cx="8" cy="17" r="2.600"/>'),
+  lock: icon('<rect x="5" y="10.500" width="14" height="9.500" rx="2.500"/><path d="M8 10.500V8a4 4 0 0 1 8 0v2.500"/>'),
   speak: icon('<path d="M4 10v4h3.5l4.5 4V6l-4.5 4z"/><path d="M15.5 9a4.2 4.2 0 010 6M18 6.5a7.8 7.8 0 010 11"/>'),
 };
 function speak(text) {
@@ -86,7 +95,7 @@ async function loadScene(id) {
 }
 const simCache = {};
 async function loadSim(id) {
-  if (!SIMS.has(id)) return null;
+  if (!SIMS.has(id) || !allowed("sims")) return null;
   if (!(id in simCache)) {
     try { simCache[id] = (await import(`./sims/${id}.js`)).default; }
     catch { simCache[id] = null; }
@@ -208,7 +217,7 @@ const FILMS = [
 const filmsOf = (topic) => FILMS.filter((f) => f.topic === topic);
 // בדף הנושא: קישור קטן לכל סרטון, שפותח אותו בפיד במסך מלא
 const filmLinks = (topic) => {
-  const fs = filmsOf(topic);
+  const fs = allowed("feed") ? filmsOf(topic) : [];
   return fs.length ? `<div class="vlinks">${fs.map((f) => `<a class="vlink" href="#/feed/${f.vid}">
     <img src="videos/${f.vid}.jpg" alt="" loading="lazy"><span class="vplay-s">${glyph(GLYPH.play)}</span>
     <span><b>${f.vid.endsWith("-sketch") ? "מערכון" : "סרטון"} · דקה</b><small>${h(f.title.replace(/^מערכון:\s*/, ""))}</small></span></a>`).join("")}</div>` : "";
@@ -254,7 +263,7 @@ const gearLink = `<a class="icon-btn" href="#/settings" aria-label="הגדרות
 // ---------- מעטפת ----------
 function tabbar(active) {
   const due = dueCards().length;
-  return `<nav class="tabbar" aria-label="ניווט ראשי">${TABS.map((t) => `
+  return `<nav class="tabbar" aria-label="ניווט ראשי">${TABS.filter((t) => t.id !== "feed" || allowed("feed")).map((t) => `
     <a href="${t.href}" class="tab${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
       <span class="tab-ic">${glyph(TAB_IC[t.id])}${t.id === "me" && due ? `<i class="dot"></i>` : ""}</span>
       <span>${t.label}</span>
@@ -352,7 +361,7 @@ let feedSound = (() => { try { return localStorage.getItem(SOUND_KEY) === "1"; }
 function renderFeed(start) {
   // קודם סרטונים שעוד לא נצפו, כל קבוצה בסדר אקראי
   const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  const all = FILMS.filter((f) => byId[f.topic]);
+  const all = FILMS.filter((f) => byId[f.topic] && openT(byId[f.topic]));
   const list = [...shuffle(all.filter((f) => !state.vseen[f.vid])), ...shuffle(all.filter((f) => state.vseen[f.vid]))];
   // הגעה מדף נושא: הסרטון המבוקש ראשון
   const si = list.findIndex((f) => f.vid === start);
@@ -454,12 +463,12 @@ function renderHome() {
   const streak = liveStreak();
   const doneCount = Object.keys(state.done).length;
   // נושא שנעצר באמצע
-  const pos = state.pos && byId[state.pos.id] && !state.done[state.pos.id] ? state.pos : null;
+  const pos = state.pos && byId[state.pos.id] && !state.done[state.pos.id] && openT(byId[state.pos.id]) ? state.pos : null;
   const cont = pos && byId[pos.id];
   // הצעה אחת מכל תחום, מתוך מה שעוד לא נקרא
-  const picks = CATEGORIES.map((c) => ORDERED.find((t) => t.cat === c.id && !state.done[t.id] && t.id !== today.id)).filter(Boolean);
+  const picks = CATEGORIES.map((c) => allowed(`cat-${c.id}`) && ORDERED.find((t) => t.cat === c.id && !state.done[t.id] && t.id !== today.id)).filter(Boolean);
   // סרטונים: החדשים קודם, ומה שעוד לא נצפה לפני מה שנצפה
-  const newest = [...FILMS].reverse().filter((f) => byId[f.topic]);
+  const newest = allowed("feed") ? [...FILMS].reverse().filter((f) => byId[f.topic] && openT(byId[f.topic])) : [];
   const films = [...newest.filter((f) => !state.vseen[f.vid]), ...newest.filter((f) => state.vseen[f.vid])].slice(0, 10);
 
   page("home", `
@@ -498,7 +507,7 @@ function renderHome() {
       <span class="notice-text"><b>${due} שאלות לחזרה</b><small>כמה דקות, כדי שזה יישאר</small></span>
       ${IC.fwd}</a>` : ""}
 
-    <section>
+    ${films.length ? `<section>
       <div class="sec-head"><h2>דקה של סרטון</h2><a href="#/feed">לפיד ${IC.fwd}</a></div>
       <div class="rail">
         ${films.map((f) => `<a class="vcard" href="#/feed/${f.vid}">
@@ -507,7 +516,7 @@ function renderHome() {
           <span class="vcap"><b>${h(byId[f.topic].title)}</b><small>${h(f.title.replace(/ ב־60 שניות$/, ""))}</small></span>
         </a>`).join("")}
       </div>
-    </section>
+    </section>` : ""}
 
     <section>
       <div class="sec-head" style="margin-top:14px"><h2>תחומים</h2><a href="#/lib">הכול ${IC.fwd}</a></div>
@@ -517,7 +526,7 @@ function renderHome() {
           return `<a class="tile c-${c.id}" href="#/lib/${c.id}">
             ${catBadge(c.id, "sm")}
             <b>${h(c.name)}</b>
-            <small>${d ? `${d} מתוך ${n}` : `${n} דברים`}</small>
+            <small>${!allowed(`cat-${c.id}`) ? "לא כלול בקישור" : d ? `${d} מתוך ${n}` : `${n} דברים`}</small>
             <span class="bar"><i style="width:${(d / n) * 100}%"></i></span>
           </a>`;
         }).join("")}
@@ -552,13 +561,14 @@ function snippet(text, q) {
 function topicRow(t, q = "") {
   const done = !!state.done[t.id];
   const inHead = !q || t.title.includes(q) || t.sub.includes(q);
-  const film = filmsOf(t.id).length, sim = SIMS.has(t.id);
-  return `<a class="row${done ? " done" : ""}" href="#/t/${t.id}">
+  const lock = !openT(t);
+  const film = allowed("feed") && filmsOf(t.id).length, sim = allowed("sims") && SIMS.has(t.id);
+  return `<a class="row${done ? " done" : ""}${lock ? " locked" : ""}" href="#/t/${t.id}">
     <span class="row-thumb" data-scene="${t.id}"></span>
     <span class="row-text"><b>${h(t.title)}${
       state.favs[t.id] ? `<i class="fav-mark">${glyph(GLYPH.mark)}</i>` : ""}</b><small>${inHead ? h(t.sub) : snippet(HAY[t.id], q)}</small>${
       film || sim ? `<span class="row-pills">${film ? `<i class="pill">${glyph(GLYPH.play)}סרטון</i>` : ""}${sim ? `<i class="pill">${glyph(GLYPH.sim)}הדמיה</i>` : ""}</span>` : ""}</span>
-    <span class="row-mark">${done ? glyph(GLYPH.check) : IC.fwd}</span>
+    <span class="row-mark">${lock ? IC.lock : done ? glyph(GLYPH.check) : IC.fwd}</span>
   </a>`;
 }
 function listHtml(filter) {
@@ -630,10 +640,10 @@ function renderMe() {
       <div>${badge(GLYPH.book, "c-done sm")}<b>${doneCount}</b><span>דברים נקראו</span></div>
       <div>${badge(GLYPH.loop, "c-review sm")}<b>${waiting}</b><span>שאלות בחזרה</span></div>
     </div>
-    <a class="notice" href="#/review">
+    ${allowed("review") ? `<a class="notice" href="#/review">
       ${badge(GLYPH.loop, "c-review sm")}
       <span class="notice-text"><b>${due ? `${due} שאלות לחזרה היום` : "חזרה"}</b><small>${due ? "כמה דקות, כדי שזה יישאר" : waiting ? "אין מה לחזור עליו היום" : "שאלות מופיעות כאן אחרי שמסיימים דבר"}</small></span>
-      ${IC.fwd}</a>
+      ${IC.fwd}</a>` : ""}
     <a class="notice" href="#/lib/fav">
       ${badge(GLYPH.mark, "c-energy sm")}
       <span class="notice-text"><b>מועדפים</b><small>${favs ? `${favs} דברים ששמרת` : "עוד לא שמרת דבר"}</small></span>
@@ -683,6 +693,11 @@ function renderSettings() {
       </div>
     </section>
 
+    ${licenseText() ? `<section>
+      <div class="sec-head"><h2>קישור הפעלה</h2></div>
+      <div class="panel"><p>${h(licenseText())}. הקישור עובד בטלפון הזה בלבד.</p></div>
+    </section>` : ""}
+
     <section>
       <div class="sec-head"><h2>גיבוי ושחזור</h2></div>
       <div class="panel">
@@ -720,7 +735,7 @@ function renderSettings() {
       </div>
       <div class="panel">
         <p>הסברים קצרים ומאוירים על איך דברים עובדים — מהמקרר ועד מופעי הירח. כל דבר עומד בפני עצמו: שאלת פתיחה, ארבעה שלבים של המנגנון, קצת היסטוריה, טעות נפוצה ושאלות בדיקה שחוזרות במרווחים הולכים וגדלים.</p>
-        <p><b>פרטיות.</b> האפליקציה אינה אוספת מידע ואינה שולחת דבר לשום שרת. הכול נשמר במכשיר, והיא עובדת גם בלי רשת.</p>
+        <p><b>פרטיות.</b> ההתקדמות, הרצף, החזרות והמועדפים נשמרים במכשיר בלבד, והאפליקציה עובדת גם בלי רשת. בפתיחה היא שואלת את השרת רק אם נדרש קישור הפעלה. למי שהפעיל קישור אישי, השרת רושם מתי האפליקציה נפתחה (יום ושעה) — ולא מה נקרא או נצפה בה.</p>
         <p><b>על התוכן.</b> הטקסטים והאיורים נוצרו בעזרת בינה מלאכותית. הפרטים ההיסטוריים נבדקו מול מקורות ותוקנו, אבל ייתכנו אי־דיוקים; ההסברים מפושטים בכוונה ואינם תחליף לספר לימוד או לייעוץ מקצועי.</p>
         <p class="muted">הגופן Heebo מופץ ברישיון Open Font License.</p>
         <button id="intro" class="link">הצגת מסך הפתיחה</button>
@@ -889,6 +904,14 @@ app.addEventListener("touchend", (e) => {
 async function renderTopic(id) {
   const t = byId[id];
   if (!t) return (location.hash = "#/");
+  if (!openT(t)) {
+    app.className = "player";
+    app.innerHTML = `${playerTop(0, 1, t.title)}
+      <main class="stage"><div class="card center-card">${badge(CAT_GLYPH[t.cat], `c-${t.cat} lg`)}
+        <h3>${h(t.title)}</h3><p class="muted">התחום ״${h(catName[t.cat])}״ לא כלול בקישור ההפעלה שלך.</p></div></main>
+      <nav class="p-nav"><a class="btn" href="#/lib">לספרייה ${IC.fwd}</a></nav>`;
+    return;
+  }
   const [scene, sim] = await Promise.all([loadScene(id), loadSim(id)]);
   if (!location.hash.startsWith(`#/t/${id}`)) return; // המשתמש כבר עבר למסך אחר
   const cards = buildCards(t, scene, sim);
@@ -920,7 +943,7 @@ async function renderTopic(id) {
     else if (i > 0 && !state.done[t.id]) { state.pos = { id: t.id, i, n: cards.length }; save(); }
     // "הבא": הדבר הבא שלא נקרא אחרי הנוכחי — קודם באותו תחום, ואז בתחומים הבאים
     const at = ORDERED.indexOf(t);
-    const next = [...ORDERED.slice(at + 1), ...ORDERED.slice(0, at)].find((x) => !state.done[x.id] && x.id !== t.id);
+    const next = [...ORDERED.slice(at + 1), ...ORDERED.slice(0, at)].find((x) => !state.done[x.id] && x.id !== t.id && openT(x));
     app.innerHTML = `
       ${playerTop(i, cards.length, t.title, t.id)}
       <main class="stage">${c.html}</main>
@@ -1025,16 +1048,21 @@ function route() {
   else {
     backTo = location.hash || "#/";
     if (view === "lib") renderLibrary(id);
-    else if (view === "review") renderReview();
+    else if (view === "review" && allowed("review")) renderReview();
+    else if (view === "review") renderMe();
     else if (view === "me") renderMe();
     else if (view === "settings") renderSettings();
-    else if (view === "feed") renderFeed(id);
+    else if (view === "feed" && allowed("feed")) renderFeed(id);
     else renderHome();
   }
   window.scrollTo(0, 0);
 }
 window.addEventListener("hashchange", route);
 route();
+// קישור הפעלה: כשהמתגים של הקישור משתנים, מציירים מחדש את המסך (לא באמצע נושא או חזרה)
+let sig = permSig();
+onLicenseChange(() => { const s = permSig(); if (s !== sig) { sig = s; if (!app.classList.contains("player")) route(); } });
+initLicense();
 
 // עדכון אוטומטי: כשגרסה חדשה מותקנת ברקע, האפליקציה נטענת מחדש בפעם הבאה שנמצאים במסך הבית
 // (לא באמצע נושא או חזרה). בודקים אם יש גרסה חדשה בכל חזרה לאפליקציה ובכל מעבר לבית.

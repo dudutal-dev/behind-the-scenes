@@ -16,6 +16,8 @@ const SEED = { done: { fridge: "2026-01-01", gps: "2026-01-01" }, srs: { "fridge
       if (f === "/sw.js" || !fs.existsSync(fp)) return r.fulfill({ status: 404, body: "" });
       r.fulfill({ status: 200, contentType: TYPES[fp.split(".").pop()] || "application/octet-stream", body: fs.readFileSync(fp) });
     });
+    // שרת קישורי ההפעלה: בבדיקה עונים במקומו "האפליקציה פתוחה לכולם"
+    await ctx.route("https://lohem-reminders.dudu-tal.workers.dev/**", (r) => r.fulfill({ status: 200, contentType: "application/json", headers: { "Access-Control-Allow-Origin": "*" }, body: '{"enforce":false}' }));
     const p = await ctx.newPage();
     p.on("console", (m) => { if (m.type() === "error") errs.push(`${theme}: ${m.text()}`); });
     p.on("pageerror", (e) => errs.push(`${theme}: ${e.message}`));

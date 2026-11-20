@@ -407,3 +407,24 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 @media (min-width:700px){.ov{align-items:center}.sheet{border-radius:24px}}
 .toast{position:fixed;z-index:30;bottom:calc(var(--tab-h) + 26px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:10px 18px;border-radius:999px;
   background:var(--ink);color:var(--bg);font-size:14.5px;font-weight:600;white-space:nowrap;animation:view .25s ease-out;pointer-events:none}
+
+/* ---------- קישור הפעלה ---------- */
+.row.locked .row-thumb,.row.locked .row-text{opacity:.5}
+html.locked,html.locked body{overflow:hidden}
+.lic-gate{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;overflow-y:auto;background:var(--bg);
+  padding:max(24px,env(safe-area-inset-top)) var(--gut) max(24px,env(safe-area-inset-bottom))}
+.lic-box{width:100%;max-width:400px;margin:auto;text-align:center}
+.lic-box img{border-radius:20px;box-shadow:var(--shadow)}
+.lic-box h2{font-size:25px;margin:18px 0 8px}
+.lic-msg{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:18px}
+.lic-msg b{color:var(--ink)}
+.lic-note{color:var(--faint);font-size:13.5px;margin:10px 0}
+.lic-steps{list-style:none;counter-reset:s;margin:0 0 16px;padding:4px 16px;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.lic-steps li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;column-gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.lic-steps li:first-child{border-top:0}
+.lic-steps li::before{content:counter(s);grid-row:span 2;align-self:center;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:14px}
+.lic-steps b{font-size:15.5px;line-height:1.35}
+.lic-steps span{font-size:13.5px;color:var(--muted);line-height:1.4}
+.lic-form[hidden]{display:none}
+.lic-form input{width:100%;min-height:52px;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);font:inherit;text-align:center;padding:0 14px;margin-bottom:10px;outline:none}
+.lic-form input:focus{border-color:var(--accent)}
