@@ -33,6 +33,7 @@ def words(t):
     t = re.sub(r"[֑-ׇ]", "", t)                       # ניקוד וטעמים
     t = t.replace("ק״ג", "קילו").replace('ק"ג', "קילו").replace("ק״מ", "קילומטר")
     t = t.replace("'", "").replace("׳", "").replace("’", "")
+    t = t.replace("״", "").replace('"', "")          # ראשי תיבות (מכ״ם) נשארים מילה אחת
     t = t.replace("־", " ").replace("-", " ")   # מקף מחבר: שתי מילים
     t = re.sub(r"\d+", lambda m: f" {DIG[int(m.group())] if int(m.group()) < len(DIG) else TENS.get(int(m.group()), m.group())} ", t)
     t = re.sub(r"[^א-תa-zA-Z0-9\s]", " ", t).translate(FINAL).lower()
@@ -81,7 +82,7 @@ def judge(text, heard):
         # נשמע אותו דבר? (אותיות הומופוניות, או חלוקה אחרת למילים)
         close = difflib.SequenceMatcher(None, "".join(sound(w) for w in want), "".join(sound(w) for w in hrd)).ratio() if want and hrd else 0
         sw, sh = "".join(sound(w) for w in want), "".join(sound(w) for w in hrd)
-        if sw == sh and (len(want) == len(hrd) or any(re.search(r"[a-z]", w) for w in hrd)): continue   # אותו צליל בדיוק, רק כתיב אחר ("במוט"/"במות", "גו"/"go")
+        if sw == sh: continue   # אותו צליל בדיוק, רק כתיב אחר ("במוט"/"במות", "גו"/"go")
         issues.append({"kind": "sounds-like" if close >= 0.8 else "wrong", "want": " ".join(want), "heard": " ".join(hrd), "t": t})
     if any(x["kind"] == "wrong" for x in issues): state = "bad"
     elif issues: state = "suspect"
