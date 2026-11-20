@@ -1,7 +1,7 @@
 import { CATEGORIES, TOPICS } from "./content.js";
 import { SIM_IDS } from "./sims/index.js";
 
-const VERSION = "2.1";
+const VERSION = "3.0";
 // ?sim=<id> בכתובת מפעיל הדמיה שעוד לא רשומה ב-sims/index.js (לפיתוח)
 const SIMS = new Set([...SIM_IDS, ...new URLSearchParams(location.search).getAll("sim")]);
 
@@ -14,7 +14,7 @@ const byId = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
 const ORDERED = CATEGORIES.flatMap((c) => TOPICS.filter((t) => t.cat === c.id));
 
 // ---------- מצב ----------
-const EMPTY = () => ({ done: {}, srs: {}, favs: {}, vseen: {}, streak: { last: "", count: 0 } });
+const EMPTY = () => ({ done: {}, srs: {}, favs: {}, vseen: {}, pos: null, streak: { last: "", count: 0 } });
 function load() {
   try { return { ...EMPTY(), ...JSON.parse(localStorage.getItem(KEY) || "{}") }; }
   catch { return EMPTY(); }
@@ -225,6 +225,8 @@ const GLYPH = {
   mark: '<path d="M7 3.500h10A1.500 1.500 0 0 1 18.500 5v15.200a.600.600 0 0 1-.950.490L12 16.700l-5.550 3.990a.600.600 0 0 1-.950-.490V5A1.500 1.500 0 0 1 7 3.500z"/>',
   tune: '<rect opacity=".5" x="3" y="3" width="18" height="18" rx="5"/><path d="M6.500 8.200h6.200a2.300 2.300 0 0 1 4.400 0h.400v1.600h-.400a2.300 2.300 0 0 1-4.400 0H6.500zM6.500 14.200h.400a2.300 2.300 0 0 1 4.400 0h6.200v1.600h-6.200a2.300 2.300 0 0 1-4.400 0h-.400z"/>',
   check: '<circle opacity=".45" cx="12" cy="12" r="9.500"/><path d="M10.700 16.300 6.900 12.500l1.500-1.500 2.300 2.300 5-5 1.500 1.500z"/>',
+  share: '<path d="M12 2.800 7.200 7.600l1.400 1.400L11 6.600V15h2V6.600l2.400 2.400 1.400-1.400z"/><path opacity=".6" d="M5 11h3v2H6v6h12v-6h-2v-2h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z"/>',
+  sim: '<rect opacity=".5" x="3" y="3" width="18" height="18" rx="5"/><path d="M6.500 8.200h6.200a2.300 2.300 0 0 1 4.400 0h.400v1.600h-.400a2.300 2.300 0 0 1-4.400 0H6.500zM6.500 14.200h.400a2.300 2.300 0 0 1 4.400 0h6.200v1.600h-6.200a2.300 2.300 0 0 1-4.400 0h-.400z"/>',
 };
 const badge = (d, cls = "") => `<span class="badge ${cls}">${glyph(d)}</span>`;
 const catBadge = (cat, cls = "") => badge(CAT_GLYPH[cat], `c-${cat} ${cls}`);
@@ -238,24 +240,56 @@ const TAB_IC = {
   settings: '<circle opacity=".5" cx="12" cy="12" r="8.200"/><path d="M12 8.600a3.400 3.400 0 1 0 0 6.800 3.400 3.400 0 0 0 0-6.800zM10.700 2.500h2.600l.500 2.600h-3.600zM10.700 21.500h2.600l.500-2.600h-3.600zM2.500 10.700v2.600l2.600.500v-3.600zM21.500 10.700v2.600l-2.600.500v-3.600zM4.400 6.200l1.800-1.800 2.200 1.500-2.500 2.500zM19.600 17.800l-1.800 1.800-2.200-1.500 2.500-2.500zM6.200 19.600l-1.800-1.800 1.500-2.200 2.500 2.500zM17.800 4.400l1.800 1.800-1.500 2.200-2.500-2.500z"/>',
   me: '<rect opacity=".5" x="4" y="12" width="4.200" height="8.500" rx="1.600"/><rect x="9.900" y="4" width="4.200" height="16.500" rx="1.600"/><rect opacity=".5" x="15.800" y="8.500" width="4.200" height="12" rx="1.600"/>',
 };
+// ארבעה טאבים. "אני" מרכז את ההתקדמות ואת החזרה; ההגדרות נפתחות מגלגל השיניים שבראש המסך.
 const TABS = [
-  { id: "home", href: "#/", label: "בית", c: "t-home" },
-  { id: "feed", href: "#/feed", label: "פיד", c: "t-feed" },
-  { id: "lib", href: "#/lib", label: "ספרייה", c: "t-lib" },
-  { id: "review", href: "#/review", label: "חזרה", c: "t-review" },
-  { id: "me", href: "#/me", label: "התקדמות", c: "t-me" },
-  { id: "settings", href: "#/settings", label: "הגדרות", c: "t-set" },
+  { id: "home", href: "#/", label: "בית" },
+  { id: "feed", href: "#/feed", label: "פיד" },
+  { id: "lib", href: "#/lib", label: "ספרייה" },
+  { id: "me", href: "#/me", label: "אני" },
 ];
 let backTo = "#/"; // לאן כפתור הסגירה בנגן מחזיר
+const backLink = (href) => `<a class="icon-btn" href="${href}" aria-label="חזרה">${icon('<path d="M10 6l6 6-6 6"/>')}</a>`;
+const gearLink = `<a class="icon-btn" href="#/settings" aria-label="הגדרות">${glyph(TAB_IC.settings).replace("<svg", '<svg fill="currentColor"')}</a>`;
 
 // ---------- מעטפת ----------
 function tabbar(active) {
   const due = dueCards().length;
   return `<nav class="tabbar" aria-label="ניווט ראשי">${TABS.map((t) => `
-    <a href="${t.href}" class="tab ${t.c}${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
-      <span class="tab-ic">${glyph(TAB_IC[t.id])}${t.id === "review" && due ? `<i class="dot"></i>` : ""}</span>
+    <a href="${t.href}" class="tab${t.id === active ? " on" : ""}" ${t.id === active ? 'aria-current="page"' : ""}>
+      <span class="tab-ic">${glyph(TAB_IC[t.id])}${t.id === "me" && due ? `<i class="dot"></i>` : ""}</span>
       <span>${t.label}</span>
     </a>`).join("")}</nav>`;
+}
+
+// חלונית תחתונה במקום חלונות הדפדפן (confirm / prompt), והודעה קצרה שנעלמת לבד
+function sheet(html, bind) {
+  const ov = document.createElement("div");
+  ov.className = "ov";
+  ov.innerHTML = `<div class="sheet" role="dialog" aria-modal="true">${html}</div>`;
+  const close = () => ov.remove();
+  ov.addEventListener("click", (e) => { if (e.target === ov || e.target.closest("[data-close]")) close(); });
+  document.body.append(ov);
+  bind?.(ov, close);
+  return close;
+}
+const ask = (title, text, yes, onYes, danger) => sheet(
+  `<h3>${h(title)}</h3><p>${h(text)}</p><div class="btn-row"><button class="btn sm${danger ? " danger" : ""}" data-yes>${h(yes)}</button><button class="btn sm ghost" data-close>ביטול</button></div>`,
+  (ov, close) => ov.querySelector("[data-yes]").addEventListener("click", () => { close(); onYes(); }));
+function toast(text) {
+  document.querySelector(".toast")?.remove();
+  const el = Object.assign(document.createElement("div"), { className: "toast", textContent: text });
+  el.setAttribute("role", "status");
+  document.body.append(el);
+  setTimeout(() => el.remove(), 2200);
+}
+// שיתוף: חלונית השיתוף של המכשיר, ואם אין — העתקת הקישור
+async function share(title, text, hash) {
+  const url = `${location.origin}${location.pathname}${hash}`;
+  try {
+    if (navigator.share) return await navigator.share({ title, text, url });
+    await navigator.clipboard.writeText(`${text}\n${url}`);
+    toast("הקישור הועתק");
+  } catch (e) { if (e?.name !== "AbortError") toast("השיתוף לא זמין במכשיר הזה"); }
 }
 function page(active, html) {
   app.className = "with-tabs";
@@ -313,7 +347,8 @@ function renderWelcome() {
 }
 
 // ---------- פיד: כל הסרטונים בסדר אקראי, אחד אחרי השני ----------
-let feedSound = false; // אחרי שהמשתמש הפעיל קול פעם אחת, הוא נשאר פעיל
+const SOUND_KEY = "eich-ze-oved-sound";
+let feedSound = (() => { try { return localStorage.getItem(SOUND_KEY) === "1"; } catch { return false; } })(); // הבחירה נשמרת במכשיר
 function renderFeed(start) {
   // קודם סרטונים שעוד לא נצפו, כל קבוצה בסדר אקראי
   const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -322,15 +357,22 @@ function renderFeed(start) {
   // הגעה מדף נושא: הסרטון המבוקש ראשון
   const si = list.findIndex((f) => f.vid === start);
   if (si > 0) list.unshift(...list.splice(si, 1));
-  page("feed", `<div class="feed" id="feed">${list.map((f) => {
+  const act = (cls, g, label, attrs = "") => `<button type="button" class="fact ${cls}" aria-label="${label}" ${attrs}>${glyph(g)}</button>`;
+  page("feed", `<div class="feed" id="feed">${list.map((f, n) => {
     const t = byId[f.topic], id = t.id, vid = f.vid;
-    return `<section class="fslide" data-id="${vid}">
+    return `<section class="fslide" data-id="${vid}" data-topic="${id}">
       <div class="fbg" style="background-image:url(videos/${vid}.jpg)"></div>
-      <img class="fposter" src="videos/${vid}.jpg" alt="">
+      <img class="fposter" src="videos/${vid}.jpg" alt="" ${n > 1 ? 'loading="lazy"' : ""}>
+      <div class="fshade"></div>
+      <div class="fpause" hidden>${glyph(GLYPH.play)}</div>
       <div class="fmeta">
-        <span class="ftxt"><b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small></span>
-        <button type="button" class="fheart${state.favs[id] ? " on" : ""}" data-id="${id}" aria-pressed="${!!state.favs[id]}" aria-label="שמירה במועדפים">${glyph(GLYPH.heart)}</button>
-        <a class="btn sm" href="#/t/${id}">לנושא ${IC.fwd}</a>
+        <b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small>
+        <div class="facts">
+          <a class="btn sm" href="#/t/${id}">לנושא המלא ${IC.fwd}</a>
+          ${act(`fheart${state.favs[id] ? " on" : ""}`, GLYPH.heart, "שמירה במועדפים", `aria-pressed="${!!state.favs[id]}"`)}
+          ${act("fshare", GLYPH.share, "שיתוף")}
+          ${act("fsnd", GLYPH.sound, "קול")}
+        </div>
       </div>
       <div class="fend" hidden>
         <b>רוצים להבין לעומק?</b>
@@ -340,20 +382,21 @@ function renderFeed(start) {
       <span class="fbar"><i></i></span>
     </section>`;
   }).join("")}</div>
-  <button type="button" class="fsound" id="fsound" aria-label="קול">${glyph(GLYPH.sound)}</button>
-  <div class="fhint" id="fhint">החליקו למעלה לסרטון הבא</div>`);
+  <div class="fhint" id="fhint">${feedSound ? "החליקו למעלה לסרטון הבא" : "הקול כבוי · הרמקול שלמטה מפעיל אותו"}</div>`);
   app.classList.add("feed-mode");
   const feed = document.getElementById("feed");
-  const snd = document.getElementById("fsound");
   // נגן אחד שעובר בין השקפים: כך באייפון הקול נשאר פעיל אחרי נגיעה אחת
   const v = document.createElement("video");
   v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto"; v.muted = !feedSound;
   v.className = "fvid";
   let cur = null;
-  const setSnd = () => { snd.classList.toggle("off", v.muted); snd.setAttribute("aria-pressed", String(!v.muted)); };
+  const setSnd = () => feed.classList.toggle("muted", v.muted);
   setSnd();
+  const pauseMark = () => { const p = cur?.querySelector(".fpause"); if (p) p.hidden = !v.paused || v.ended || !cur.querySelector(".fend").hidden; };
+  v.addEventListener("pause", pauseMark); v.addEventListener("play", pauseMark);
   const activate = (slide) => {
     if (cur === slide) return;
+    cur?.querySelector(".fpause")?.setAttribute("hidden", "");
     cur = slide;
     slide.prepend(v);
     v.src = `videos/${slide.dataset.id}.mp4`;
@@ -376,23 +419,32 @@ function renderFeed(start) {
     endTimer = setInterval(() => { n--; c.textContent = `(${n})`; if (n <= 0) goNext(); }, 1000);
   });
   feed.addEventListener("scroll", () => { clearInterval(endTimer); feed.querySelectorAll(".fend").forEach((e) => { if (!e.closest(".fslide").contains(v)) e.hidden = true; }); }, { passive: true });
-  // נגיעה בסרטון: עצירה / המשך; כפתור הקול: השתקה / הפעלה
+  // נגיעה בסרטון: עצירה / המשך; כפתורי הצד: שמירה, שיתוף, מעבר לנושא
   feed.addEventListener("click", (e) => {
     if (e.target.closest("a")) return;
+    const slide = e.target.closest(".fslide"); if (!slide) return;
+    const id = slide.dataset.topic;
     const heart = e.target.closest(".fheart");
     if (heart) {
-      const id = heart.dataset.id;
       if (state.favs[id]) delete state.favs[id]; else state.favs[id] = dayKey();
       save();
       heart.classList.toggle("on", !!state.favs[id]); heart.setAttribute("aria-pressed", String(!!state.favs[id]));
+      return;
+    }
+    if (e.target.closest(".fshare")) { share(byId[id].title, `${byId[id].title} — ${byId[id].sub}`, `#/feed/${slide.dataset.id}`); return; }
+    if (e.target.closest(".fsnd")) {
+      v.muted = !v.muted; feedSound = !v.muted; setSnd();
+      try { localStorage.setItem(SOUND_KEY, feedSound ? "1" : "0"); } catch { /* מצב פרטי */ }
+      if (v.paused) v.play().catch(() => {});
+      document.getElementById("fhint")?.remove();
       return;
     }
     if (e.target.closest(".fnext")) { goNext(); return; }
     if (e.target.closest(".fend")) return;
     if (v.paused) v.play().catch(() => {}); else v.pause();
   });
-  snd.addEventListener("click", () => { v.muted = !v.muted; feedSound = !v.muted; setSnd(); if (v.paused) v.play().catch(() => {}); });
   feed.addEventListener("scroll", () => document.getElementById("fhint")?.remove(), { once: true });
+  setTimeout(() => document.getElementById("fhint")?.remove(), 4500);
 }
 
 // ---------- בית ----------
@@ -401,8 +453,14 @@ function renderHome() {
   const due = dueCards().length;
   const streak = liveStreak();
   const doneCount = Object.keys(state.done).length;
+  // נושא שנעצר באמצע
+  const pos = state.pos && byId[state.pos.id] && !state.done[state.pos.id] ? state.pos : null;
+  const cont = pos && byId[pos.id];
   // הצעה אחת מכל תחום, מתוך מה שעוד לא נקרא
   const picks = CATEGORIES.map((c) => ORDERED.find((t) => t.cat === c.id && !state.done[t.id] && t.id !== today.id)).filter(Boolean);
+  // סרטונים: החדשים קודם, ומה שעוד לא נצפה לפני מה שנצפה
+  const newest = [...FILMS].reverse().filter((f) => byId[f.topic]);
+  const films = [...newest.filter((f) => !state.vseen[f.vid]), ...newest.filter((f) => state.vseen[f.vid])].slice(0, 10);
 
   page("home", `
     <header class="hello">
@@ -411,12 +469,16 @@ function renderHome() {
         <h1 class="brand">מאחורי <em>הקלעים</em></h1>
       </div>
       <div class="hello-side">
-        <a class="streak" href="#/me" aria-label="התקדמות">
-          ${badge(GLYPH.flame, "c-flame sm")}
-          <span><b>${streak}</b>${streak === 1 ? "יום" : "ימים"}</span>
-        </a>
+        <a class="streak c-flame" href="#/me" aria-label="${streak} ימים ברצף">${glyph(GLYPH.flame)}<b>${streak}</b></a>
+        ${gearLink}
       </div>
     </header>
+
+    ${cont ? `<a class="notice c-${cont.cat}" href="#/t/${cont.id}" style="margin:0 0 12px">
+      ${catBadge(cont.cat, "sm")}
+      <span class="notice-text"><small>להמשיך מאיפה שעצרת</small><b>${h(cont.title)}</b>
+        <span class="bar"><i style="width:${Math.round((100 * (pos.i + 1)) / (pos.n || 10))}%"></i></span></span>
+      ${IC.fwd}</a>` : ""}
 
     <a class="hero c-${today.cat}" href="#/t/${today.id}">
       <div class="thumb" data-scene="${today.id}"></div>
@@ -437,12 +499,23 @@ function renderHome() {
       ${IC.fwd}</a>` : ""}
 
     <section>
-      <div class="sec-head"><h2>תחומים</h2><a href="#/lib">הכול ${IC.fwd}</a></div>
-      <div class="tiles">
+      <div class="sec-head"><h2>דקה של סרטון</h2><a href="#/feed">לפיד ${IC.fwd}</a></div>
+      <div class="rail">
+        ${films.map((f) => `<a class="vcard" href="#/feed/${f.vid}">
+          <img src="videos/${f.vid}.jpg" alt="" loading="lazy">
+          <span class="vplay-s">${glyph(GLYPH.play)}</span>
+          <span class="vcap"><b>${h(byId[f.topic].title)}</b><small>${h(f.title.replace(/ ב־60 שניות$/, ""))}</small></span>
+        </a>`).join("")}
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head" style="margin-top:14px"><h2>תחומים</h2><a href="#/lib">הכול ${IC.fwd}</a></div>
+      <div class="rail">
         ${CATEGORIES.map((c) => {
           const n = countIn(c.id), d = doneIn(c.id);
           return `<a class="tile c-${c.id}" href="#/lib/${c.id}">
-            ${catBadge(c.id)}
+            ${catBadge(c.id, "sm")}
             <b>${h(c.name)}</b>
             <small>${d ? `${d} מתוך ${n}` : `${n} דברים`}</small>
             <span class="bar"><i style="width:${(d / n) * 100}%"></i></span>
@@ -452,7 +525,7 @@ function renderHome() {
     </section>
 
     ${picks.length ? `<section>
-      <div class="sec-head"><h2>אולי יעניין אותך</h2></div>
+      <div class="sec-head" style="margin-top:14px"><h2>אולי יעניין אותך</h2></div>
       <div class="rail">
         ${picks.map((t) => `<a class="mini c-${t.cat}" href="#/t/${t.id}">
           <div class="thumb" data-scene="${t.id}"></div>
@@ -479,10 +552,12 @@ function snippet(text, q) {
 function topicRow(t, q = "") {
   const done = !!state.done[t.id];
   const inHead = !q || t.title.includes(q) || t.sub.includes(q);
+  const film = filmsOf(t.id).length, sim = SIMS.has(t.id);
   return `<a class="row${done ? " done" : ""}" href="#/t/${t.id}">
-    ${catBadge(t.cat, "sm")}
-    <span class="row-text"><b>${h(t.title)}${SIMS.has(t.id) ? `<i class="pill">הדמיה</i>` : ""}${
-      state.favs[t.id] ? `<i class="fav-mark">${glyph(GLYPH.mark)}</i>` : ""}</b><small>${inHead ? h(t.sub) : snippet(HAY[t.id], q)}</small></span>
+    <span class="row-thumb" data-scene="${t.id}"></span>
+    <span class="row-text"><b>${h(t.title)}${
+      state.favs[t.id] ? `<i class="fav-mark">${glyph(GLYPH.mark)}</i>` : ""}</b><small>${inHead ? h(t.sub) : snippet(HAY[t.id], q)}</small>${
+      film || sim ? `<span class="row-pills">${film ? `<i class="pill">${glyph(GLYPH.play)}סרטון</i>` : ""}${sim ? `<i class="pill">${glyph(GLYPH.sim)}הדמיה</i>` : ""}</span>` : ""}</span>
     <span class="row-mark">${done ? glyph(GLYPH.check) : IC.fwd}</span>
   </a>`;
 }
@@ -506,7 +581,7 @@ function listHtml(filter) {
   const html = CATEGORIES.map((c) => {
     const items = ORDERED.filter((t) => t.cat === c.id && match(t));
     if (!items.length) return "";
-    const head = filter === "all" ? `<h2 class="group">${h(c.name)} <span>${items.length}</span></h2>` : "";
+    const head = filter === "all" ? `<h2 class="group c-${c.id}"><i></i>${h(c.name)} <span>${items.length}</span></h2>` : "";
     return `<section>${head}<div class="rows">${items.map((t) => topicRow(t)).join("")}</div></section>`;
   }).join("");
   return html || `<p class="empty">לא נמצא דבר כזה.</p>`;
@@ -528,7 +603,8 @@ function renderLibrary(cat) {
     </div>
     <div id="list">${listHtml(filter)}</div>`);
   const list = document.getElementById("list");
-  document.getElementById("search").addEventListener("input", (e) => { query = e.target.value; list.innerHTML = listHtml(filter); });
+  lazyScenes(list);
+  document.getElementById("search").addEventListener("input", (e) => { query = e.target.value; list.innerHTML = listHtml(filter); lazyScenes(list); });
   app.querySelector('.chip[aria-current="true"]')?.scrollIntoView({ block: "nearest", inline: "center" });
 }
 
@@ -537,11 +613,13 @@ function renderMe() {
   const doneCount = Object.keys(state.done).length;
   const streak = liveStreak();
   const waiting = Object.keys(state.srs).length;
+  const due = dueCards().length;
+  const favs = Object.keys(state.favs).length;
   const pct = Math.round((doneCount / TOPICS.length) * 100);
   page("me", `
-    <header class="page-head"><h1>התקדמות</h1></header>
+    <header class="page-head"><h1>אני</h1>${gearLink}</header>
     <div class="summary">
-      <div class="ring" style="--p:${pct}"><b>${pct}%</b></div>
+      <div class="pring" style="--p:${pct}"><b>${pct}%</b></div>
       <div>
         <b>${doneCount} מתוך ${TOPICS.length}</b>
         <small>${doneCount ? "דברים שכבר הבנת איך הם עובדים" : "עוד לא התחלת — הדבר של היום מחכה בבית"}</small>
@@ -552,6 +630,14 @@ function renderMe() {
       <div>${badge(GLYPH.book, "c-done sm")}<b>${doneCount}</b><span>דברים נקראו</span></div>
       <div>${badge(GLYPH.loop, "c-review sm")}<b>${waiting}</b><span>שאלות בחזרה</span></div>
     </div>
+    <a class="notice" href="#/review">
+      ${badge(GLYPH.loop, "c-review sm")}
+      <span class="notice-text"><b>${due ? `${due} שאלות לחזרה היום` : "חזרה"}</b><small>${due ? "כמה דקות, כדי שזה יישאר" : waiting ? "אין מה לחזור עליו היום" : "שאלות מופיעות כאן אחרי שמסיימים דבר"}</small></span>
+      ${IC.fwd}</a>
+    <a class="notice" href="#/lib/fav">
+      ${badge(GLYPH.mark, "c-energy sm")}
+      <span class="notice-text"><b>מועדפים</b><small>${favs ? `${favs} דברים ששמרת` : "עוד לא שמרת דבר"}</small></span>
+      ${IC.fwd}</a>
     <section>
       <div class="sec-head"><h2>לפי תחום</h2></div>
       <div class="rows">
@@ -579,13 +665,14 @@ function importState(raw) {
   return {
     ...EMPTY(),
     done: known(s.done), srs: known(s.srs), favs: known(s.favs), vseen: known(s.vseen),
+    pos: s.pos && byId[s.pos.id] ? { id: s.pos.id, i: Number(s.pos.i) || 0, n: Number(s.pos.n) || 10 } : null,
     streak: { last: String(s.streak?.last || ""), count: Number(s.streak?.count) || 0 },
   };
 }
 function renderSettings() {
   const doneCount = Object.keys(state.done).length;
-  page("settings", `
-    <header class="page-head"><h1>הגדרות</h1></header>
+  page("me", `
+    <header class="page-head"><div class="lead">${backLink("#/me")}<h1>הגדרות</h1></div></header>
 
     <section>
       <div class="sec-head"><h2>תצוגה</h2></div>
@@ -646,10 +733,10 @@ function renderSettings() {
     let next;
     try { next = importState(raw); } catch { return msg("הקובץ אינו גיבוי תקין של האפליקציה.", true); }
     const n = Object.keys(next.done).length;
-    if (!confirm(`לשחזר גיבוי עם ${n} דברים שנקראו? ההתקדמות הנוכחית במכשיר תוחלף.`)) return;
-    state = next; save(); renderSettings();
-    document.getElementById("msg").hidden = false;
-    document.getElementById("msg").textContent = `הגיבוי שוחזר: ${n} דברים שנקראו.`;
+    ask("שחזור גיבוי", `לשחזר גיבוי עם ${n} דברים שנקראו? ההתקדמות הנוכחית במכשיר תוחלף.`, "שחזור", () => {
+      state = next; save(); renderSettings();
+      toast(`הגיבוי שוחזר: ${n} דברים שנקראו`);
+    });
   };
   document.getElementById("export").addEventListener("click", () => {
     const url = URL.createObjectURL(new Blob([payload()], { type: "application/json" }));
@@ -666,11 +753,12 @@ function renderSettings() {
     catch { msg("ההעתקה נחסמה במכשיר הזה. אפשר להשתמש בשמירה לקובץ.", true); }
   });
   document.getElementById("paste").addEventListener("click", () => {
-    const raw = prompt("הדבק כאן את טקסט הגיבוי:");
-    if (raw) restore(raw);
+    sheet(`<h3>שחזור מטקסט</h3><p>מדביקים כאן את טקסט הגיבוי שהועתק.</p><textarea id="rawIn" aria-label="טקסט הגיבוי"></textarea>
+      <div class="btn-row"><button class="btn sm" data-yes>שחזור</button><button class="btn sm ghost" data-close>ביטול</button></div>`,
+      (ov, close) => ov.querySelector("[data-yes]").addEventListener("click", () => { const raw = ov.querySelector("#rawIn").value.trim(); close(); if (raw) restore(raw); }));
   });
   document.getElementById("reset").addEventListener("click", () => {
-    if (confirm("למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים?")) { state = EMPTY(); save(); renderSettings(); }
+    ask("איפוס ההתקדמות", "למחוק את כל ההתקדמות, הרצף, החזרות והמועדפים? אי אפשר לבטל.", "איפוס", () => { state = EMPTY(); save(); renderSettings(); toast("ההתקדמות אופסה"); }, true);
   });
   document.getElementById("theme").addEventListener("click", (e) => {
     const b = e.target.closest("button");
@@ -721,7 +809,7 @@ function buildCards(t, scene, sim) {
   const cards = [questionCard("לפני שמתחילים", t.hook, null, filmLinks(t.id))];
   t.steps.forEach((s, i) =>
     cards.push({
-      html: `<div class="card">
+      html: `<div class="card top">
           ${scene ? sceneSvg(scene, i + 1, `איור: ${s.t}`) : `<div class="big">${s.e}</div>`}
           <span class="tag">שלב ${i + 1} מתוך ${t.steps.length}</span>
           <h3>${h(s.t)}</h3>
@@ -732,7 +820,7 @@ function buildCards(t, scene, sim) {
     })
   );
   if (sim) cards.push({
-    html: `<div class="card sim">
+    html: `<div class="card sim top">
         <span class="tag">${glyph(GLYPH.spark)} נסה בעצמך</span>
         <h3>${h(sim.title)}</h3>
         <div class="sim-root"></div>
@@ -756,11 +844,12 @@ function buildCards(t, scene, sim) {
   t.quiz.forEach((q) => cards.push(questionCard("בדיקת הבנה", q)));
   cards.push({
     end: true,
-    html: `<div class="card end">
+    html: `<div class="card end top">
         ${scene ? sceneSvg(scene, "all", `איור: ${t.title}`) : `<div class="big">${t.emoji}</div>`}
         <span class="tag done">${glyph(GLYPH.check)} סיימת · בשורה אחת</span>
         <h3>${h(t.take)}</h3>
         <p class="muted">שאלות הבדיקה יחזרו אליך מחר, ואחר כך במרווחים הולכים וגדלים.</p>
+        <div class="end-acts"><button type="button" id="shareT" class="btn sm ghost">${glyph(GLYPH.share).replace("<svg", '<svg fill="currentColor"')} שיתוף</button></div>
         ${filmLinks(t.id)}
         <div id="upnext"></div>
       </div>`,
@@ -770,13 +859,32 @@ function buildCards(t, scene, sim) {
 
 const playerTop = (i, n, title, favId) => `
   <header class="p-top">
-    <a class="close" href="${backTo}" aria-label="סגירה">${IC.close}</a>
-    <div class="segs" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}">
-      ${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}
+    <a class="icon-btn" href="${backTo}" aria-label="סגירה">${IC.close}</a>
+    <div class="p-mid">
+      <span class="p-title">${h(title)}</span>
+      <div class="segs" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${i + 1}">
+        ${Array.from({ length: n }, (_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}
+      </div>
     </div>
-    <span class="p-title">${h(title)}</span>
-    ${favId ? `<button id="fav" class="fav${state.favs[favId] ? " on" : ""}" aria-pressed="${!!state.favs[favId]}" aria-label="מועדפים">${glyph(GLYPH.mark)}</button>` : ""}
+    ${favId ? `<button id="fav" class="icon-btn fav${state.favs[favId] ? " on" : ""}" aria-pressed="${!!state.favs[favId]}" aria-label="מועדפים">${glyph(GLYPH.mark)}</button>` : ""}
   </header>`;
+
+// מקשי החיצים והחלקה לצדדים בנגן. בכיוון הקריאה מימין לשמאל: שמאלה = הלאה.
+let playerNav = null; // { next(), back() } של המסך הפעיל
+window.addEventListener("keydown", (e) => {
+  if (!playerNav || e.target.closest?.("input,textarea") || document.querySelector(".ov")) return;
+  if (e.key === "ArrowLeft") playerNav.next(); else if (e.key === "ArrowRight") playerNav.back();
+});
+let sx = 0, sy = 0, sOk = false;
+app.addEventListener("touchstart", (e) => {
+  sOk = !!playerNav && e.touches.length === 1 && !!e.target.closest(".stage") && !e.target.closest(".sim-root,input,.rail");
+  if (sOk) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }
+}, { passive: true });
+app.addEventListener("touchend", (e) => {
+  if (!sOk || !playerNav) return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > 2 * Math.abs(dy)) { if (dx > 0) playerNav.next(); else playerNav.back(); }
+}, { passive: true });
 
 async function renderTopic(id) {
   const t = byId[id];
@@ -784,7 +892,8 @@ async function renderTopic(id) {
   const [scene, sim] = await Promise.all([loadScene(id), loadSim(id)]);
   if (!location.hash.startsWith(`#/t/${id}`)) return; // המשתמש כבר עבר למסך אחר
   const cards = buildCards(t, scene, sim);
-  let i = 0;
+  // ממשיכים מהשלב שבו נעצרנו בפעם הקודמת
+  let i = state.pos?.id === id && !state.done[id] ? Math.max(0, Math.min(state.pos.i, cards.length - 2)) : 0, dir = 1;
   app.className = `player c-${t.cat}`;
 
   function finish() {
@@ -793,14 +902,22 @@ async function renderTopic(id) {
       const k = `${t.id}:${qi}`;
       if (!state.srs[k]) state.srs[k] = { box: 0, due: addDays(1) };
     });
+    state.pos = null;
     touchStreak();
     save();
   }
+  const go = (d) => {
+    if (d > 0 && (i >= cards.length - 1 || cards[i].locked)) return;
+    if (d < 0 && i === 0) return;
+    i += d; dir = d; show();
+  };
+  playerNav = { next: () => go(1), back: () => go(-1) };
 
   function show() {
     const c = cards[i];
     const last = i === cards.length - 1;
     if (c.end) finish();
+    else if (i > 0 && !state.done[t.id]) { state.pos = { id: t.id, i, n: cards.length }; save(); }
     // "הבא": הדבר הבא שלא נקרא אחרי הנוכחי — קודם באותו תחום, ואז בתחומים הבאים
     const at = ORDERED.indexOf(t);
     const next = [...ORDERED.slice(at + 1), ...ORDERED.slice(0, at)].find((x) => !state.done[x.id] && x.id !== t.id);
@@ -814,6 +931,7 @@ async function renderTopic(id) {
              <a class="btn" href="${next ? `#/t/${next.id}` : "#/lib"}">${next ? "לדבר הבא" : "לספרייה"} ${IC.fwd}</a>`
           : `<button id="next" class="btn" ${c.locked ? "disabled" : ""}>המשך ${IC.fwd}</button>`}
       </nav>`;
+    if (dir < 0) app.querySelector(".card")?.classList.add("rev");
     const unlock = () => { c.locked = false; const n = document.getElementById("next"); if (n) n.disabled = false; };
     c.bind?.(app.querySelector(".stage"), unlock);
     const fav = document.getElementById("fav");
@@ -822,14 +940,16 @@ async function renderTopic(id) {
       save();
       fav.classList.toggle("on", !!state.favs[t.id]);
       fav.setAttribute("aria-pressed", !!state.favs[t.id]);
+      toast(state.favs[t.id] ? "נשמר במועדפים" : "הוסר מהמועדפים");
     });
+    document.getElementById("shareT")?.addEventListener("click", () => share(t.title, `${t.title}: ${t.take}`, `#/t/${t.id}`));
     const up = document.getElementById("upnext");
     if (up && next) up.innerHTML = `<a class="upnext c-${next.cat}" href="#/t/${next.id}">
         ${catBadge(next.cat, "sm")}
         <span class="row-text"><small>${next.cat === t.cat ? "הבא בתחום" : "הבא"} · ${h(catName[next.cat])}</small><b>${h(next.title)}</b></span>
         ${IC.fwd}</a>`;
-    document.getElementById("back").addEventListener("click", () => { i--; show(); });
-    document.getElementById("next")?.addEventListener("click", () => { i++; show(); });
+    document.getElementById("back").addEventListener("click", () => go(-1));
+    document.getElementById("next")?.addEventListener("click", () => go(1));
     window.scrollTo(0, 0);
     app.querySelector(".stage").scrollTop = 0;
     if (canSpeak) speechSynthesis.cancel();
@@ -841,8 +961,8 @@ async function renderTopic(id) {
 function renderReview() {
   const queue = dueCards();
   const total = Object.keys(state.srs).length;
-  const intro = (title, text, action) => page("review", `
-    <header class="page-head"><h1>חזרה</h1></header>
+  const intro = (title, text, action) => page("me", `
+    <header class="page-head"><div class="lead">${backLink("#/me")}<h1>חזרה</h1></div></header>
     <div class="center">
       ${badge(GLYPH.loop, "c-review lg")}
       <h2>${title}</h2>
@@ -897,6 +1017,8 @@ function runReview(queue) {
 // ---------- ניתוב ----------
 function route() {
   const [, view, id, sub] = location.hash.split("/");
+  playerNav = null;
+  document.querySelector(".ov")?.remove();
   if (view !== "t" && !seenIntro()) { renderWelcome(); window.scrollTo(0, 0); return; }
   if (view === "t" && sub === "v" && filmsOf(id).length) { location.replace(`#/feed/${filmsOf(id)[0].vid}`); return; }
   if (view === "t") renderTopic(id);

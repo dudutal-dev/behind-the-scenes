@@ -15,12 +15,15 @@ python3 -m http.server 8000
 
 ## קבצים
 
-- `index.html` — המעטפת והעיצוב
-- `app.js` — מסך הבית, הנגן, חזרה מרווחת, רצף ימים
+- `index.html` — המעטפת
+- `css/app.css` — מערכת העיצוב: צבע אחד לפעולה, צבע התחום רק כהדגשה, והאיורים במרכז
+- `app.js` — בית, פיד, ספרייה, "אני" (התקדמות וחזרה מרווחת), הגדרות והנגן
 - `content.js`, `content-more.js`, `content-extra.js`, `content-inventions.js`, `content-wave3.js`, `history.js` — כל התוכן; מוסיפים "דבר" חדש כאובייקט נוסף ברשימה
 - `fonts/` — הגופן Heebo (רישיון OFL, מצורף)
 - `scenes/` — איור מונפש לכל דבר (`<id>.js`), ערכת הסגנון `scene.css`, וכלי תצוגה `preview.html?id=fridge`
-- `sw.js` — עבודה בלי רשת; מעלים את `CACHE` בכל שינוי בקבצים
+- `sw.js` — עבודה בלי רשת
+- `tools/release.mjs` — מריצים לפני כל העלאה: מעלה את מספר המטמון ובודק שכל איור והדמיה רשומים
+- `tools/smoke.cjs` — בדיקת עשן: עובר על כל המסכים בשתי הערכות ונכשל על שגיאה (דורש Playwright)
 - `manifest.webmanifest`, `icon.svg` — התקנה למסך הבית
 
 ההתקדמות נשמרת במכשיר בלבד (`localStorage`).
