@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ביקורת הגייה לסרטונים (videos/*.mp4). מבוסס על כלי הביקורת של MOVA (Fitness-studio/tools/voice_audit.py).
 מוציא את פס הקול מכל סרטון, מתמלל אותו ב-ElevenLabs Scribe עם חותמת זמן וציון ביטחון לכל מילה, ומסמן:
-  wrong        — מילה שנשמעה אחרת מהתסריט (רק כשיש תסריט: videos/_src/<שם>.txt)
+  wrong        — מילה שנשמעה אחרת מהתסריט (רק כשיש תסריט: videos/_src/<שם>.txt, ולצדו <שם>.spoken.txt — הנוסח שנשלח להקלטה)
   sounds-like  — נשמע דומה לתסריט אבל נכתב אחרת
   unsure       — המתמלל לא היה בטוח במילה: בדרך כלל הגייה מעוותת, או מוזיקה שמכסה על הדיבור
   inconsistent — מילה שברורה ברוב הסרטונים, ובסרטון הזה הרבה פחות
@@ -124,7 +124,10 @@ def main():
     for k, r in res.items():
         if "err" in r: report[k] = {"state": "bad", "script": False, "heard": r["err"], "issues": [{"kind": "error", "want": "", "heard": r["err"], "t": 0}]}; continue
         sf = os.path.join(SRC, k + ".txt")
-        if os.path.exists(sf): state, issues = judge(open(sf, encoding="utf8").read(), r)
+        if os.path.exists(sf):
+            # הכתובית (<שם>.txt) והנוסח שנשלח להקלטה (<שם>.spoken.txt) לפעמים שונים, למשל מספר שהקריין עוקף: מספיק שהסרטון תואם לאחד מהם
+            cands = [judge(open(f, encoding="utf8").read(), r) for f in (sf, sf[:-4] + ".spoken.txt") if os.path.exists(f)]
+            state, issues = max(cands, key=lambda x: ({"ok": 2, "suspect": 1, "bad": 0}[x[0]], -len(x[1])))
         else:
             issues = blind(r); state = "suspect" if issues else "ok"
             open(os.path.join(SRC, k + ".heard.txt"), "w", encoding="utf8").write(r["text"] + "\n")
