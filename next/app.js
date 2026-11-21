@@ -300,9 +300,8 @@ function renderFeed(start) {
       <div class="fshade"></div>
       <div class="fpause" hidden>${glyph(GLYPH.play)}</div>
       <div class="fmeta">
-        <b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small>
+        <a class="ftitle" href="#/t/${id}" aria-label="לנושא המלא: ${h(t.title)}"><b>${h(t.title)} ${IC.fwd}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small></a>
         <div class="facts">
-          <a class="btn sm" href="#/t/${id}">לנושא המלא ${IC.fwd}</a>
           ${act(`fheart${state.favs[id] ? " on" : ""}`, GLYPH.heart, "שמירה במועדפים", `aria-pressed="${!!state.favs[id]}"`)}
           ${act("fshare", GLYPH.share, "שיתוף")}
           ${act("fsnd", GLYPH.sound, "קול")}

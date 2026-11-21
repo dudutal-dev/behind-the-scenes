@@ -358,24 +358,27 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 #app.feed-mode{padding:0;max-width:none;min-height:0;height:100dvh;overflow:hidden;
   --card:#0b0d15;--line:rgba(255,255,255,.1);--faint:rgba(255,255,255,.55);--accent:#fff;--accent-soft:rgba(255,255,255,.16)}
 #app.feed-mode .view{animation:none}
-#app.feed-mode .tabbar{background:rgba(5,7,15,.72);border-top-color:rgba(255,255,255,.08)}
+#app.feed-mode .tabbar{background:rgba(5,7,15,.55);border-top-color:rgba(255,255,255,.08)}
 .feed{position:fixed;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior:contain;background:#05070f;scrollbar-width:none}
 .feed::-webkit-scrollbar{display:none}
 .fslide{--bot:calc(var(--tab-h) + env(safe-area-inset-bottom));position:relative;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:#05070f;color:#fff}
 /* הרקע: אותה תמונה מוגדלת ומטושטשת, כדי שלא יהיו פסים שחורים מעל ומתחת לסרטון */
 .fbg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(36px) saturate(1.3) brightness(.5);transform:scale(1.15)}
 /* הסרטון צמוד למעלה, וכל השטח הפנוי נשאר למטה — לכותרת ולכפתורים */
-.fposter,.fvid{position:absolute;inset-inline:0;margin-inline:auto;top:0;width:100%;max-width:calc(100dvh * .5625);
-  height:100%;object-fit:cover;object-position:center;background:transparent}
+/* הסרטון האנכי ממלא את כל המסך. כשהמסך רחב מ-9:16 (דפדפן עם סרגלים) חותכים בעיקר מלמעלה, כדי שהכיתוב הצרוב יישאר מעל פס הפרטים */
+.fposter,.fvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%;background:transparent}
+@media (min-aspect-ratio:4/5){.fposter,.fvid{object-fit:contain;object-position:center}}
 .fvid{z-index:1}
-.fshade{position:absolute;z-index:1;inset-inline:0;bottom:0;height:42%;background:linear-gradient(180deg,transparent,rgba(5,7,15,.86) 55%);pointer-events:none}
-.fmeta{position:absolute;z-index:2;inset-inline:16px;bottom:calc(var(--bot) + 16px);max-width:560px;margin-inline:auto}
-.fmeta b{display:block;font-size:21px;font-weight:800;line-height:1.2;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-.fmeta small{display:block;font-size:14px;opacity:.85;line-height:1.35;margin-top:2px;text-shadow:0 1px 6px rgba(0,0,0,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.facts{display:flex;align-items:center;gap:10px;margin-top:12px}
-.facts .btn{flex:1;background:#fff;color:#05070f}
-.fact{position:relative;flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.fact svg{width:23px;height:23px;fill:#fff}
+.fshade{position:absolute;z-index:1;inset-inline:0;bottom:0;height:calc(var(--bot) + 96px);background:linear-gradient(180deg,transparent,rgba(5,7,15,.78) 60%);pointer-events:none}
+/* פס פרטים נמוך אחד: שם הנושא (קישור לנושא המלא) ושלושה כפתורים קטנים, כדי לא לכסות את הכיתוב שבסרטון */
+.fmeta{position:absolute;z-index:2;inset-inline:14px;bottom:calc(var(--bot) + 8px);max-width:560px;margin-inline:auto;display:flex;align-items:center;gap:10px}
+.ftitle{flex:1;min-width:0;color:#fff}
+.fmeta b{display:flex;align-items:center;gap:4px;font-size:16px;font-weight:800;line-height:1.2;text-shadow:0 1px 8px rgba(0,0,0,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fmeta b svg{flex:none;width:16px;height:16px}
+.fmeta small{display:block;font-size:12.5px;opacity:.85;line-height:1.3;margin-top:1px;text-shadow:0 1px 6px rgba(0,0,0,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.facts{flex:none;display:flex;align-items:center;gap:8px}
+.fact{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.fact svg{width:21px;height:21px;fill:#fff}
 .fact:active{transform:scale(.9)}
 .fheart svg{fill:none;stroke:#fff;stroke-width:1.8}
 .fheart.on svg{fill:#ff4d6d;stroke:#ff4d6d}
@@ -388,7 +391,7 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 .fend .ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
 .fbar{position:absolute;z-index:2;inset-inline:0;bottom:var(--bot);height:3px;background:rgba(255,255,255,.15)}
 .fbar i{position:absolute;right:0;top:0;bottom:0;width:0;background:#fff}
-.fhint{position:fixed;z-index:6;bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 132px);left:50%;transform:translateX(-50%);padding:7px 14px;border-radius:999px;background:rgba(5,7,15,.6);
+.fhint{position:fixed;z-index:6;bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 64px);left:50%;transform:translateX(-50%);padding:7px 14px;border-radius:999px;background:rgba(5,7,15,.6);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:600;pointer-events:none;white-space:nowrap}
 .fpause{position:absolute;z-index:2;inset:0;bottom:var(--bot);margin:auto;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(5,7,15,.5);pointer-events:none}
 .fpause svg{width:44px;height:44px;fill:#fff}
