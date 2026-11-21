@@ -2,7 +2,9 @@
 // שימוש: node tools/smoke.cjs [תיקיית צילומים]   (דורש Playwright)
 const { chromium } = require("playwright");
 const fs = require("fs"), path = require("path");
-const ROOT = path.join(__dirname, ".."), OUT = process.argv[2] || path.join(ROOT, ".shots");
+// node tools/smoke.cjs next  ← בודק את הגרסה החדשה שבתיקייה next/
+const NEXT = process.argv[2] === "next", PFX = NEXT ? "mk2" : "eich-ze-oved";
+const ROOT = path.join(__dirname, "..", NEXT ? "next" : ""), OUT = (!NEXT && process.argv[2]) || path.join(__dirname, "..", NEXT ? ".shots-next" : ".shots");
 const TYPES = { html: "text/html", js: "text/javascript", css: "text/css", json: "application/json", webmanifest: "application/manifest+json", svg: "image/svg+xml", png: "image/png", jpg: "image/jpeg", woff2: "font/woff2", mp4: "video/mp4" };
 const SEED = { done: { fridge: "2026-01-01", gps: "2026-01-01" }, srs: { "fridge:0": { box: 0, due: "2026-01-02" } }, favs: { gps: "2026-01-01" }, vseen: {}, pos: null, streak: { last: "", count: 0 } };
 (async () => {
@@ -22,7 +24,7 @@ const SEED = { done: { fridge: "2026-01-01", gps: "2026-01-01" }, srs: { "fridge
     p.on("console", (m) => { if (m.type() === "error") errs.push(`${theme}: ${m.text()}`); });
     p.on("pageerror", (e) => errs.push(`${theme}: ${e.message}`));
     await p.goto("http://bts.local/");
-    await p.evaluate(([t, s]) => { localStorage.setItem("eich-ze-oved-intro", "1"); localStorage.setItem("eich-ze-oved-theme", t); localStorage.setItem("eich-ze-oved-v1", JSON.stringify(s)); }, [theme, SEED]);
+    await p.evaluate(([t, s, x]) => { localStorage.setItem(x + "-intro", "1"); localStorage.setItem(x + "-theme", t); localStorage.setItem(x + "-v1", JSON.stringify(s)); }, [theme, SEED, PFX]);
     const go = async (hash, name, after) => {
       await p.goto("http://bts.local/" + hash); await p.reload(); await p.waitForTimeout(900);
       if (after) await after();

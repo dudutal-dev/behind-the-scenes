@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מאחורי הקלעים</title>
+<meta name="description" content="מאחורי הקלעים: הסברים קצרים ומאוירים על איך דברים עובדים — ממנוע בעירה ועד מפסק פחת.">
+<meta name="theme-color" content="#f4f5f9">
+<script>
+// ערכת צבעים: בהירה כברירת מחדל. הבחירה (light / dark / auto) נשמרת במכשיר.
+(function () {
+  var KEY = "mk2-theme", mq = matchMedia("(prefers-color-scheme: dark)");
+  function apply() {
+    var pref = "light";
+    try { pref = localStorage.getItem(KEY) || "light"; } catch (e) {}
+    var dark = pref === "dark" || (pref === "auto" && mq.matches);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    document.querySelector('meta[name="theme-color"]').content = dark ? "#0b0d15" : "#f4f5f9";
+    return pref;
+  }
+  window.applyTheme = apply;
+  mq.addEventListener && mq.addEventListener("change", apply);
+  apply();
+})();
+</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="scenes/scene.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
