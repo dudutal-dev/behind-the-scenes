@@ -134,6 +134,7 @@ const VIDEOS = new Map([ // id → כותרת הכרטיס (סרטון ראשי 
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
   ["smoke-sketch", { topic: "smoke", title: "מערכון: הריח יעיר אותי" }],
+  ["ac-sketch", { topic: "ac", title: "מערכון: מזגן על שש עשרה" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
