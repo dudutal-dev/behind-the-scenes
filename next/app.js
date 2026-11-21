@@ -138,6 +138,8 @@ const EXTRA_FILMS = new Map([ // vid → { topic, title }
   ["wifi-sketch", { topic: "wifi", title: "מערכון: יש קליטה, אין אינטרנט" }],
   ["lock-sketch", { topic: "lock", title: "מערכון: המפתח היחיד בעולם" }],
   ["toilet-sketch", { topic: "toilet", title: "מערכון: המים שנשארים באסלה" }],
+  ["battery-sketch", { topic: "battery", title: "מערכון: לרוקן את הסוללה עד הסוף" }],
+  ["pisa-sketch", { topic: "pisa", title: "מערכון: להחזיק את מגדל פיזה" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
