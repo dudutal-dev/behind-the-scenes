@@ -129,87 +129,17 @@ const CAT_GLYPH = {
   digital: '<rect opacity=".5" x="5" y="5" width="14" height="14" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.200"/><path d="M9 2.500h1.500V5H9zM13.500 2.500H15V5h-1.500zM9 19h1.500v2.500H9zM13.500 19H15v2.500h-1.500zM2.500 9H5v1.500H2.500zM2.500 13.500H5V15H2.500zM19 9h2.500v1.500H19zM19 13.500h2.500V15H19z"/>',
 };
 // סרטונים מונפשים: videos/<id>.mp4 + videos/<id>.jpg
-const VIDEOS = new Map([ // id → כותרת הכרטיס
-  ["mdma", "מה קורה במוח ב־60 שניות"],
-  ["psilocybin", "מה קורה במוח ב־60 שניות"],
-  ["lsd", "מה קורה במוח ב־60 שניות"],
-  ["fertilization", "המפגש ב־60 שניות"],
-  ["heart", "פעימה אחת ב־60 שניות"],
-  ["blackhole", "הנקודה שממנה אין חזרה ב־60 שניות"],
-  ["irondome", "יירוט ב־60 שניות"],
-  ["pregnancy", "תשעה חודשים ב־60 שניות"],
-  ["dna", "ספר ההוראות ב־60 שניות"],
-  ["engine", "ארבע פעימות ב־60 שניות"],
-  ["internet", "מסע של הודעה ב־60 שניות"], ["llm", "המילה הבאה ב־60 שניות"], ["lightning", "30,000 מעלות ב־60 שניות"], ["tsunami", "הגל שאי אפשר לראות ב־60 שניות"], ["vaccine", "מלחמה בתוכך ב־60 שניות"], ["orbit", "נופלת ומחטיאה ב־60 שניות"], ["memory", "איך נבנה זיכרון ב־60 שניות"], ["airplane", "מאות טונות על אוויר ב־60 שניות"], ["bigbang", "לא היה פיצוץ ב־60 שניות"], ["touch", "למה הכפפה לא עובדת ב־60 שניות"],
-  ["gps", "שעונים מהחלל ב־60 שניות"],
-  ["ear", "העצמות הכי קטנות ב־60 שניות"],
-  ["reward", "מי באמת גולל ב־60 שניות"],
-  ["eye", "רואה הפוך ב־60 שניות"],
-  ["sleep", "מה המוח עושה בלילה ב־60 שניות"],
-  ["fusion", "שמש קטנה ב־60 שניות"],
-  ["aurora", "רוח מהשמש ב־60 שניות"],
-  ["bioluminescence", "אור קר ב־60 שניות"],
-  ["volcano", "זרם או פיצוץ ב־60 שניות"],
-  ["crispr", "מספריים לגנים ב־60 שניות"],
-  ["rocket", "נשענת על כלום ב־60 שניות"],
-  ["sun", "השמש לא בוערת ב־60 שניות"],
-  ["jwst", "48 גרם זהב ב־60 שניות"],
-  ["quake", "הקפיץ שמתחתיך ב־60 שניות"],
-  ["hurricane", "מנוע של מים חמים ב־60 שניות"],
-  ["evolution", "אף אחד לא תכנן ב־60 שניות"],
-  ["submarine", "שותה את הים ב־60 שניות"],
-  ["antibiotics", "רק למה שיש לחיידק ב־60 שניות"],
-  ["stealth", "לא בלתי נראה ב־60 שניות"],
-  ["imagegen", "תמונה מרעש ב־60 שניות"],
-  ["mri", "מגנטים בגוף שלך ב־60 שניות"],
-  ["tornado", "רוח שמתגלגלת ב־60 שניות"],
-  ["eclipse", "השמש נעלמת ב־60 שניות"],
-  ["jet", "הדחף מהמניפה ב־60 שניות"],
-  ["anc", "שקט מרעש הפוך ב־60 שניות"],
-  ["selfdrive", "אין אף אחד מאחורי ההגה ב־60 שניות"],
-  ["iss", "16 זריחות ביום ב־60 שניות"],
-  ["trebuchet", "בלי קפיץ, רק נפילה ב־60 שניות"],
-  ["birth", "נשימה ראשונה ב־60 שניות"],
-  ["neuron", "חשמל וכימיה ב־60 שניות"],
-  ["nuclear", "נייטרון אחד ב־60 שניות"],
-  ["rainbow", "הקשת שייכת רק לך"],
-  ["snowflake", "למה לפתית שלג יש שש פינות?"],
-  ["tides", "למה הים עולה פעמיים ביום?"],
-  ["xray", "העצם הלבנה? היא צל"],
-  ["mirage", "השלולית שאין בה אף טיפה"],
-  ["mrna", "חיסון בלי אף נגיף"],
-  ["radar", "לראות את מה שאי אפשר לראות"],
-  ["drone", "רחפן בלי הגה"],
-  ["enigma", "הצופן שנפל בגלל חולשה אחת"],
-  ["antikythera", "המחשב שנמצא בספינה טרופה"],
-  ["fiber", "הסרטון הזה הגיע אליך כהבזקי אור"],
-  ["greekfire", "האש שצפה על פני הים"],
-  ["damascus", "הגלים שנולדו בתוך המתכת"],
-  ["eratosthenes", "איך מודדים את כדור הארץ עם צל אחד"],
-  ["geyser", "מתחת לגייזר, המים חמים ממאה מעלות"],
+const VIDEOS = new Map([ // id → כותרת הכרטיס (סרטון ראשי לנושא)
 ]);
 // סרטונים נוספים לנושא (למשל מערכון): videos/<vid>.mp4, מוצגים בכרטיס נוסף ובפיד
 const EXTRA_FILMS = new Map([ // vid → { topic, title }
-  ["lsd-sketch", { topic: "lsd", title: "מערכון: שאול מתלבט" }],
-  ["recommend-sketch", { topic: "recommend", title: "מערכון: מי בחר את הסרטון?" }],
-  ["quantum-sketch", { topic: "quantum", title: "מערכון: אפצ'י קוונטי" }],
-  ["microwave-sketch", { topic: "microwave", title: "מערכון: לזניה מבחוץ פנימה" }],
-  ["https-sketch", { topic: "https", title: "מערכון: המנעול בדפדפן" }],
-  ["facerec-sketch", { topic: "facerec", title: "מערכון: שפם מודבק" }],
-  ["camera-sketch", { topic: "camera", title: "מערכון: סלפי בחושך" }],
-  ["soap-sketch", { topic: "soap", title: "מערכון: שתי שניות של סבון" }],
-  ["twins-sketch", { topic: "twins", title: "מערכון: מי המקורי?" }],
-  ["cpu-sketch", { topic: "cpu", title: "מערכון: המחשב מבין אותי" }],
-  ["screen-sketch", { topic: "screen", title: "מערכון: מצב כהה" }],
-  ["seasons-sketch", { topic: "seasons", title: "מערכון: חופשה ליד השמש" }],
-  ["fridge-sketch", { topic: "fridge", title: "מערכון: לקרר את המטבח" }],
-  ["moon-sketch", { topic: "moon", title: "מערכון: הצד האפל של הירח" }],
-  ["pyramids-sketch", { topic: "pyramids", title: "מערכון: מי בנה את הפירמידות?" }],
-  ["fingerprint-sketch", { topic: "fingerprint", title: "מערכון: מי צילם לי את האצבע?" }],
-  ["airbag-sketch", { topic: "airbag", title: "מערכון: סתם כרית רכה?" }],
-  ["lungs-sketch", { topic: "lungs", title: "מערכון: שואב אבק בחזה" }],
-  ["transistor-sketch", { topic: "transistor", title: "מערכון: גמדים בטלפון" }],
+  ["smoke-sketch", { topic: "smoke", title: "מערכון: הריח יעיר אותי" }],
   ["ac-sketch", { topic: "ac", title: "מערכון: מזגן על שש עשרה" }],
+  ["wifi-sketch", { topic: "wifi", title: "מערכון: יש קליטה, אין אינטרנט" }],
+  ["lock-sketch", { topic: "lock", title: "מערכון: המפתח היחיד בעולם" }],
+  ["toilet-sketch", { topic: "toilet", title: "מערכון: המים שנשארים באסלה" }],
+  ["battery-sketch", { topic: "battery", title: "מערכון: לרוקן את הסוללה עד הסוף" }],
+  ["pisa-sketch", { topic: "pisa", title: "מערכון: להחזיק את מגדל פיזה" }],
 ]);
 const FILMS = [
   ...[...VIDEOS].map(([vid, title]) => ({ vid, topic: vid, title })),
@@ -376,9 +306,8 @@ function renderFeed(start) {
       <div class="fshade"></div>
       <div class="fpause" hidden>${glyph(GLYPH.play)}</div>
       <div class="fmeta">
-        <b>${h(t.title)}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small>
+        <a class="ftitle" href="#/t/${id}" aria-label="לנושא המלא: ${h(t.title)}"><b>${h(t.title)} ${IC.fwd}</b><small>${h(catName[t.cat])} · ${h(f.title)}</small></a>
         <div class="facts">
-          <a class="btn sm" href="#/t/${id}">לנושא המלא ${IC.fwd}</a>
           ${act(`fheart${state.favs[id] ? " on" : ""}`, GLYPH.heart, "שמירה במועדפים", `aria-pressed="${!!state.favs[id]}"`)}
           ${act("fshare", GLYPH.share, "שיתוף")}
           ${act("fsnd", GLYPH.sound, "קול")}
