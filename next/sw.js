@@ -1,5 +1,5 @@
 // מטמון לעבודה בלי רשת. מעלים את המספר בכל שינוי בקבצים.
-const CACHE = "mk2-v3";
+const CACHE = "mk2-v4";
 // בהתקנה מביאים את הקבצים ישר מהרשת (cache: "reload"), כדי שגרסה חדשה לא תיבנה מעותקים ישנים של הדפדפן.
 const SCENES = [
   "antikythera", "rosetta", "enigma", "eratosthenes", "aqueduct", "scrolls", "carbon14", "otzi", "polynesia", "astrolabe", "greekfire", "damascus", "compass", "pharos", "mummy", "waterclock", "pigeons", "alexandria", "timna",
